@@ -15,7 +15,7 @@ import {
   CartesianGrid,
   Legend,
 } from "recharts";
-import { Timer, TrendingDown } from "lucide-react";
+import { Timer } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PageHeader } from "@/components/shared/page-header";
 import { MetricCard } from "@/components/shared/metric-card";

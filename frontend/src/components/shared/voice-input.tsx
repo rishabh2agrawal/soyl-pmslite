@@ -15,7 +15,7 @@ interface VoiceInputProps extends Omit<ComponentProps<"input">, "onChange"> {
 export function VoiceInput({
   value,
   onChange,
-  onVoiceResult,
+  onVoiceResult: _onVoiceResult,
   className,
   ...inputProps
 }: VoiceInputProps) {

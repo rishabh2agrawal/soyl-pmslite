@@ -6,14 +6,14 @@ import { useRouter, useParams } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { toast } from "sonner";
 import { CalendarPlus, CheckCircle } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { PageHeader } from "@/components/shared/page-header";
 import { StickyCTA } from "@/components/shared/sticky-cta";
 import { CurrencyInput } from "@/components/shared/currency-input";
-import { BOOKINGS, ROOMS } from "@/lib/mock-data";
+import { BOOKINGS } from "@/lib/mock-data";
 import { formatCurrency, formatDate } from "@/lib/formatters";
 import { addDays, parseISO, differenceInDays } from "date-fns";
 

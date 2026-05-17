@@ -10,14 +10,12 @@ import {
   XCircle,
   CalendarPlus,
   ArrowRightLeft,
-  Plus,
   FileText,
   RefreshCw,
   Phone,
   CreditCard,
   User,
   Calendar,
-  BedDouble,
   Receipt,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

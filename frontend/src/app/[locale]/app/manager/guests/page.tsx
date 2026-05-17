@@ -21,8 +21,6 @@ const FILTER_OPTIONS = [
   { value: "vip", label: "VIP" },
 ];
 
-const today = new Date().toISOString().split("T")[0];
-
 export default function GuestsPage() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");

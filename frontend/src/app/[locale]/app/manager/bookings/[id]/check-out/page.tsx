@@ -7,7 +7,6 @@ import { useForm, Controller } from "react-hook-form";
 import { toast } from "sonner";
 import {
   Plus,
-  FileText,
   MessageCircle,
   Receipt,
 } from "lucide-react";

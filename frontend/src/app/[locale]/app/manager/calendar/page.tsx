@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { addDays, format, parseISO, isWithinInterval, differenceInDays } from "date-fns";
+import { addDays, format, parseISO, isWithinInterval } from "date-fns";
 import { PageHeader } from "@/components/shared/page-header";
 import { FilterChips } from "@/components/shared/filter-chips";
 import { ROOMS, BOOKINGS } from "@/lib/mock-data";
@@ -29,12 +29,15 @@ const CELL_WIDTH = 64;
 export default function CalendarPage() {
   const [dayRange, setDayRange] = useState("7");
   const numDays = parseInt(dayRange, 10);
-  const startDate = new Date();
-  startDate.setHours(0, 0, 0, 0);
+  const startDate = useMemo(() => {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }, []);
 
   const dates = useMemo(
     () => Array.from({ length: numDays }, (_, i) => addDays(startDate, i)),
-    [numDays],
+    [numDays, startDate],
   );
 
   const bookingMap = useMemo(() => {
@@ -99,7 +102,6 @@ export default function CalendarPage() {
                 roomId={room.id}
                 bookings={roomBookings}
                 dates={dates}
-                numDays={numDays}
                 startDate={startDate}
               />
             );
@@ -129,7 +131,6 @@ function RoomRow({
   roomId,
   bookings,
   dates,
-  numDays,
   startDate,
 }: {
   roomNumber: string;
@@ -137,7 +138,6 @@ function RoomRow({
   roomId: string;
   bookings: typeof BOOKINGS;
   dates: Date[];
-  numDays: number;
   startDate: Date;
 }) {
   return (

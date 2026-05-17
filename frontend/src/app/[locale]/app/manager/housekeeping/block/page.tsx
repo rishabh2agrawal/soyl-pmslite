@@ -40,7 +40,7 @@ export default function BlockRoomPage() {
     },
   });
 
-  const onSubmit = (data: BlockFormData) => {
+  const onSubmit = (_data: BlockFormData) => {
     toast.success(`Room blocked successfully`);
     router.back();
   };

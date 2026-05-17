@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MessageSquare, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PageHeader } from "@/components/shared/page-header";
-import { cn } from "@/lib/utils";
 
 const preArrivalDefault = `Hello {guest_name},
 

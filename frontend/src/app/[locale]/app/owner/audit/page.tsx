@@ -9,7 +9,6 @@ import { PageHeader } from "@/components/shared/page-header";
 import { FilterChips } from "@/components/shared/filter-chips";
 import { AUDIT_LOG } from "@/lib/mock-data";
 import { formatDate, formatTime } from "@/lib/formatters";
-import { cn } from "@/lib/utils";
 
 const FILTER_OPTIONS = [
   { value: "all", label: "All" },

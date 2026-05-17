@@ -14,7 +14,6 @@ import { StatusBadge } from "@/components/shared/status-badge";
 import { EmptyState } from "@/components/shared/empty-state";
 import { BOOKINGS } from "@/lib/mock-data";
 import { formatDate, formatCurrency, getInitials } from "@/lib/formatters";
-import type { BookingStatus } from "@/types";
 
 const STATUS_FILTERS = [
   { value: "all", label: "All" },

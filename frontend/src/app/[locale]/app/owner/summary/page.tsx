@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import {
   Share2,
   Copy,
-  CheckCircle2,
   ArrowDownCircle,
   ArrowUpCircle,
   Users,

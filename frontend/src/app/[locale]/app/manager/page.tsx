@@ -16,7 +16,6 @@ import { Badge } from "@/components/ui/badge";
 import { PageHeader } from "@/components/shared/page-header";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { ListRow } from "@/components/shared/list-row";
-import { MetricCard } from "@/components/shared/metric-card";
 import { BOOKINGS, ROOMS, REQUESTS } from "@/lib/mock-data";
 import { formatDate, getInitials } from "@/lib/formatters";
 import type { Booking } from "@/types";
