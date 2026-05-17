@@ -1,0 +1,1657 @@
+﻿=== PAGE 1 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+SOYL AI
+INTERNAL ┬╖ INTERN BRIEF ┬╖ v1.0
+SOYL Lite PMS
+Task Brief and Product Requirements Document
+Project SOYL Lite PMS ΓÇö Entry-tier (Γé╣25,000/month) Hotel PMS
+Assigned to RishabhΓÇö Frontend / UI-UX
+Track Solo project, full ownership end-to-end
+Duration 8 weeks
+Start date 13-05-2026
+Pilot target 1 live hotel deployment by end of Week 7
+Reporting to Ryan Gomez (direct)
+Repo github.com/soyl-ai/soyl-lite-pms (to be created)
+Doc version 1.0 ΓÇö May 2026
+Read this entire document twice before writing any code or opening Figma. The product
+strategy section is more important than the screens ΓÇö every design decision in this doc
+traces back to what we learned from our first pilot.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 1 of 44
+
+=== PAGE 2 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Contents
+Part 1 ΓÇö Intern Brief
+1.1 Welcome
+1.2 About SOYL AI
+1.3 Your role and what success looks like
+1.4 Reporting structure and communication
+1.5 Working hours and expectations
+1.6 Tools, access, and accounts
+1.7 Evaluation criteria
+1.8 Stipend, completion, and conversion
+1.9 Confidentiality and IP
+1.10 Week 0 onboarding checklist
+Part 2 ΓÇö Context: Lessons from the First Pilot
+2.1 What happened
+2.2 The three insights that reshape Lite
+2.3 Design pillars derived from the pilot
+Part 3 ΓÇö Product Requirements Document
+3.1 Product vision
+3.2 Target users
+3.3 Out of scope
+3.3.5 Feature completeness matrix
+3.4 Design principles
+3.5 Two-mode architecture
+3.6 Tech stack
+3.7 System architecture
+3.8 Screen-by-screen specification
+3.9 Internationalization
+3.10 Offline-first strategy
+3.11 Data model
+3.12 Compliance ΓÇö GST, FRRO, DPDP
+3.13 Design system
+3.14 Repo structure and conventions
+Part 4 ΓÇö Build Plan
+4.1 Eight-week schedule
+4.2 Definition of done
+4.3 Risk register
+Part 5 ΓÇö Appendices
+A. Glossary
+B. Learning resources
+C. How to ask for help
+D. Final deliverables checklist
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 2 of 44
+
+=== PAGE 3 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Part 1 ΓÇö Intern Brief
+1.1 Welcome
+You are joining SOYL AI at a meaningful moment. We have one live pilot, fifteen to
+twenty-five properties in evaluation, and a real pre-seed raise in motion. What you build in
+the next eight weeks will be in front of real hoteliers and real investors. This is not a sandbox
+project.
+This document has three jobs:
+1. Tell you how this internship runs day-to-day ΓÇö hours, tools, communication, evaluation,
+stipend.
+2. Give you the strategic context that should sit underneath every design decision you
+make. Most of that context comes from our first pilot, which surprised us in ways that
+fundamentally changed how we think about this product.
+3. Hand you a complete Product Requirements Document for SOYL Lite, the entry-tier
+PMS you will design, build, and ship.
+Read the brief first. Read the pilot context second. Read the PRD last. If you read the PRD
+before the pilot context, you will miss why some of the design choices are the way they are.
+1.2 About SOYL AI
+SOYL AI is building an AI-native Property Management System for independent Indian
+hotels. Our hypothesis is that the next generation of PMS is not a database with a UI on top
+ΓÇö it is a multi-agent system where guests and staff can interact with the property in natural
+language, across voice and text, in their own language.
+Our core product, SOYL Core, sells at Γé╣45,000 per month per property. We are live in one
+30-room hotel, with a pipeline of fifteen to twenty-five properties in active evaluation. Our
+stack is FastAPI plus LangGraph plus pgvector plus Supabase plus Redis on the backend,
+with an Asterisk PBX and Twilio SIP voice layer that runs at sub-three-second end-to-end
+latency. We fine-tune LLaMA 3.1 8B with QLoRA on hospitality data, and we are exploring
+AMD Ryzen AI NPU edge inference.
+We have a sister company, SOYL Agency, which builds digital products as a services arm
+and shares roughly seventy percent of the engineering stack.
+Your project, SOYL Lite, is a new product tier that we have not built yet. It targets a different
+and much larger market: the small independent hotels, homestays, and guesthouses below
+Γé╣2,000 average daily rate, which currently run on paper. The reasons we are building Lite,
+and why it cannot be a stripped-down version of Core, are explained in Part 2 of this
+document.
+1.3 Your role and what success looks like
+You are a frontend and UI-UX intern. Your role is to design and build SOYL Lite end-to-end
+as a solo project, with backend support from the Core team only where strictly required.
+Specifically, you own:
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 3 of 44
+
+=== PAGE 4 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+ΓÇó Research and competitive audit for the small-hotel segment in India.
+ΓÇó The full design system, in Figma.
+ΓÇó All product screens, in Figma and in code.
+ΓÇó Database schema design on Supabase (you will get a review from Ryan, but you
+propose it).
+ΓÇó Internationalization across English, Hindi, and Kannada.
+ΓÇó PWA setup, offline behavior, and performance.
+ΓÇó Pilot deployment to one real hotel in Week 7.
+ΓÇó Live demo to the SOYL team at the end of Week 8.
+Success at the end of eight weeks looks like this:
+ΓÇó Outcome 1: One real hotel, with a real owner and a real manager, is using SOYL Lite
+in production.
+ΓÇó Outcome 2: The product is functional in all three target languages, with native-speaker
+review complete.
+ΓÇó Outcome 3: Lighthouse mobile scores are at or above ninety on performance,
+ninety-five on accessibility, and one hundred on PWA.
+ΓÇó Outcome 4: The codebase is clean enough that the next engineer can extend it
+without rewriting it.
+ΓÇó Outcome 5: You can demo the full lifecycle of a guest ΓÇö booking, check-in, mid-stay
+request, checkout, invoice ΓÇö in Kannada, in twenty minutes, to a non-technical
+audience.
+If you hit those five outcomes, this internship converts to a part-time role through the rest of
+the academic year, with a path to a founding engineer offer post-graduation. If you miss
+some of them, we will have a frank conversation about what to do next.
+1.4 Reporting structure and communication
+You report directly to Ryan. Not to another intern, not to a team lead. This is deliberate. A
+solo intern project with no senior owner is a slow disaster, so you will get direct attention,
+and in exchange you will get direct feedback.
+Standups
+Three times a week ΓÇö Monday, Wednesday, and Friday ΓÇö at 10:00 AM IST. Fifteen minutes
+maximum. Format is written first, voice second:
+ΓÇó Post your written update in the #lite-pms Slack channel by 9:45 AM IST.
+ΓÇó Use the format: Yesterday / Today / Blockers.
+ΓÇó Join the voice call at 10:00 only if there is something to discuss live. If everything in
+your written update is clear and unblocked, you can skip the call and we save the time.
+PR reviews
+Every pull request gets reviewed by Ryan. Expected turnaround is twenty-four hours on
+weekdays. If a PR is blocking you for more than a day, ping the channel.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 4 of 44
+
+=== PAGE 5 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Design reviews
+End of every Friday, you walk Ryan through Figma progress. Twenty minutes. Bring
+screenshots, not the live file ΓÇö we want decisions, not a tour.
+Slack norms
+ΓÇó Working hours: ping freely. Out of working hours: only for genuine emergencies.
+ΓÇó Use threads ΓÇö keep the main channel scannable.
+ΓÇó Use code blocks for code, screenshots for UI, and Loom for anything that takes more
+than two sentences to explain.
+1.5 Working hours and expectations
+This is a part-time internship structured around your academic schedule. The expectation is
+twenty-five hours per week, with flexibility on when those hours happen. We do not track
+timesheets ΓÇö we track outcomes.
+Core availability windows where you should be reachable on Slack:
+ΓÇó Monday to Friday, 10:00 AM to 1:00 PM IST. This is when standups happen and when
+Ryan is most responsive.
+ΓÇó At least one three-hour block of focused work per weekday.
+Things we expect:
+ΓÇó You ship something visible every week. "Visible" means a Figma frame, a working
+screen, a merged PR ΓÇö not "I read the docs."
+ΓÇó If you will be unavailable for more than a day, you tell us in advance.
+ΓÇó If you are stuck, you ask within thirty minutes of getting stuck. Not three days later.
+Things we do not expect:
+ΓÇó Weekend work. If you find yourself working weekends to meet milestones, the scope is
+wrong and we will rescope.
+ΓÇó Replies outside working hours. Slack is asynchronous outside the core window.
+1.6 Tools, access, and accounts
+You will get access to the following on or before Day 1. If any of these are missing on Day 1,
+ping Ryan immediately ΓÇö do not wait.
+Tool Purpose Access
+Slack workspace Daily comms, standups, PR notifications Account on Day 1
+GitHub organization Source code, PRs, issues Account on Day 1
+Linear Task and bug tracking Account on Day 1
+Figma team Design files, prototypes Account on Day 1
+Supabase project Database, auth, storage for Lite Service-role key in
+1Password
+Vercel team Deployments Account on Day 1
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 5 of 44
+
+=== PAGE 6 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Tool Purpose Access
+Resend Transactional email API key in 1Password
+1Password vault Shared secrets Access by Day 2
+Loom Async video walkthroughs Personal account, free tier
+Anthropic Console Claude API for translations API key by Day 3
+Notion Internal docs, this PRD, the team wiki Account on Day 1
+Test phones One Android device for QA Pick up from office by Day
+7
+1.7 Evaluation criteria
+You will be evaluated on five dimensions, each scored out of ten at the end of the eight
+weeks. We are honest about scoring ΓÇö we would rather you know early that something is off
+than discover it at the end.
+Dimension What we are looking for Weight
+Shipping Did you finish what you committed to each week? Are the 30%
+milestones met?
+Code quality TypeScript strictness, clean components, sensible state 20%
+management, no anti-patterns.
+Design judgment Do your screens make sense for the target user? Is the visual 20%
+quality high? Do you defend your decisions with reasoning, not
+preferences?
+Product thinking Do you understand who you are building for and why? Do you 15%
+catch edge cases before Ryan does? Do you push back on
+bad ideas, including Ryan's?
+Communication Are your standups crisp? Do you flag blockers early? Do you 15%
+write clear PR descriptions and Slack messages?
+A score of six out of ten on a dimension is meeting expectations. Seven is good. Eight is
+great. Nine and above are rare and reserved for performance that genuinely surprises us.
+1.8 Stipend, completion, and conversion
+This is a paid internship.
+Item Detail
+Base monthly stipend Γé╣[to be confirmed at offer] per month
+Payment cycle Last working day of each calendar month, via bank transfer
+Completion bonus Γé╣[bonus amount] on successful pilot deployment in Week 7
+Completion certificate Issued on successful completion of all five outcomes in ┬º1.3
+Letter of recommendation Issued by Ryan on completion, for use in MS applications, future
+roles
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 6 of 44
+
+=== PAGE 7 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Item Detail
+Conversion offer Part-time role through academic year, with founding engineer track
+post-graduation
+Equity Not at internship stage. Discussed only if conversion to founding
+engineer happens
+1.9 Confidentiality and intellectual property
+You will sign a standard internship agreement on Day 1. The key terms in plain English:
+ΓÇó Everything you build during this internship is owned by SOYL AI. Code, designs,
+copy, schema ΓÇö all of it. This is standard for any paid work and not negotiable.
+ΓÇó You may not share screenshots, code, or internal documents externally without
+Ryan's written permission. This includes social media, college portfolios, and friends.
+ΓÇó You may discuss the project on your CV and in interviews after the internship
+ends, at a high level. "Designed and built the entry-tier PMS for an AI-native hospitality
+startup" is fine. Specific business numbers, customer names, and architectural details
+are not.
+ΓÇó Customer data is sacred. If you work with real hotel data during the pilot, that data
+does not leave the production database. No screenshots with guest names. No CSV
+exports to your laptop. No exceptions.
+1.10 Week 0 onboarding checklist
+Before Week 1 officially starts, you should be able to tick every box below. Most of these
+take five minutes. Two of them take serious reading time.
+1. Sign the internship agreement.
+2. Set up your accounts on all twelve tools in ┬º1.6.
+3. Install Node 22 LTS, pnpm, Git, VS Code, and the Figma desktop app.
+4. Clone the (empty) soyl-lite-pms repo. Run pnpm install on the starter scaffold once
+Ryan creates it.
+5. Read Part 2 of this document ΓÇö Lessons from the First Pilot. Once.
+6. Read Part 3 of this document ΓÇö the PRD. Twice.
+7. Read the SOYL AI white paper, "When Easy Isn't Easy Enough." Take notes.
+8. Skim three things: the Next.js App Router docs, the Supabase RLS docs, and the
+next-intl getting-started guide. You do not need to memorize them; you need to know
+what is in them.
+9. Download and use the Vyapar app and the Khatabook app for one full day. They are
+the closest UX cousins to what you are building. Take screenshots of anything you find
+smart.
+10. Write a one-page document ΓÇö half a page is fine ΓÇö answering: "After reading the
+pilot context, what is the single most important thing I should not get wrong in SOYL
+Lite?" Send it to Ryan. This is your Week 0 deliverable.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 7 of 44
+
+=== PAGE 8 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Part 2 ΓÇö Context: Lessons from the First Pilot
+2.1 What happened
+In early 2026, SOYL AI deployed its first production pilot at a thirty-room independent hotel
+in India. The property was newly under new ownership, had inherited a pen-and-paper
+operation, and had a Google Maps rating between 3.4 and 3.8 stars. Average daily rate was
+between rupees 1,500 and 1,800.
+Our hypothesis was simple. A modern, AI-assisted PMS designed to reduce clicks, surface
+the right information at the right time, and minimize training overhead would be
+unambiguously easier than a paper register. Adoption would follow.
+Within fifteen days, the manager told us the software was hard to use. For a product whose
+core differentiator is usability, that feedback was sobering. We took it seriously and went
+deep.
+What we found was not a UI problem.
+The manager was not struggling with our software. He was unmotivated to use any
+software. "Hard to use" was, in plain terms, a polite way of saying "I don't want to."
+At thirty rooms, with one manager who has spent years internalizing a paper system, a
+paper register really is faster for him. No login. No screen. No keyboard. He knows where
+every number lives because he wrote it himself five minutes ago. The cognitive cost of
+switching to any digital system, no matter how well-designed, is real ΓÇö and at thirty rooms,
+the marginal daily benefit is hard for the manager to feel.
+This was the first surprise. The second was bigger.
+2.2 The three insights that reshape Lite
+Insight 1 ΓÇö The buyer and the user have opposite incentives.
+In the small-hotel segment, the owner is the buyer. The manager is the user. Their incentives
+diverge.
+The owner gains real-time visibility, structured guest communication, audit trails, OTA
+reconciliation, and the kind of data hygiene that prevents small failures from compounding
+into bad reviews. The owner has every reason to want this product.
+The manager gains a daily extra step. A login. A second place to write things down. A way
+for the owner to see what is happening when the manager would prefer the owner not see.
+The manager has every reason not to want this product.
+Most PMS products are designed for the manager because the manager is the person
+clicking the buttons. This is correct for Western three-star and above. It is wrong for our
+segment. We need to design for the owner, and engineer the manager experience to remove
+every excuse not to use it.
+Insight 2 ΓÇö Many small Indian hotels prefer transactions stay off the books.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 8 of 44
+
+=== PAGE 9 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+This is delicate, and we will not pretend it does not exist. India's GST regime treats hotel
+rooms differently based on tariff. Hotels in the rupees 1,500 to 1,800 ARR band sit close to
+thresholds that determine whether and at what rate GST applies. Combined with income tax
+considerations, the incentive to under-report occupancy or shift transactions to cash is real,
+persistent, and economically rational from the operator's perspective.
+A digital PMS, by its nature, creates a record. A complete one. Every check-in, every
+walk-in, every cash payment, every extension. For a property that wants to maintain
+optionality on what gets reported, a comprehensive digital record is not a feature ΓÇö it is a
+liability.
+Our position is firm: we will not build features that enable under-reporting. We will not hide
+bookings. We will not have a delete-from-records button. SOYL Lite produces complete,
+accurate operational records.
+Our position is also pragmatic: we will not force every interaction into a tax-document
+workflow. Generating a GST invoice is an explicit owner action, not an automatic
+consequence of a booking. A walk-in cash transaction can be recorded as a walk-in cash
+transaction without that automatically producing a tax invoice with a sequential number. The
+operational record is complete; the reporting posture is the owner's call.
+If this distinction confuses you, ask Ryan. It matters.
+Insight 3 ΓÇö The rating problem is an information problem, not a service
+problem.
+When we read the negative reviews at the pilot property, the patterns were striking and
+consistent. Bookings not honored or assigned to the wrong room category. Guests waiting
+on requests ΓÇö extra towels, late check-out, food orders ΓÇö that never reached the right
+person. Confusion between front desk and housekeeping over room status. Payment
+disputes traced to incomplete or contradictory records.
+Almost none of these were service failures. The staff was not rude. The rooms were not dirty.
+The food was not bad.
+These were information failures. A guest told the front desk something. The front desk
+could not reliably get that information to housekeeping, the manager, or the kitchen. By
+the time the guest noticed, it was a one-star review.
+This is the wedge. SOYL Lite's most valuable feature is not the booking screen. It is the
+request tracker ΓÇö every guest request captured, routed, acknowledged, and visible to the
+owner. If we can make information stop falling on the floor, ratings recover. If ratings recover,
+bookings recover. That is a value paper cannot deliver. That is what the owner is buying.
+2.3 Design pillars derived from the pilot
+Three pillars sit underneath every design decision in the PRD that follows. If a design choice
+does not serve one of these pillars, it is the wrong choice.
+Pillar 1 ΓÇö Owner-first, manager-light.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 9 of 44
+
+=== PAGE 10 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+The owner gets the rich product: real-time dashboards, request tracking, daily WhatsApp
+summaries, the things that justify rupees 25,000 per month. The manager gets a
+stripped-down interface that is so fast and so simple it beats paper on speed, with no
+features he has to learn. Two modes, same database, different surfaces.
+Pillar 2 ΓÇö Faster than paper on the actions that happen ten times a day.
+Manager-mode actions ΓÇö new booking, check-in, check-out, log a request ΓÇö must each
+take fewer seconds than the paper equivalent. We measure this. If voice input gets us there,
+we use voice. If a single-tap ingestion gets us there, we build it. Easier to learn is not enough
+ΓÇö the manager has already learned paper. We need faster to use today, every single day.
+Pillar 3 ΓÇö Information never falls on the floor.
+Every guest request, every payment, every shift handover produces a record with a status
+and an owner. Nothing is held only in someone's head. The owner can see, at any moment,
+what is open and who is responsible. This is the feature paper cannot match. This is the
+product.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 10 of 44
+
+=== PAGE 11 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Part 3 ΓÇö Product Requirements Document
+3.1 Product vision
+What Khatabook did for kirana stores, SOYL Lite does for small hotels ΓÇö but with the
+owner, not the staff, as the primary beneficiary.
+SOYL Lite is the entry-tier (rupees 25,000 per month) product in the SOYL family. It targets
+the largest underserved segment of Indian hospitality: small, independent,
+sub-rupees-2,000-ARR hotels, homestays, and guesthouses still operating on pen, paper,
+and WhatsApp.
+SOYL Lite is not a stripped-down version of SOYL Core. It is a different product with a
+different design language, a different user model, and a different wedge. Core sells AI
+agents that handle guest communication; Lite sells operational discipline and owner visibility.
+Lite is the gateway product ΓÇö successful Lite hotels graduate to Core as they grow.
+3.2 Target users
+Primary buyer ΓÇö the absentee or semi-absentee owner
+Picture a forty-five to sixty year old hotel owner. Owns a fourteen-to-twenty-five room
+property in a tier-two or tier-three city. May own a small business in addition to the hotel.
+Visits the property two or three times a week. Is not at the front desk. Trusts the manager but
+does not blindly trust the manager. Has been burned by missed bookings, unrecorded cash,
+and bad reviews that surprised him. Pays for the software.
+This is the person we are designing the home screen for. The Owner Mode dashboard is
+what convinces him to keep paying rupees 25,000 a month. Every screen in Owner Mode
+should answer one of three questions: What is happening right now? What almost went
+wrong today? How is the property doing this week?
+Primary user ΓÇö the manager / front-desk operator
+Picture a thirty-to-fifty year old manager. Has worked at the property for two-to-eight years.
+Comfortable with WhatsApp, may or may not be fluent in English, comfortable in Hindi and
+the regional language. Has internalized a paper-based system that works for him. Sees
+software adoption as risk and effort with no obvious benefit. Will use the product only if it is
+meaningfully faster than what he does today, and only if the owner insists.
+Manager Mode must respect his constraints. No login screens between him and the booking
+he needs to make right now. Voice input for guest names ΓÇö typing Devanagari or Kannada
+is slower than speaking. Defaults that work ninety percent of the time. A bottom navigation
+he can hit with one thumb while holding a phone in one hand and a key in the other.
+Secondary user ΓÇö the modernizer
+The owner's daughter, son, or nephew. Twenty to thirty years old. Comfortable with apps.
+Will be the one who actually onboards the product, sets it up, trains the manager, and
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 11 of 44
+
+=== PAGE 12 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+translates between the owner and the software. Onboarding is designed for this person, not
+for the owner directly.
+Anti-personas ΓÇö who this is NOT for
+ΓÇó Sixty-to-one-hundred-room boutique hotels with a front-office team ΓÇö that is SOYL
+Core (rupees 45,000) or Pro (rupees 65,000).
+ΓÇó Branded chains ΓÇö entirely different sale.
+ΓÇó OYO-style aggregator inventory ΓÇö they have their own systems.
+ΓÇó Hotels above rupees 3,000 ARR ΓÇö they have margin for Core, and Lite under-serves
+them.
+3.3 Out of scope
+If you find yourself building any of the following, stop and ask Ryan. None of these are in v1.
+ΓÇó Channel manager ΓÇö OTA sync with Booking.com, MMT, Agoda, Goibibo.
+ΓÇó Revenue management or dynamic pricing.
+ΓÇó Multi-property switcher.
+ΓÇó F&B, restaurant, spa, or POS modules.
+ΓÇó Complex BI dashboards ΓÇö RevPAR, ADR trend analysis, etc. These are Pro features.
+ΓÇó Multi-user roles and granular permissions. Lite has three fixed roles: owner, manager,
+viewer.
+ΓÇó Voice AI agents handling guest calls ΓÇö that is the Core wedge, not Lite's.
+ΓÇó Direct booking engine or website widget.
+ΓÇó Payment gateway integration. We record payments; we do not process them.
+ΓÇó Native Android or iOS apps. We ship a PWA.
+ΓÇó WhatsApp Business API integration. v1 uses wa.me deep links only.
+If a feature is not explicitly in this document, it is not in v1. Scope discipline is a feature.
+3.3.5 Feature completeness ΓÇö what's in Lite v1
+This matrix answers the question every prospective customer asks: "Does it have all the
+PMS features?" Read it before you commit to the schedule in Part 4. If anything on the In
+Lite v1 list is unclear, ask Ryan before Week 1.
+Capability Lite v1 Core (Γé╣45K) Out of scope
+Reservations / bookings Yes Yes ΓÇö
+Calendar / room grid Yes Yes ΓÇö
+Walk-in handling Yes Yes ΓÇö
+Check-in / check-out Yes Yes ΓÇö
+Booking modification Yes Yes ΓÇö
+Cancellation and no-show Yes Yes ΓÇö
+Stay extension Yes Yes ΓÇö
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 12 of 44
+
+=== PAGE 13 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Capability Lite v1 Core (Γé╣45K) Out of scope
+Room change mid-stay Yes Yes ΓÇö
+Group bookings Yes (basic) Yes (full) ΓÇö
+Folio / stay account Yes Yes ΓÇö
+Multiple payment methods Yes Yes ΓÇö
+Outstanding balance tracking Yes Yes ΓÇö
+Refunds (cash + UPI) Yes Yes ΓÇö
+Room blocking / maintenance Yes Yes ΓÇö
+Housekeeping board Yes Yes ΓÇö
+Day close + cash position Yes Yes ΓÇö
+Guest request tracking Yes Yes ΓÇö
+Audit log (read-only) Yes Yes ΓÇö
+Guest profile + stay history Yes Yes ΓÇö
+ID proof capture Yes Yes ΓÇö
+FRRO / C-form generation Yes Yes ΓÇö
+GST invoicing (with flex) Yes Yes ΓÇö
+Police register PDF Yes Yes ΓÇö
+Reports ΓÇö occupancy, Yes Yes ΓÇö
+revenue, GST
+Pre-arrival WhatsApp Manual Automated ΓÇö
+Post-stay review request Manual Automated ΓÇö
+Daily summary to owner WhatsApp link Auto-sent ΓÇö
+Push notifications Yes Yes ΓÇö
+Offline mode + sync queue Yes Yes ΓÇö
+Multi-language (en/hi/kn) Yes Yes ΓÇö
+Voice input for forms Yes Yes ΓÇö
+Owner real-time dashboard Yes Yes ΓÇö
+Roles (owner / manager / Yes (3) Yes (custom) ΓÇö
+viewer)
+AI guest call answering ΓÇö Yes ΓÇö
+AI WhatsApp guest agent ΓÇö Yes ΓÇö
+OTA reconciliation ΓÇö Yes (assisted) ΓÇö
+Channel manager (live OTA ΓÇö ΓÇö Out of scope
+sync)
+Revenue management / ΓÇö ΓÇö Out of scope
+dynamic pricing
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 13 of 44
+
+=== PAGE 14 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Capability Lite v1 Core (Γé╣45K) Out of scope
+F&B / restaurant POS ΓÇö ΓÇö Out of scope
+Spa / activities module ΓÇö ΓÇö Out of scope
+Multi-property switcher ΓÇö ΓÇö Out of scope
+Direct booking widget ΓÇö ΓÇö Out of scope
+Payment gateway integration ΓÇö ΓÇö Out of scope
+WhatsApp Business API ΓÇö ΓÇö Out of scope (v1)
+RevPAR / advanced BI ΓÇö ΓÇö Pro tier
+Native mobile apps ΓÇö ΓÇö Out of scope
+(PWA)
+Read across: Lite is feature-competitive with eZee, Hotelogix, and Djubo at the entry tier on
+every operational workflow that matters at small properties. Where Core differentiates is
+automation ΓÇö Core has AI agents doing the work; Lite has humans doing the work with a
+really good interface.
+Read down: the 33 capabilities marked Yes in Lite v1 are all in scope for the 8-week build.
+The Out of scope items are not coming in v1 ΓÇö and not in v1.1, v1.2, or v1.3 either. If a
+customer asks for one of those, the answer is "that is what SOYL Core does" or "that is what
+our channel-manager partner does".
+3.4 Design principles
+These are not aspirations. They are constraints. Memorize them.
+1. Three taps to anything. No screen is more than three taps from the home screen. If it
+takes more, redesign.
+2. Big targets. Minimum forty-eight by forty-eight pixel touch targets. Owners often have
+older eyes and use phones in bright sun.
+3. Plain language. No jargon in UI copy. PMS, ARR, RevPAR, reservation ID are all
+banned. Use booking number, today's earnings.
+4. Speak the user's language, literally. Every string lives in an i18n key. English is the
+fallback, never the default.
+5. Offline is the rule, not the exception. Assume internet drops mid-checkin. The app
+never loses data.
+6. One-thumb operation. Bottom nav, sticky action buttons at thumb-reach, never make
+the user reach the top corner.
+7. Manager Mode beats paper on speed. Every common action is measured against the
+time it takes to do it on paper. Slower than paper means the design is wrong.
+8. Owner Mode shows what almost went wrong. The dashboard surfaces issues, not just
+metrics. Three requests still open beats average response time 4.2 hours.
+9. No empty states without a CTA. If today has no arrivals, say so and offer the next
+useful action.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 14 of 44
+
+=== PAGE 15 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+10. Trust through receipts. Every action that touches money or compliance generates
+a visible receipt ΓÇö booking confirmation, GST invoice, FRRO acknowledgment.
+11. Don't show what they don't need. Pro features are hidden, not greyed out.
+Greyed-out features make users feel poor.
+12. Looks matter. The product looks as polished as Mews. Aspirational, not
+condescending. Cheap-looking software signals this is for cheap hotels.
+3.5 Two-mode architecture
+SOYL Lite is two product experiences on one database. Same Supabase backend, same
+auth, same data ΓÇö different surfaces.
+Owner Mode
+The dashboard the owner sees on their phone. Optimized for read-and-react: scan the state
+of the property in fifteen seconds, drill into anything that looks wrong, take a high-level action
+if needed.
+Owner Mode is what the owner is paying for. Every feature in Owner Mode either provides
+visibility (what is happening), surfaces risk (what almost went wrong), or summarizes
+performance (how are we doing). It does not have a new booking button ΓÇö owners do not
+take bookings; managers do.
+Key Owner Mode screens:
+ΓÇó Pulse ΓÇö the home screen. Live status: occupancy, today's
+arrivals/departures/in-house, today's earnings, today's open requests.
+ΓÇó What needs attention ΓÇö surfaces anomalies: open requests over four hours old,
+unconfirmed arrivals past their ETA, payments due, rooms blocked too long.
+ΓÇó Today's story ΓÇö a chronological feed of what happened today: every check-in, request,
+payment, shift handover. Reads like a timeline of the property.
+ΓÇó This week ΓÇö occupancy, revenue, request volume, average response time. Simple
+charts.
+ΓÇó Daily summary ΓÇö auto-generated end-of-day digest. One tap to send to the owner's
+WhatsApp.
+Manager Mode
+The interface the front-desk manager uses ten to forty times a day. Optimized for speed and
+minimum friction. No login if a manager device is registered to the property. Bottom-nav-only.
+Voice input on every text field. Defaults that work without configuration.
+Manager Mode does not show analytics. It does not show weekly revenue. The manager
+does not need that and showing it makes the screen busier. If the manager wants those
+views, he can switch to a personal Owner-Mode session ΓÇö but the default is Manager
+Mode.
+Key Manager Mode screens:
+ΓÇó Today ΓÇö same dashboard the owner sees but reduced: arrivals, departures, in-house,
+available rooms. No revenue. No requests-open count. Just operations.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 15 of 44
+
+=== PAGE 16 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+ΓÇó Calendar ΓÇö horizontal room grid, fourteen days default. Tap a cell to book.
+ΓÇó New booking ΓÇö single-screen form with voice input. Walk-in default. Two taps to
+confirm a cash walk-in for tonight.
+ΓÇó Check-in / check-out ΓÇö flows that work in under ninety seconds end to end.
+ΓÇó Requests ΓÇö log a guest request, route it to housekeeping or kitchen, mark it done.
+ΓÇó Guests ΓÇö search by name or phone.
+Switching between modes
+Authenticated users have a default mode based on role. Owners default to Owner Mode.
+Managers default to Manager Mode. Either can switch via a single tap in the top bar ΓÇö
+useful for the owner's daughter who is setting up the system and needs to see both.
+The two modes share components heavily ΓÇö same calendar, same booking form, same
+guest profile. The difference is what surrounds them: which dashboards, which alerts, which
+empty-state CTAs. Build the components once, compose them differently per mode.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 16 of 44
+
+=== PAGE 17 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+3.6 Tech stack
+Every choice below is justified by (a) free or near-zero cost at low scale, (b) compatibility
+with the SOYL Core stack, and (c) frontend-friendly developer experience. You are not free
+to substitute these without approval ΓÇö consistency across our products matters more than
+personal preference.
+Concern Choice Why Free tier
+Framework Next.js 14 (App SSR, RSC, PWA-ready, used N/A
+Router) across SOYL
+Language TypeScript, strict Non-negotiable N/A
+mode
+Styling Tailwind CSS v3 Already in SOYL stack Free
+Components shadcn/ui Copy-paste, no runtime, Free
+customizable
+Icons Lucide React Tree-shakeable Free
+Client state Zustand Lightweight, no boilerplate Free
+Server state TanStack Query v5 Caching + offline support Free
+Forms React Hook Form + Type-safe forms with validation Free
+Zod
+Database Supabase (Mumbai) Multi-tenant RLS, auth built in 500MB / 1GB / 50K
+MAU
+Auth Supabase Auth, OTPs are universal in India; no Included in MAU
+phone OTP passwords
+File storage Supabase Storage ID proofs, hotel logo 1 GB free
+i18n next-intl Best App Router support, Free
+type-safe
+Fonts Noto Sans (Latin + Renders all three scripts cleanly Free
+Devanagari +
+Kannada)
+Voice input Web Speech API Native browser; works for Hindi + Free
+Kannada
+Animation Framer Motion Sparingly ΓÇö page transitions only Free
+PWA @ducanh2912/next-p Service worker + offline + install Free
+wa prompt
+Offline DB Dexie.js (IndexedDB) Offline mutation queue Free
+PDF @react-pdf/renderer Invoices, C-forms, daily reports Free
+generation
+WhatsApp wa.me deep links Bypasses Twilio cost in v1 Free
+Email Resend Booking confirmations 3,000 / month
+Analytics Plausible Privacy-friendly, no cookie banner Free self-host
+(self-hosted)
+Error tracking Sentry Performance + errors 5K events / month
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 17 of 44
+
+=== PAGE 18 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Concern Choice Why Free tier
+Deployment Vercel Hobby v1, Free hobby tier for pilot 100GB BW / month
+Hetzner later
+Cost target: marginal infrastructure cost per Lite hotel stays under rupees 500 per month. At
+rupees 25,000 per month price point, that is over ninety-eight percent gross margin before
+support costs.
+Stack rules ΓÇö what you may NOT add without approval
+ΓÇó No CSS-in-JS libraries (styled-components, emotion). Tailwind only.
+ΓÇó No Redux, MobX, or Recoil. Zustand only.
+ΓÇó No Material UI, Ant Design, or Chakra. shadcn/ui only.
+ΓÇó No date library other than date-fns. Moment.js is deprecated and huge.
+ΓÇó No analytics SDKs that load more than twenty kilobytes.
+ΓÇó No serverless functions outside Vercel's built-ins. If you need a real backend, use
+Supabase Edge Functions.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 18 of 44
+
+=== PAGE 19 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+3.7 System architecture
+High-level layout of the system you are building:
+SOYL Lite PWA ΓÇö Next.js 14 on Vercel
+Γö£ΓöÇΓöÇ Public marketing pages (/, /pricing, /features)
+Γö£ΓöÇΓöÇ Auth ΓÇö phone OTP
+Γö£ΓöÇΓöÇ Onboarding wizard
+ΓööΓöÇΓöÇ Authenticated app
+Γö£ΓöÇΓöÇ /app/owner/* ΓÇö Owner Mode
+Γöé Γö£ΓöÇΓöÇ pulse
+Γöé Γö£ΓöÇΓöÇ attention
+Γöé Γö£ΓöÇΓöÇ story
+Γöé Γö£ΓöÇΓöÇ week
+Γöé ΓööΓöÇΓöÇ summary
+ΓööΓöÇΓöÇ /app/manager/* ΓÇö Manager Mode
+Γö£ΓöÇΓöÇ today
+Γö£ΓöÇΓöÇ calendar
+Γö£ΓöÇΓöÇ booking/new
+Γö£ΓöÇΓöÇ requests
+ΓööΓöÇΓöÇ guests
+Γöé
+Γöé Supabase JS client over HTTPS
+Γû╝
+Supabase, Mumbai region ΓÇö multi-tenant via Row-Level Security
+Γö£ΓöÇΓöÇ auth.users
+Γö£ΓöÇΓöÇ public.properties, rooms, room_types, rate_overrides
+Γö£ΓöÇΓöÇ public.bookings, payments, charges
+Γö£ΓöÇΓöÇ public.guests, requests, request_events
+Γö£ΓöÇΓöÇ public.cforms, gst_invoices, audit_log
+ΓööΓöÇΓöÇ storage.objects ΓÇö ID proofs, logos
+Key architectural decisions, with reasoning:
+ΓÇó Supabase, not the SOYL FastAPI backend, for v1. Lite needs CRUD plus auth plus
+storage plus realtime. Supabase gives you all four with zero ops. The Core FastAPI
+backend is for AI agents, which Lite does not have in v1. This keeps Lite owned by
+you, the intern, without backend-team review on every schema change.
+ΓÇó Row-Level Security for tenant isolation. Every table has property_id. RLS policies
+enforce that authenticated users only see and edit rows belonging to their property. No
+tenant code in the frontend.
+ΓÇó PWA, not native. Installs from browser to home screen. Works offline. Push
+notifications via Web Push API. No app store, no review delays.
+ΓÇó Optimistic UI everywhere. When the user taps Check In, show the new state
+immediately. Sync to Supabase in the background. If sync fails, queue in IndexedDB
+and retry.
+ΓÇó Mode-based routing, single auth context. /app/owner and /app/manager are
+separate route groups but share auth, data fetching, and components. A user's default
+mode is set by their role in the staff table.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 19 of 44
+
+=== PAGE 20 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+3.8 Screen-by-screen specification
+For each screen below you produce a Figma mockup in light mode and dark mode, a
+working implementation, and copy in all three languages.
+A. Onboarding flow (post-signup, one-time)
+Five-step wizard with progress bar. Must be completable in under three minutes.
+1. Welcome and language pick ΓÇö large tiles for Hindi, Kannada, English. Selection
+persists across sessions.
+2. Property details ΓÇö name, address, GSTIN (optional), phone, logo upload, property
+type (hotel / homestay / guesthouse / lodge).
+3. Add rooms ΓÇö bulk add: Add 10 rooms of type Deluxe at rupees 1,800. Mix types as
+needed. Auto-numbered.
+4. Set base rates ΓÇö single base rate per room type. Weekend and peak handled in
+Settings later.
+5. Set roles ΓÇö owner sets manager phone numbers. Each manager gets an SMS with a
+setup link.
+Skip-with-defaults is allowed on any step except step one. Skipped steps surface as in-app
+banners later.
+B. Owner Mode ΓÇö Pulse (home screen)
+The first thing the owner sees when they open the app. Scannable in fifteen seconds.
+Layout, top to bottom:
+ΓÇó Greeting and current date in the user's language.
+ΓÇó Live status row ΓÇö four cards: occupancy now, today's check-ins, today's check-outs,
+today's earnings.
+ΓÇó What needs attention ΓÇö banner if there are open issues. Red banner if anything is
+overdue. Tappable into the Attention screen.
+ΓÇó Today's arrivals list ΓÇö guest name, room, expected time, status badge.
+ΓÇó Today's departures list ΓÇö guest name, room, balance due.
+ΓÇó In-house ΓÇö count, with expand-to-view.
+ΓÇó Quick actions footer ΓÇö Send daily summary to my WhatsApp. View this week. Switch
+to Manager Mode.
+C. Owner Mode ΓÇö What needs attention
+The page that justifies the subscription. Shows the owner what almost went wrong today.
+Sections:
+ΓÇó Open guest requests over four hours old ΓÇö guest, request, room, who it was routed to,
+time elapsed.
+ΓÇó Unconfirmed arrivals past their expected check-in ΓÇö guest, room, ETA missed by how
+much.
+ΓÇó Payments due ΓÇö guests scheduled to check out today with non-zero balance.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 20 of 44
+
+=== PAGE 21 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+ΓÇó Rooms blocked but not occupied ΓÇö rooms marked unavailable for over twenty-four
+hours without an active booking.
+ΓÇó Yesterday's misses ΓÇö anything resolved late from yesterday, archived. Read-only.
+Each item is tappable into the relevant deeper screen. Each item can be marked
+acknowledged by owner ΓÇö logged in the audit table.
+D. Owner Mode ΓÇö Today's story
+A chronological timeline of everything that happened today. The owner can scroll through
+and see exactly what their property did since midnight.
+Event types shown:
+ΓÇó Booking created ΓÇö guest, room, source.
+ΓÇó Check-in ΓÇö guest, room, by whom.
+ΓÇó Check-out ΓÇö guest, room, total, payment method.
+ΓÇó Request logged ΓÇö guest, request, routed to whom.
+ΓÇó Request resolved ΓÇö by whom, how long it took.
+ΓÇó Payment received ΓÇö amount, method, against which booking.
+ΓÇó Rate override applied ΓÇö by whom, why.
+Filterable by event type. Searchable. This is the source of trust between owner and
+manager.
+E. Owner Mode ΓÇö This week
+Four simple charts and one table:
+ΓÇó Occupancy percentage by day ΓÇö line chart.
+ΓÇó Revenue by day ΓÇö bar chart.
+ΓÇó Requests logged vs resolved ΓÇö stacked bar.
+ΓÇó Average request response time ΓÇö single metric, trend arrow vs last week.
+ΓÇó Per-room performance table ΓÇö room number, nights occupied this week, revenue,
+average rate.
+Date range toggle: this week, last week, this month.
+F. Owner Mode ΓÇö Daily summary
+Generated automatically at end of day (configurable, default 11 PM IST). Shows a
+one-screen recap. Pre-built WhatsApp message ΓÇö one tap opens WhatsApp with the
+message pre-filled, addressed to the owner's saved number.
+Message format, in the user's language:
+[Hotel name] ΓÇö [date]
+Occupancy today: 12/14 (86%)
+Check-ins: 3 Check-outs: 4
+Earnings today: rupees 14,500
+Open requests: 1 (over 2 hours old)
+Tap to view full report -> [link]
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 21 of 44
+
+=== PAGE 22 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+G. Manager Mode ΓÇö Today
+The default screen for managers. Stripped down to operations only.
+Layout:
+ΓÇó Available rooms count and quick filter.
+ΓÇó Today's arrivals ΓÇö tap to check in, swipe right to mark arrived without full check-in.
+ΓÇó Today's departures ΓÇö tap to check out.
+ΓÇó In-house list, collapsible.
+ΓÇó Open requests ΓÇö large badge at the top if any exist, takes priority.
+No revenue card. No analytics. No what-almost-went-wrong banner. The manager does not
+see how the owner is judging him ΓÇö he sees what he has to do next.
+H. Manager Mode ΓÇö Calendar (room grid)
+Classic horizontal room grid. Rows are rooms, columns are days. Fourteen days visible by
+default.
+ΓÇó Cells colored: green available, blue booked, yellow checked-in, red overdue checkout.
+ΓÇó Tap a cell to open Add booking for Room X on date Y modal.
+ΓÇó Tap an existing booking bar to open booking detail sheet (slide up from bottom on
+mobile).
+ΓÇó Pinch or dropdown to change view: 7 / 14 / 30 days.
+ΓÇó Sticky room-number column on horizontal scroll.
+ΓÇó Detect landscape orientation and prompt on first visit ΓÇö most managers rotate the
+phone.
+I. Manager Mode ΓÇö New booking flow
+The most critical Manager-Mode screen. This is the one we are measuring against paper.
+Triggered from bottom-nav center button, calendar tap, or Today quick action.
+Single scrollable form. Smart defaults: today's date in, tomorrow's date out, first available
+room of the cheapest type, walk-in source.
+Sections, in order:
+1. Stay dates ΓÇö large date pickers. Default today/tomorrow. Two taps to confirm.
+2. Room ΓÇö auto-filled with first available. Tap to change.
+3. Guest name ΓÇö text input with prominent microphone button. Voice to Kannada or
+Hindi, transliterated to Devanagari/Kannada or kept in chosen script.
+4. Phone ΓÇö Indian format default. Microphone disabled here; numbers need to be typed.
+5. ID proof ΓÇö camera capture or skip-and-collect-at-checkin. Type dropdown: Aadhaar /
+PAN / DL / Passport / Voter ID. Aadhaar masked to last four.
+6. Guests ΓÇö adults plus children, defaults to 1+0.
+7. Rate ΓÇö auto-filled from room type, editable.
+8. Source ΓÇö walk-in / phone / WhatsApp / Booking.com / MMT / other. Default walk-in.
+9. Payment ΓÇö advance amount and method, or Pay at Checkout.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 22 of 44
+
+=== PAGE 23 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+10. Booking type ΓÇö Internal record only, or Generate GST invoice. Default Internal.
+The owner can convert later. This is where the GST-flexibility design lives.
+Bottom sticky button: Confirm booking. Success screen with WhatsApp-share button (sends
+booking confirmation via wa.me link).
+Target: a walk-in cash booking for tonight should take less than thirty seconds end to
+end. Voice the guest name (5s), auto-room (0s), tap source (1s), tap amount (3s),
+confirm (1s). Time this on a real phone with a real manager.
+J. Manager Mode ΓÇö Check-in flow
+From Today screen, tap arrival, then Check In button.
+1. Verify guest details (captured at booking or capture now if walk-in).
+2. Assign or confirm room number.
+3. Collect any pending advance.
+4. If foreign guest, auto-fill C-form, generate PDF, prompt to email or WhatsApp to FRRO.
+5. Send welcome message via WhatsApp deep link with WiFi password and hotel rules.
+6. Mark booking Checked In. Room status changes to occupied.
+K. Manager Mode ΓÇö Check-out flow
+1. Show stay summary ΓÇö nights, room charges, add-ons.
+2. Add ad-hoc charges from a small fixed list ΓÇö late checkout, extra bed, laundry,
+mini-bar. Not a full POS.
+3. Calculate total ΓÇö GST applied per Indian rule (12 percent up to rupees 7,500 per night,
+18 percent above) only if booking is marked as GST-invoice type.
+4. Collect balance ΓÇö record payment method.
+5. Generate output ΓÇö GST invoice PDF if applicable, otherwise simple cash receipt PDF.
+6. Send via WhatsApp deep link or email.
+7. Mark room Needs Cleaning. Returns to available pool when housekeeping marks it
+clean.
+L. Manager Mode ΓÇö Requests
+The killer feature for the owner ΓÇö and yes, the manager has to use it. Designed to be so fast
+that logging a request is faster than remembering it.
+New request flow:
+1. Tap + button on the Requests screen, or use the FAB on Today screen.
+2. Room number ΓÇö large picker showing in-house rooms.
+3. Request ΓÇö voice input first, dropdown of common requests second (extra towels /
+room service / late checkout / cab booking / wake-up call / other).
+4. Route to ΓÇö housekeeping / kitchen / front desk / owner. Default routing based on
+request type.
+5. Done. Logged with timestamp, status Open, visible to the owner immediately.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 23 of 44
+
+=== PAGE 24 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Request resolution: anyone with access can mark a request Done. Owner sees this in real
+time via Pulse.
+This entire flow must take under fifteen seconds. Voice input is the unlock ΓÇö typing extra
+towels for room 102 is slower than saying it.
+M. Guests ΓÇö list and detail (shared between modes)
+List: searchable by name, phone, or room number. Filterable: All / In-house / Past /
+Upcoming. Sortable: Name / Last stay / Lifetime spend.
+Detail: profile photo from ID, name, phone, email, ID type, stay history, total nights, lifetime
+spend, notes, tags (VIP / Repeat / Flagged).
+N. Reports (Owner Mode only)
+Three reports. No more in v1.
+ΓÇó Occupancy ΓÇö daily occupancy percentage over selected range. Single line chart, CSV
+export.
+ΓÇó Revenue ΓÇö daily revenue over range. Bar chart, CSV export.
+ΓÇó GST ΓÇö monthly summary: taxable value, CGST, SGST, IGST. PDF export for CA.
+O. Settings
+Sections:
+ΓÇó Property profile ΓÇö name, address, GSTIN, logo, contact.
+ΓÇó Rooms ΓÇö add, edit, delete rooms.
+ΓÇó Rates ΓÇö base rate per room type, weekend rate, peak-season override.
+ΓÇó Tax ΓÇö GSTIN, SAC code 996311, default GST percent.
+ΓÇó Staff ΓÇö invite up to two staff accounts. Owner can promote a staff account to manager.
+ΓÇó Language ΓÇö change UI language. Per-user setting.
+ΓÇó Notifications ΓÇö toggle: check-in reminders, new booking alerts, daily WhatsApp
+summary, attention alerts.
+ΓÇó Help ΓÇö link to WhatsApp support and email.
+P. Booking detail and modification
+Opened by tapping any booking on the Calendar grid or from the Today / Pulse arrivals list.
+Slide-up bottom sheet on mobile, side panel on desktop.
+Shows the full booking record and lets the manager modify it. Every change writes to
+booking_history for the audit trail visible in Owner Mode's Story screen.
+Modifiable fields (with confirmation step for each):
+ΓÇó Stay dates ΓÇö extend, shorten, or shift. Re-checks room availability for new dates.
+Re-prices based on rate cards.
+ΓÇó Room ΓÇö change room number or type. Recomputes rate if room type differs.
+ΓÇó Guest count ΓÇö adults plus children. May trigger an extra-bed charge.
+ΓÇó Rate override ΓÇö owner-only by default; managers can request, owner approves.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 24 of 44
+
+=== PAGE 25 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+ΓÇó Source ΓÇö correct if mis-tagged at creation.
+ΓÇó Invoice type ΓÇö convert internal record to GST invoice. One-way once GST invoice is
+issued.
+ΓÇó Special requests / notes ΓÇö free-text field, supports voice input.
+Non-modifiable once check-in has happened: check-in date is locked, guest's primary ID
+record is locked.
+Footer actions: Cancel booking ┬╖ Mark no-show ┬╖ Extend stay ┬╖ Change room ┬╖ Print
+confirmation.
+Q. Cancellation and no-show
+Cancellation flow, from booking detail Cancel booking button:
+1. Pick cancellation reason ΓÇö guest cancelled / hotel cancelled / payment failed /
+no-show / duplicate / other (free-text). Required field.
+2. Refund decision ΓÇö full / partial / none. If partial, amount input. If refund is recorded as
+cash-out, it appears on day close as a cash movement.
+3. Optional comment.
+4. Confirm. Booking status becomes cancelled. Room returns to available pool for those
+dates.
+No-show is a separate status, not a cancellation. Triggered from Owner Mode's Attention
+screen or manually on check-in day after a cutoff time (default 11 PM). No-show bookings
+remain on record for revenue/occupancy reporting and may retain advance payments per
+the property's policy.
+R. Stay extension
+Triggered from the in-house guest's booking detail. Common scenario ΓÇö paper-managed
+extensions are where the white-paper hotel was losing money to undercounted nights.
+1. Pick new check-out date.
+2. System checks if the same room is available for the extended nights. If not, prompts for
+a room change for the extension period.
+3. Re-prices added nights at current rate (or owner-approved override).
+4. Optional advance collection for extended nights.
+5. Confirm. Booking's check_out date updates. booking_history records the extension.
+The added nights become part of the existing folio.
+Extensions create a clear paper trail ΓÇö every added night is timestamped, attributed to the
+manager who added it, and visible to the owner.
+S. Room change mid-stay
+From booking detail of an in-house guest:
+1. Pick new room from available rooms for the remaining stay dates.
+2. Pick effective-from date and time. Default: now.
+3. Rate adjustment ΓÇö if new room type differs, recompute nightly rate for remaining
+nights. Show old vs new total.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 25 of 44
+
+=== PAGE 26 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+4. Reason ΓÇö free-text or pick from list (guest request / room issue / upgrade / downgrade
+/ maintenance).
+5. Confirm. Old room marked needs-cleaning. New room marked occupied. Folio
+updated.
+T. Group bookings
+A group booking is two or more linked bookings under a single primary contact ΓÇö wedding
+parties, tour groups, corporate stays. v1 supports basic grouping; complex group rate cards
+and group invoicing are v2.
+Create-group flow, from New Booking ΓåÆ switch to Group mode:
+1. Primary contact details ΓÇö captured once.
+2. Number of rooms needed plus check-in / check-out dates.
+3. Assign room types and counts ΓÇö e.g. 4 Deluxe, 2 Standard.
+4. System creates N linked bookings sharing a parent_booking_id, same dates, same
+primary contact, individual guest names captured at check-in.
+5. Group rate ΓÇö single rate applied to all rooms, or override per room.
+6. Single confirmation message sent to primary contact via WhatsApp.
+At check-in, each room is checked in individually with its actual occupant's ID. Folio is
+one-per-room by default; consolidated group folio is an explicit option at check-out.
+U. Folio ΓÇö stay account
+The running tab for a single stay. Every PMS has this. Opens from booking detail Folio
+button or from the Guests detail screen for an in-house guest.
+Layout:
+ΓÇó Header ΓÇö guest name, room number, check-in date, expected check-out, nights so far.
+ΓÇó Charges section ΓÇö itemised list: room nights, taxes if GST invoice, extra bed, late
+checkout, laundry, mini-bar, ad-hoc. Each line shows date added, amount, added by.
+ΓÇó Payments section ΓÇö itemised: advance at booking, advance at check-in, any mid-stay
+payments. Each line shows date, method, collected by.
+ΓÇó Balance ΓÇö total charges minus total payments. Highlighted in red if non-zero and the
+stay is ending today.
+ΓÇó Footer actions: Add charge ┬╖ Record payment ┬╖ Print folio ┬╖ Send folio via WhatsApp.
+At check-out, the folio is the source of truth ΓÇö the final invoice or cash receipt is generated
+directly from it.
+V. Housekeeping board
+Critical screen ΓÇö the white paper identified front-desk-to-housekeeping miscommunication
+as a top driver of bad reviews. Available in both modes; designed for the housekeeping
+supervisor or whoever covers that role at small properties.
+Layout ΓÇö single screen, all rooms grouped by floor:
+ΓÇó Each room card shows: room number, current status, last guest, expected next arrival.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 26 of 44
+
+=== PAGE 27 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+ΓÇó Status states: Occupied ┬╖ Vacant Clean ┬╖ Vacant Dirty ┬╖ Cleaning in Progress ┬╖
+Inspected ┬╖ Out of Order ┬╖ Owner Hold.
+ΓÇó Tap a room to change its status. Voice-input note field ΓÇö Stained towel replaced, AC
+not cooling ΓÇö that auto-creates a maintenance request if marked OOO.
+ΓÇó Filter by status (show only dirty rooms) or by floor.
+ΓÇó Today's housekeeping list at the top ΓÇö checkouts that need cleaning today, prioritised
+by next-arrival ETA.
+Owner Mode shows housekeeping status as a strip on Pulse: "3 rooms dirty, 1 in progress, 1
+OOO". Tap to drill into the board.
+W. Block room
+Owner or manager marks a room unavailable for a date range ΓÇö maintenance, renovation,
+owner stay, or off-market hold.
+1. Pick room.
+2. Pick date range ΓÇö single day, multiple days, or open-ended.
+3. Reason ΓÇö maintenance / owner stay / renovation / off-market / other. Required.
+4. Optional note ΓÇö what is being fixed, ETA back in service.
+5. Confirm. Room shows as blocked on calendar in grey. New bookings cannot be
+assigned to that room for those dates.
+Blocked rooms appear on Owner Mode's Attention screen if they have been blocked for
+more than 72 hours without resolution ΓÇö this is one of the white-paper's
+small-failures-that-compound items.
+X. Day close and cash position
+The single most valuable screen for the owner. Solves the cash-trust gap that paper
+registers leave wide open. Generated at end of day, reviewed by the manager, visible in
+real-time to the owner.
+Layout:
+ΓÇó Date selector ΓÇö defaults to today, can review past days.
+ΓÇó Revenue summary ΓÇö total bookings today, room revenue, ad-hoc charges, GST
+collected (if any).
+ΓÇó Cash position ΓÇö opening cash drawer, cash collected from check-ins, cash refunds
+out, expected closing cash. Manager enters actual closing cash; variance is shown
+explicitly.
+ΓÇó Payment method breakdown ΓÇö table: cash / UPI / card / bank transfer / OTA, with
+amount and count per method.
+ΓÇó Outstanding balances ΓÇö guests checked out today with non-zero balance, plus
+in-house guests with overdue payments.
+ΓÇó Activity counts ΓÇö check-ins, check-outs, new bookings, cancellations, requests logged,
+requests resolved.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 27 of 44
+
+=== PAGE 28 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+ΓÇó Footer ΓÇö Submit day close button. Locks the day from manager-side edits; owner can
+still adjust. Day close goes into the audit_log and triggers the daily WhatsApp
+summary.
+Cash variance is the single most important number on this screen. A property with
+consistent zero variance is a property with operational discipline. A property with
+frequent variances has a leakage problem the owner needs to see ΓÇö exactly what paper
+hides.
+Y. Pre-arrival and post-stay messaging
+Two automated WhatsApp templates per property, configurable in Settings.
+Pre-arrival (24 hours before check-in)
+Default template, editable, supports {placeholders}:
+Hi {guest_name}, looking forward to hosting you at {hotel_name} tomorrow.
+Check-in time: 12:00 PM onwards
+Room: {room_type}
+Address: {hotel_address}
+Please carry a valid government ID.
+Reply to this message if you need anything.
+Sent via wa.me deep link ΓÇö manager taps Send pre-arrival on the next-day arrival list. v1 is
+manager-initiated; auto-send is v2 (requires WhatsApp Business API).
+Post-stay (3 hours after check-out)
+Default template, editable:
+Thank you for staying with us, {guest_name}.
+We hope you had a comfortable stay. If you enjoyed your time
+with us, a Google review would mean a lot:
+{google_review_link}
+We look forward to hosting you again.
+Owner sets the Google review link once in Settings. Sent via wa.me link from the check-out
+success screen ΓÇö one tap from completing checkout.
+This screen directly addresses the white-paper finding that information failures, not service
+failures, drag the ratings down. Asking happy guests for reviews systematically lifts the rating
+distribution; the request tracker reduces the unhappy-review denominator.
+Z. Notifications
+Mobile push notifications via Web Push API. Configured per-user in Settings, default-on for
+each user's role.
+Owner Mode notifications (default-on for owner role):
+ΓÇó New booking received.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 28 of 44
+
+=== PAGE 29 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+ΓÇó Request open longer than 2 hours.
+ΓÇó Cash variance over rupees 500 on day close.
+ΓÇó Room blocked over 72 hours.
+ΓÇó Daily summary ready (11 PM).
+ΓÇó Foreign guest checked in ΓÇö C-form ready for review.
+Manager Mode notifications (default-on for manager role):
+ΓÇó Arrival expected in next hour.
+ΓÇó New request routed to me / my role.
+ΓÇó Pending check-out at 11 AM (default check-out time).
+ΓÇó Day not closed by 11 PM.
+Implementation: subscribe to Web Push on first authenticated session, store subscription
+endpoint per user, server-side trigger on relevant events. Use Supabase Edge Functions for
+delivery. Always include a deep link to the relevant screen.
+AA. Police register and audit log
+Two compliance / transparency screens that read from existing data ΓÇö minimal new schema
+needed.
+Police register (Owner Mode + Manager Mode)
+Daily PDF report of all check-ins for the selected date, formatted per local-station
+expectations:
+ΓÇó Header: hotel name, registration number, date, page number.
+ΓÇó Columns: serial number, guest name, address, ID type plus masked number, country,
+arrival from, purpose, check-in time, check-out time, room number, signature column
+for police.
+ΓÇó Footer: hotel stamp area, manager name and signature line.
+Button to email or WhatsApp to the saved police-station contact in one tap. Submission
+logged in audit_log.
+Audit log (Owner Mode only)
+Read-only browsable view of audit_log table. Filters:
+ΓÇó Date range.
+ΓÇó User ΓÇö show actions by a specific staff member.
+ΓÇó Entity type ΓÇö bookings / payments / requests / rates / staff / settings.
+ΓÇó Action ΓÇö created / updated / deleted / cancelled / refunded.
+Each row shows: timestamp, user, action verb, entity name and ID, with a Show changes
+expander revealing the before / after JSON diff in human-readable form. The owner can
+search "all rate overrides in May" or "every cancellation by Rajesh" without database access.
+This is the trust layer.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 29 of 44
+
+=== PAGE 30 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+3.9 Internationalization
+Non-negotiable and easy to get wrong. Read this twice.
+Languages
+ΓÇó English (en) ΓÇö fallback only.
+ΓÇó Hindi (hi) ΓÇö Devanagari script.
+ΓÇó Kannada (kn) ΓÇö Kannada script.
+Setup
+ΓÇó Use next-intl, not react-i18next. App Router compatibility is better.
+ΓÇó Folder structure: /messages/en.json, /messages/hi.json, /messages/kn.json.
+ΓÇó Every user-facing string lives in these files. No hardcoded strings in JSX. If a
+hardcoded string survives code review, the PR is rejected.
+ΓÇó Use nested keys: today.greeting, booking.form.guestName, requests.list.empty.
+ΓÇó Use next-intl's formatters for dates, numbers, and currency ΓÇö never raw JavaScript.
+Fonts
+ΓÇó Noto Sans with subsets latin, devanagari, kannada.
+ΓÇó Use next/font/google for self-hosting ΓÇö better performance, no CLS.
+ΓÇó font-display: swap.
+Translation workflow
+ΓÇó You write all en.json strings yourself.
+ΓÇó For hi.json and kn.json: first pass via Claude API (Ryan will give you an API key in
+Week 1).
+ΓÇó Second pass: Ryan arranges a native Kannada speaker (intern from another team)
+and a Hindi speaker for review. Budget two days for this in Week 6.
+ΓÇó Track translation status per key in a Google Sheet ΓÇö column per language, status
+Translated / Reviewed / Final.
+ΓÇó Never translate technical terms literally. Booking stays Booking in Hindi and Kannada.
+Use Hinglish and Kanglish where it sounds natural.
+Edge cases
+ΓÇó Number formatting ΓÇö Indian numbering: 14,500 not 14,500.00.
+ΓÇó Date formatting ΓÇö locale-aware month names and ordering.
+ΓÇó Pluralization ΓÇö use ICU MessageFormat (next-intl supports it). Test with 0, 1, 2, 5.
+ΓÇó Phone input ΓÇö Indian format default, country selector for foreign guests.
+3.10 Offline-first strategy
+Connectivity in tier-2 and tier-3 hotels is unreliable. The app must keep working when offline
+and sync when back online.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 30 of 44
+
+=== PAGE 31 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Works offline
+ΓÇó Viewing today's bookings, calendar, in-house guests, request list (last-synced data).
+ΓÇó Creating a new booking ΓÇö queues and syncs when online.
+ΓÇó Checking in or out ΓÇö queues.
+ΓÇó Logging a payment ΓÇö queues.
+ΓÇó Logging a guest request ΓÇö queues.
+ΓÇó Generating PDF invoices and C-forms ΓÇö fully client-side, works offline.
+Requires connection
+ΓÇó Sending WhatsApp or email ΓÇö queues with retry.
+ΓÇó Onboarding ΓÇö first-time setup needs online.
+ΓÇó Loading older data than last sync.
+Implementation
+ΓÇó TanStack Query handles offline reads through its cache.
+ΓÇó Dexie.js handles the offline mutation queue.
+ΓÇó Service worker via @ducanh2912/next-pwa for asset caching.
+ΓÇó Persistent yellow banner when offline: You are offline. Your changes will sync when you
+reconnect.
+ΓÇó Small badge with queue count: 3 changes pending sync.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 31 of 44
+
+=== PAGE 32 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+3.11 Data model
+You will design the full schema in Week 2 and review with Ryan. Below is the skeleton. Note
+especially the bookings.invoice_type field ΓÇö that is where the GST-flexibility design lives.
+-- Tenancy
+properties (id, name, address, gstin, logo_url, owner_id, created_at,
+language, currency, frro_email, police_station)
+-- Rooms and rates
+rooms (id, property_id, room_number, room_type_id, floor, status)
+room_types (id, property_id, name, base_rate, max_occupancy, gst_rate)
+rate_overrides (id, property_id, room_type_id, start_date, end_date,
+rate, reason)
+-- Guests
+guests (id, property_id, name, phone, email, country, city,
+id_type, id_number_masked, id_url, tags, notes, consent_at)
+-- Bookings ΓÇö note invoice_type and source
+bookings (id, property_id, guest_id, room_id, check_in, check_out,
+adults, children, rate, total, status, source,
+invoice_type, special_requests, created_at, created_by)
+-- status: pending | confirmed | checked_in | checked_out |
+-- cancelled | no_show
+-- invoice_type: internal | gst_invoice
+-- Payments
+payments (id, booking_id, amount, method, collected_at, recorded_by)
+-- method: cash | upi | card | bank | other
+-- Ad-hoc charges
+charges (id, booking_id, description, amount, added_at)
+-- Requests ΓÇö the owner-value engine
+requests (id, property_id, booking_id, room_id, request_text,
+category, routed_to, status, logged_at, logged_by,
+resolved_at, resolved_by)
+-- category: housekeeping | kitchen | front_desk | maintenance | other
+-- status: open | in_progress | done | cancelled
+-- Compliance
+cforms (id, booking_id, generated_at, submitted_to_frro, frro_ack_id)
+gst_invoices (id, booking_id, invoice_number, generated_at, pdf_url)
+-- Staff and audit
+staff (id, property_id, user_id, role, phone)
+-- role: owner | manager | viewer
+audit_log (id, property_id, user_id, action, entity_type,
+entity_id, before_json, after_json, created_at)
+RLS policies: every SELECT, INSERT, UPDATE, DELETE filtered by property_id in (select
+property_id from staff where user_id = auth.uid()).
+-- Booking history (audit trail per booking)
+booking_history (id, booking_id, changed_at, changed_by,
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 32 of 44
+
+=== PAGE 33 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+field, before_value, after_value, reason)
+-- Cancellations (linked 1:1 with bookings of status=cancelled)
+cancellations (id, booking_id, reason, refund_amount,
+refund_method, comment, cancelled_at, cancelled_by)
+-- Group booking link
+-- bookings.parent_booking_id self-FK; one parent row + N child rows
+-- Housekeeping
+housekeeping_tasks (id, property_id, room_id, status, assigned_to,
+started_at, completed_at, inspected_by,
+inspected_at, notes)
+-- status: dirty | in_progress | clean | inspected | out_of_order |
+-- owner_hold
+-- Room blocks (maintenance / owner-hold / off-market)
+room_blocks (id, property_id, room_id, start_date, end_date,
+reason, note, created_by, created_at, resolved_at)
+-- Day close
+day_close (id, property_id, close_date, opening_cash,
+cash_collected, cash_refunds, expected_closing_cash,
+actual_closing_cash, variance, payment_breakdown_json,
+submitted_by, submitted_at, locked)
+-- Cash movements (granular log feeding day_close)
+cash_movements (id, property_id, type, amount, method,
+reference_id, reference_type, recorded_by, recorded_at)
+-- type: collection | refund | drawer_open | drawer_close | adjustment
+-- method: cash | upi | card | bank | other
+-- Messages sent (pre-arrival, post-stay, confirmations)
+messages_sent (id, property_id, booking_id, channel, template,
+sent_at, sent_by, status)
+-- channel: whatsapp | email | sms
+-- template: pre_arrival | post_stay | booking_confirmation |
+-- checkout_invoice | daily_summary | custom
+-- Push notification subscriptions and delivery log
+push_subscriptions (id, user_id, endpoint, keys_json,
+user_agent, created_at, last_used_at)
+notifications (id, user_id, property_id, type, title, body,
+deep_link, payload_json, sent_at, read_at)
+Bookings table gains: parent_booking_id (group link), cancelled_at, cancelled_reason,
+no_show_at, original_booking_id (for modifications that supersede).
+Rooms table gains: hk_status (denormalized current housekeeping status, derived from
+latest housekeeping_tasks row for the room ΓÇö kept on rooms for fast joins).
+3.12 Compliance ΓÇö GST, FRRO, DPDP
+Indian hotels have legal obligations. Get these wrong and the product is unusable. Get them
+too strict and the product is unsellable ΓÇö read section 2.2 if you have forgotten why.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 33 of 44
+
+=== PAGE 34 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+GST
+ΓÇó 12 percent GST on rooms up to rupees 7,500 per night, 18 percent above.
+Auto-applied when booking.invoice_type = gst_invoice.
+ΓÇó GST invoice must include: GSTIN, SAC code 996311, HSN, taxable value, CGST,
+SGST, IGST, place of supply, sequential invoice number per Indian financial year.
+ΓÇó Invoice number format: INV/2026-27/0001 ΓÇö resets every Indian FY, April through
+March.
+ΓÇó Bookings with invoice_type = internal do not generate GST invoices. They produce a
+simple cash receipt PDF instead, which is not a tax document and is not numbered
+sequentially.
+ΓÇó Owner can convert an internal booking to a GST-invoice booking at any time from the
+booking detail view. The reverse is not allowed once a GST invoice has been issued.
+FRRO / C-Form (foreign guests)
+ΓÇó Mandatory for any foreign national stay.
+ΓÇó Auto-generate C-form PDF with all required fields: name, nationality, passport, visa,
+port of arrival, purpose, address in India.
+ΓÇó v1: generate PDF and draft email to property's FRRO office. Do not auto-submit ΓÇö
+owner reviews and sends.
+ID proof storage
+ΓÇó Aadhaar masked in UI ΓÇö show only last four digits.
+ΓÇó Store full image encrypted in Supabase Storage with restricted access policy.
+ΓÇó Explicit consent toggle at capture: Guest consents to ID storage for FRRO and police
+compliance.
+ΓÇó DPDP Act 2023 ΓÇö data must be deletable on request. Build a Delete-guest-data action
+accessible only to the owner.
+Police register (state-specific)
+ΓÇó Karnataka, Maharashtra, and some others require daily police register submission.
+ΓÇó v1: generate a daily PDF report of all check-ins. Owner prints, emails, or WhatsApps to
+local station.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 34 of 44
+
+=== PAGE 35 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+3.13 Design system
+Aspirational, warm, Indian. Not generic SaaS blue.
+Colors
+Token Hex Use
+Primary #B85518 Buttons, links, primary CTAs. Muted saffron, not bright
+orange.
+Secondary #1F5C3F Available status, success messages.
+Accent #C9971F Badges, highlights, the daily-summary CTA.
+Text #1A1A1A Body text on light background.
+Muted text #5C5C5C Secondary text, captions.
+Background #F5F4F0 Page background ΓÇö warm not stark.
+Surface #FFFFFF Cards, sheets, modals.
+Border #D9D5CC Dividers, table borders.
+Danger #8B2C2C Errors, overdue items, destructive actions.
+All colors verified for WCAG AA contrast against background and surface.
+Typography
+ΓÇó Family: Noto Sans (latin / devanagari / kannada subsets).
+ΓÇó Scale: 12 / 14 / 16 / 18 / 20 / 24 / 32 / 48 pixels.
+ΓÇó Body never below 14 px. Middle-aged eyes.
+ΓÇó Tabular numerals for tables and metrics.
+Spacing and sizing
+ΓÇó 4 px base unit. Use Tailwind's default scale.
+ΓÇó Minimum touch target: 48 by 48 px.
+ΓÇó Maximum content width on desktop: 1280 px. App is mobile-first; desktop is centered.
+Components to design and build
+ΓÇó Button ΓÇö primary, secondary, ghost, destructive.
+ΓÇó Input ΓÇö text, phone, OTP, date, currency, with voice-input variant.
+ΓÇó Select / Combobox.
+ΓÇó Card.
+ΓÇó Modal on desktop, Bottom Sheet on mobile.
+ΓÇó Toast / Alert.
+ΓÇó Table ΓÇö collapses to card list on mobile.
+ΓÇó Badge.
+ΓÇó Avatar.
+ΓÇó Tabs.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 35 of 44
+
+=== PAGE 36 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+ΓÇó Calendar / date picker.
+ΓÇó Empty state.
+ΓÇó Loading skeleton.
+Use shadcn/ui as the base. Customize tokens to match. Document every component in a
+Storybook-style page at /design (a hidden route in the app).
+3.14 Repo structure and conventions
+Bootstrap
+pnpm create next-app@latest soyl-lite-pms \
+--typescript --tailwind --app --src-dir \
+--import-alias "@/*"
+Folder structure
+soyl-lite-pms/
+Γö£ΓöÇΓöÇ src/
+Γöé Γö£ΓöÇΓöÇ app/
+Γöé Γöé Γö£ΓöÇΓöÇ [locale]/
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ (marketing)/
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ (auth)/
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ onboarding/
+Γöé Γöé Γöé ΓööΓöÇΓöÇ app/
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ owner/
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ pulse/
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ attention/
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ story/
+Γöé Γöé Γöé Γöé Γö£ΓöÇΓöÇ week/
+Γöé Γöé Γöé Γöé ΓööΓöÇΓöÇ reports/
+Γöé Γöé Γöé ΓööΓöÇΓöÇ manager/
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ today/
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ calendar/
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ bookings/
+Γöé Γöé Γöé Γö£ΓöÇΓöÇ requests/
+Γöé Γöé Γöé ΓööΓöÇΓöÇ guests/
+Γöé Γöé ΓööΓöÇΓöÇ api/
+Γöé Γö£ΓöÇΓöÇ components/
+Γöé Γöé Γö£ΓöÇΓöÇ ui/ (shadcn primitives)
+Γöé Γöé Γö£ΓöÇΓöÇ booking/
+Γöé Γöé Γö£ΓöÇΓöÇ calendar/
+Γöé Γöé Γö£ΓöÇΓöÇ requests/
+Γöé Γöé ΓööΓöÇΓöÇ ...
+Γöé Γö£ΓöÇΓöÇ lib/
+Γöé Γöé Γö£ΓöÇΓöÇ supabase/ (client, server, types)
+Γöé Γöé Γö£ΓöÇΓöÇ pdf/ (invoice, c-form, receipt generators)
+Γöé Γöé Γö£ΓöÇΓöÇ offline/ (dexie queue, sync logic)
+Γöé Γöé Γö£ΓöÇΓöÇ voice/ (web speech wrappers)
+Γöé Γöé Γö£ΓöÇΓöÇ utils/
+Γöé Γöé ΓööΓöÇΓöÇ validations/ (zod schemas)
+Γöé Γö£ΓöÇΓöÇ hooks/
+Γöé Γö£ΓöÇΓöÇ stores/ (zustand stores)
+Γöé ΓööΓöÇΓöÇ messages/ (en.json, hi.json, kn.json)
+Γö£ΓöÇΓöÇ public/
+Γö£ΓöÇΓöÇ supabase/
+Γöé ΓööΓöÇΓöÇ migrations/
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 36 of 44
+
+=== PAGE 37 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Γö£ΓöÇΓöÇ .env.example
+ΓööΓöÇΓöÇ README.md
+Commit and PR conventions
+ΓÇó Conventional Commits: feat, fix, chore, docs, refactor.
+ΓÇó One PR per feature, not per file. PRs reference Linear ticket IDs.
+ΓÇó No direct commits to main. Every PR reviewed by Ryan.
+ΓÇó PR description template ΓÇö what, why, screenshots, test plan.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 37 of 44
+
+=== PAGE 38 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Part 4 ΓÇö Build Plan
+4.1 Eight-week schedule
+Each week has a single primary deliverable. If a week's deliverable slips, we rescope the
+following week ΓÇö we do not stack delays.
+Week 1 ΓÇö Discovery and design system
+ΓÇó Read this entire document twice.
+ΓÇó Audit competitors ΓÇö Vyapar Hotel, Khatabook, Hostelworld manager app, Hotelogix,
+eZee, Djubo. Note what each does well, badly.
+ΓÇó Set up Figma file with the full design system: color tokens, type scale, spacing, base
+components.
+ΓÇó Produce a clickable Figma prototype of the Pulse screen (Owner Mode) and the New
+Booking flow (Manager Mode).
+ΓÇó Deliverable: Figma file with design system + two prototype flows. 30-minute
+walkthrough with Ryan on Friday.
+Week 2 ΓÇö Full Figma and schema
+ΓÇó Design every screen in section 3.8 ΓÇö Owner Mode plus Manager Mode.
+ΓÇó Design system finalized ΓÇö every component variant locked.
+ΓÇó Design Supabase schema, expanded with all columns, indexes, and RLS policies.
+Migration files in repo.
+ΓÇó Write .env.example, set up repo, install deps.
+ΓÇó Deliverable: Complete Figma file + schema migration files committed to repo + empty
+Next.js app scaffolded.
+Week 3 ΓÇö Foundation
+ΓÇó Auth ΓÇö phone OTP via Supabase.
+ΓÇó Onboarding wizard end to end.
+ΓÇó i18n setup, all en.json keys written, app shell with bottom nav for both modes.
+ΓÇó Pulse screen (Owner Mode) with mock data first, then live.
+ΓÇó Deliverable: Demo: sign up, onboard, land on Pulse, in English.
+Week 4 ΓÇö Bookings core and lifecycle
+ΓÇó New Booking flow complete with online and offline queue.
+ΓÇó Calendar / Room Grid screen.
+ΓÇó Booking detail sheet ΓÇö view + modification flow.
+ΓÇó Cancellation, no-show handling.
+ΓÇó Block room flow (uses calendar grid; supports maintenance, owner-stay, off-market).
+ΓÇó Manager Mode Today screen.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 38 of 44
+
+=== PAGE 39 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+ΓÇó Deliverable: Demo: create a booking via voice, modify it, cancel another, block a room
+for maintenance ΓÇö all visible on the calendar grid and in the audit trail.
+Week 5 ΓÇö Lifecycle, folio, requests, guests
+ΓÇó Check-in flow including C-form generation for foreign guests.
+ΓÇó Check-out flow including GST invoice or cash-receipt generation.
+ΓÇó Folio screen ΓÇö running stay account with charges, payments, balance.
+ΓÇó Stay extension flow.
+ΓÇó Room change mid-stay flow.
+ΓÇó Group bookings (basic) ΓÇö linked sibling bookings sharing a primary contact.
+ΓÇó Requests screen end to end ΓÇö log, route, resolve.
+ΓÇó Guests list and detail with stay history.
+ΓÇó ID proof capture (camera + upload, Aadhaar masking).
+ΓÇó Deliverable: Demo: full lifecycle of a foreign guest ΓÇö booking, mid-stay request, stay
+extension, room change, checkout with GST invoice. Folio reflects every charge and
+payment. End to end in under 8 minutes.
+Week 6 ΓÇö Owner Mode, housekeeping, day close, i18n, polish
+ΓÇó Housekeeping board ΓÇö room status, daily list, voice-noted issues.
+ΓÇó Day close + cash position ΓÇö the owner-trust screen.
+ΓÇó Reports (Owner Mode) ΓÇö occupancy, revenue, GST.
+ΓÇó What needs attention + Today's story + This week screens complete.
+ΓÇó Daily summary WhatsApp flow.
+ΓÇó Pre-arrival and post-stay WhatsApp templates with placeholder substitution.
+ΓÇó Push notifications ΓÇö subscription setup, server-side trigger via Supabase Edge
+Function.
+ΓÇó Police register PDF + audit log read-only viewer.
+ΓÇó Settings module.
+ΓÇó PWA install flow, offline banner, sync queue UI.
+ΓÇó All strings translated to Hindi and Kannada with native-speaker review.
+ΓÇó Deliverable: Switch app to Kannada and use it end to end. Owner sees today's cash
+position with zero variance. Pre-arrival WhatsApp goes out for tomorrow's guests in
+one tap. PWA installs to home screen on Android.
+Week 6 is the heaviest week. If you fall behind, the descope order is: group bookings ΓåÆ
+audit log viewer ΓåÆ post-stay review template. Day close, housekeeping board, and i18n
+review are non-negotiable.
+Week 7 ΓÇö Pilot deployment
+ΓÇó Deploy to staging.
+ΓÇó Onboard one real hotel ΓÇö Ryan arranges.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 39 of 44
+
+=== PAGE 40 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+ΓÇó Sit with the manager for one full day. Sit with the owner for one hour.
+ΓÇó Record every confusion, every tap that did not work as expected, every
+easier-than-paper question. Time real workflows.
+ΓÇó File bugs in Linear, prioritized P0 / P1 / P2.
+ΓÇó Deliverable: Pilot test report. Bug list. Honest assessment of whether Manager Mode
+beat paper on the actions we measured.
+Week 8 ΓÇö Fixes and launch
+ΓÇó Fix all P0 and P1 bugs from pilot.
+ΓÇó Performance pass ΓÇö Lighthouse above 90 mobile, above 95 accessibility, 100 PWA.
+ΓÇó Deploy to production.
+ΓÇó Write internal handover doc and README.
+ΓÇó Twenty-minute team demo on Friday.
+ΓÇó Deliverable: Live product. One real hotel using it. Team demo recorded. Handover doc
+shipped.
+4.2 Definition of done
+A feature is done when all of the following are true:
+1. It works on mobile (Chrome Android, 360 px viewport) and desktop.
+2. All strings live in i18n keys, with en / hi / kn all present.
+3. TypeScript compiles with strict: true. No any.
+4. ESLint passes with zero warnings.
+5. Forms validate via Zod. No silent failures.
+6. Loading, error, and empty states all designed and implemented.
+7. Works offline (where listed in section 3.10).
+8. Accessible ΓÇö keyboard nav, focus states, ARIA labels. Lighthouse a11y at or above
+95.
+9. Tested manually on one real Android device.
+10. PR reviewed and merged by Ryan.
+4.3 Risk register
+Known risks, with mitigation plans. If a new risk surfaces during the build, add it to this list
+and ping Ryan.
+Risk Likelihood Impact Mitigation
+Pilot hotel manager refuses to Medium High Owner-Mode value is
+use Manager Mode (the independent of manager
+white-paper risk). adoption. If the manager refuses,
+the owner still sees a daily
+summary derived from continued
+paper-to-WhatsApp workflow
+with manual entry. Manager
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 40 of 44
+
+=== PAGE 41 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Risk Likelihood Impact Mitigation
+Mode adoption is a Week-7
+question, not a Week-1 blocker.
+Web Speech API misrecognizes High Medium Always allow text fallback. Build
+Kannada/Hindi names. the voice input as an
+enhancement, not a requirement.
+Test with five real Indian names
+from Day 1.
+Supabase free tier limits hit Low Medium We have a paid Supabase
+during pilot. project on Mumbai region. The
+pilot will run on the paid tier; the
+free-tier numbers are for
+cost-modeling Lite at scale.
+Translations are wrong or feel Medium Medium Two-pass workflow: Claude API
+unnatural. first pass, native-speaker second
+pass in Week 6. Allocate two
+days, not two hours.
+Schema rework mid-build. Medium High Schema reviewed and frozen at
+end of Week 2. After that,
+additions require a migration;
+renames or restructures require
+Ryan's explicit approval.
+Intern stuck on a problem for Medium High Thirty-minute rule (see Appendix
+days without asking. C). Mon/Wed/Fri standups catch
+this. Ryan checks Linear daily for
+stale tickets.
+Scope creep ΓÇö can I add Medium High Out-of-scope list in section 3.3 is
+channel manager, AI agent, the source of truth. Any addition
+multi-property? requires explicit Ryan approval in
+writing in Linear.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 41 of 44
+
+=== PAGE 42 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Part 5 ΓÇö Appendices
+A. Glossary
+Terms you will hear in standups, PRs, and customer calls.
+Term Meaning
+ADR Average Daily Rate. Total room revenue divided by rooms sold.
+ARR Average Room Rate. Used interchangeably with ADR in Indian
+hospitality.
+RevPAR Revenue Per Available Room. ADR times occupancy. Pro-tier metric,
+not in Lite.
+OTA Online Travel Agency. Booking.com, MakeMyTrip, Agoda, Goibibo.
+PMS Property Management System. The category we are in.
+FRRO Foreigners Regional Registration Office. Mandatory foreign-guest
+reporting.
+C-Form Foreign guest declaration form, filed with FRRO.
+GST Goods and Services Tax. Indian indirect tax.
+DPDP Digital Personal Data Protection Act, 2023. India's data privacy law.
+RLS Row-Level Security. Supabase/PostgreSQL feature for tenant isolation.
+PWA Progressive Web App. Installable web app, no app store.
+RSC React Server Component. Next.js 14 feature.
+SAC Service Accounting Code. SAC 996311 covers room rentals.
+HSN Harmonized System Nomenclature. Goods classification code.
+Pulse Owner Mode home screen ΓÇö the live dashboard.
+Attention screen Owner Mode screen showing what almost went wrong today.
+Story screen Owner Mode chronological feed of today's events.
+Owner Mode The interface optimized for the owner ΓÇö visibility, alerts, summaries.
+Manager Mode The interface optimized for the manager ΓÇö speed, voice, defaults.
+B. Learning resources
+Read in this order. Bookmark and refer back. You do not need to memorize them; you need
+to know what is in them.
+Must-read before Week 3
+ΓÇó Next.js App Router docs ΓÇö full read of Routing and Data Fetching sections.
+ΓÇó Supabase docs ΓÇö Auth, RLS, and Storage sections.
+ΓÇó next-intl getting-started guide.
+ΓÇó TanStack Query ΓÇö Important Defaults and Mutations pages.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 42 of 44
+
+=== PAGE 43 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+Skim
+ΓÇó shadcn/ui docs ΓÇö install components as needed, read the customization guide.
+ΓÇó Tailwind CSS docs ΓÇö focus on responsive, dark mode, arbitrary values.
+ΓÇó Dexie.js docs ΓÇö focus on the queue pattern.
+Inspiration
+ΓÇó Mews UI (mews.com) ΓÇö what premium PMS looks like.
+ΓÇó Vyapar app ΓÇö Indian SMB UX patterns.
+ΓÇó Khatabook app ΓÇö language switching, Indian number formatting.
+ΓÇó Cleartrip and MakeMyTrip mobile web ΓÇö Indian travel app patterns.
+Optional
+ΓÇó Refactoring UI by Adam Wathan and Steve Schoger ΓÇö short, gold.
+ΓÇó Josh Comeau's CSS-for-JS-Developers blog ΓÇö free articles.
+C. How to ask for help
+You will get stuck. That is expected. The protocol:
+1. Spend thirty minutes trying yourself. Docs, Stack Overflow, Claude. Most things are
+searchable.
+2. Still stuck? Post in #lite-pms Slack with this format:
+What I'm trying to do: one sentence.
+What I tried: bullet list.
+What is happening: error message or unexpected behavior.
+What I think the problem is: your hypothesis.
+3. Never stay silent for a day because you are embarrassed to ask. Silent struggle equals
+no shipping. Asking after thirty minutes of effort is professional, not weak.
+4. If a Slack thread does not resolve in two hours during working hours, pull Ryan into a
+Loom or quick call.
+D. Final deliverables checklist
+By end of Week 8 you should be able to tick every box.
+ΓÇó Live production URL (Vercel deployment).
+ΓÇó GitHub repo with complete README and setup instructions.
+ΓÇó Figma file with read-only link, organized by mode (Owner / Manager) and component
+library.
+ΓÇó All three language files complete and native-reviewed.
+ΓÇó Pilot hotel using the product daily.
+ΓÇó Lighthouse scores: Performance at or above 90, Accessibility at or above 95, PWA =
+100, SEO at or above 90.
+ΓÇó Twenty-minute Loom recording showing the full guest lifecycle in Kannada.
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 43 of 44
+
+=== PAGE 44 ===
+SOYL AI Lite PMS ΓÇö Intern Brief & PRD
+ΓÇó Handover doc: architecture decisions, gotchas, known issues, next steps for v2.
+ΓÇó Pilot test report documenting the manager's actual experience and any
+easier-than-paper measurements.
+End of document
+SOYL AI ΓÇö Intern Brief & PRD v1.0 ΓÇö May 2026
+┬⌐ 2026 SOYL AI ΓÇö Confidential ┬╖ Page 44 of 44
+
