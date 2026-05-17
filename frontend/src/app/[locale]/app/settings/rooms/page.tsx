@@ -158,6 +158,7 @@ export default function ManageRoomsPage() {
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label={`Edit room ${room.number}`}
                         onClick={() => startEdit(room)}
                         className="size-9 text-muted-foreground hover:text-primary"
                       >

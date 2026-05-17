@@ -4,6 +4,8 @@ import Image from "next/image";
 import { Bell, Settings } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { LanguageSwitcher } from "@/components/shared/language-switcher";
 
 interface TopBarProps {
   title: string;
@@ -19,7 +21,13 @@ export function TopBar({
   rightAction,
 }: TopBarProps) {
   return (
-    <header className="glass-heavy fixed inset-x-0 top-0 z-40 h-14 border-b border-white/[0.06] safe-area-pt">
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-40 h-14 safe-area-pt",
+        "border-b border-border/80 bg-card/95 shadow-sm backdrop-blur-md",
+        "dark:border-white/[0.06] dark:bg-navy-900/85 dark:shadow-none",
+      )}
+    >
       <div className="flex h-full items-center justify-between px-4">
         <div className="flex min-w-0 items-center gap-2.5">
           <Image
@@ -30,31 +38,35 @@ export function TopBar({
             className="size-7 shrink-0 rounded-full"
             priority
           />
-          <h1 className="truncate text-sm font-semibold tracking-tight text-chalk">
+          <h1 className="truncate text-sm font-semibold tracking-tight text-foreground dark:text-chalk">
             {title}
           </h1>
         </div>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1">
+          <ThemeToggle compact />
+          <LanguageSwitcher compact />
           {rightAction}
           {showNotifications && (
             <Link
               href="/app/notifications"
+              aria-label="Notifications"
               className={cn(
-                "flex size-9 items-center justify-center rounded-xl text-plum transition-all hover:bg-white/[0.05] hover:text-chalk",
+                "flex size-9 items-center justify-center rounded-xl text-muted-foreground transition-all hover:bg-muted hover:text-foreground dark:text-plum dark:hover:bg-white/[0.05] dark:hover:text-chalk",
               )}
             >
-              <Bell className="size-4" />
+              <Bell className="size-4 shrink-0" />
             </Link>
           )}
           {showSettings && (
             <Link
               href="/app/settings"
+              aria-label="Settings"
               className={cn(
-                "flex size-9 items-center justify-center rounded-xl text-plum transition-all hover:bg-white/[0.05] hover:text-chalk",
+                "flex size-9 items-center justify-center rounded-xl text-muted-foreground transition-all hover:bg-muted hover:text-foreground dark:text-plum dark:hover:bg-white/[0.05] dark:hover:text-chalk",
               )}
             >
-              <Settings className="size-4" />
+              <Settings className="size-4 shrink-0" />
             </Link>
           )}
         </div>

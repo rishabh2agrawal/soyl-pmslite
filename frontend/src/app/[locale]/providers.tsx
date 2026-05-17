@@ -5,12 +5,20 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { useAppStore } from "@/lib/store";
 import { useEffect, useState } from "react";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { LocaleSync } from "@/components/providers/locale-sync";
+import { MotionConfig } from "framer-motion";
 
 function PersistRehydrate({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     void useAppStore.persist.rehydrate();
   }, []);
-  return <>{children}</>;
+  return (
+    <>
+      <LocaleSync />
+      {children}
+    </>
+  );
 }
 
 function OnlineStatusProvider({ children }: { children: React.ReactNode }) {
@@ -48,12 +56,16 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider delayDuration={300}>
-        <PersistRehydrate>
-          <OnlineStatusProvider>
-            {children}
-            <Toaster />
-          </OnlineStatusProvider>
-        </PersistRehydrate>
+        <MotionConfig reducedMotion="user">
+          <ThemeProvider>
+            <PersistRehydrate>
+              <OnlineStatusProvider>
+                {children}
+                <Toaster />
+              </OnlineStatusProvider>
+            </PersistRehydrate>
+          </ThemeProvider>
+        </MotionConfig>
       </TooltipProvider>
     </QueryClientProvider>
   );

@@ -17,7 +17,7 @@ const bookingVariants: Record<BookingStatus, StatusColor> = {
   checked_in: {
     bg: "bg-[var(--status-checkedin-bg)]",
     text: "text-[var(--status-checkedin-text)]",
-    ring: "ring-1 ring-teal/30",
+    ring: "ring-1 ring-blue-300/65 dark:ring-teal/35",
   },
   checked_out: {
     bg: "bg-[var(--status-checkout-bg)]",

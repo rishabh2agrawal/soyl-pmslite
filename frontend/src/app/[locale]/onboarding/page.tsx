@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/routing";
+import { useRouter, usePathname } from "@/i18n/routing";
 import { useAppStore } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,9 +16,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
-import { onboardingStepVariants } from "@/lib/motion";
+import { onboardingStepVariants, pageTransitionProps } from "@/lib/motion";
+import type { Locale } from "@/types";
 import {
   ArrowLeft,
   ArrowRight,
@@ -43,11 +43,12 @@ interface ManagerEntry {
 const STEPS = 5;
 
 const onLabelClass =
-  "text-xs text-plum font-medium uppercase tracking-wide";
+  "text-xs font-medium uppercase tracking-wide text-muted-foreground dark:text-plum";
 
 export default function OnboardingPage() {
   const t = useTranslations("onboarding");
   const router = useRouter();
+  const pathname = usePathname();
   const {
     setOnboardingComplete,
     setPropertyName,
@@ -174,15 +175,30 @@ export default function OnboardingPage() {
   const totalRooms = roomTypes.reduce((sum, r) => sum + r.count, 0);
 
   return (
-    <div className="flex min-h-dvh flex-col bg-background">
-      {/* Progress */}
-      <div className="glass-heavy safe-area-pt sticky top-0 z-10 border-b border-white/[0.06] px-4 pb-2 pt-4 shadow-[0_1px_0_rgba(255,255,255,0.04)]">
-        <div className="mb-2 flex items-center justify-between">
-          <span className="text-xs text-plum">
+    <motion.div
+      {...pageTransitionProps}
+      className="flex min-h-dvh flex-col bg-background"
+    >
+      {/* Progress — horizontal pill segments (reference-style) */}
+      <div className="safe-area-pt sticky top-0 z-10 border-b border-border/90 bg-background/95 backdrop-blur-md px-4 pb-3 pt-4 dark:border-white/[0.06] dark:bg-navy-900/85">
+        <div className="mb-3 flex items-center justify-between">
+          <span className="text-xs text-muted-foreground dark:text-plum">
             {step + 1} / {STEPS}
           </span>
         </div>
-        <Progress value={((step + 1) / STEPS) * 100} className="h-1.5 bg-white/[0.08]" />
+        <div className="flex gap-1.5">
+          {Array.from({ length: STEPS }).map((_, i) => (
+            <div
+              key={i}
+              className={cn(
+                "h-1.5 flex-1 rounded-full transition-all duration-500",
+                i <= step
+                  ? "bg-primary shadow-sm dark:bg-teal"
+                  : "bg-muted dark:bg-white/10",
+              )}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Content */}
@@ -205,7 +221,9 @@ export default function OnboardingPage() {
                 selectedLang={selectedLang}
                 onSelect={(code) => {
                   setSelectedLang(code);
-                  setLocale(code);
+                  const next = code as Locale;
+                  setLocale(next);
+                  router.replace(pathname, { locale: next });
                 }}
                 t={t}
               />
@@ -280,7 +298,7 @@ export default function OnboardingPage() {
           </Button>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -478,6 +496,7 @@ function StepRooms({
                 <button
                   type="button"
                   onClick={() => removeRoomType(room.id)}
+                  aria-label="Remove room type"
                   className="rounded-md p-1.5 text-destructive hover:bg-destructive/10"
                 >
                   <Trash2 className="h-4 w-4" />
@@ -499,6 +518,7 @@ function StepRooms({
                     type="button"
                     variant="outline"
                     size="icon"
+                    aria-label="Decrease room count"
                     className="min-h-touch min-w-touch border-white/[0.12] bg-white/[0.03] hover:bg-white/[0.07]"
                     onClick={() =>
                       updateRoomType(room.id, "count", Math.max(1, room.count - 1))
@@ -513,6 +533,7 @@ function StepRooms({
                     type="button"
                     variant="outline"
                     size="icon"
+                    aria-label="Increase room count"
                     className="min-h-touch min-w-touch border-white/[0.12] bg-white/[0.03] hover:bg-white/[0.07]"
                     onClick={() =>
                       updateRoomType(room.id, "count", room.count + 1)
@@ -696,6 +717,7 @@ function StepRoles({
               <button
                 type="button"
                 onClick={() => removeManager(m.id)}
+                aria-label="Remove manager"
                 className="rounded-md p-1.5 text-destructive hover:bg-destructive/10"
               >
                 <Trash2 className="h-4 w-4" />

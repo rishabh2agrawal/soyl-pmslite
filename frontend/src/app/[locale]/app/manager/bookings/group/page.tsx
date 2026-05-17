@@ -184,6 +184,7 @@ export default function GroupBookingPage() {
                       type="button"
                       variant="outline"
                       size="icon"
+                      aria-label={`Decrease rooms for ${type}`}
                       className="min-h-touch min-w-touch border-white/[0.06]"
                       disabled={roomCounts[type] <= 0}
                       onClick={() => updateCount(type, -1)}
@@ -197,6 +198,7 @@ export default function GroupBookingPage() {
                       type="button"
                       variant="outline"
                       size="icon"
+                      aria-label={`Increase rooms for ${type}`}
                       className="min-h-touch min-w-touch border-white/[0.06]"
                       disabled={roomCounts[type] >= available}
                       onClick={() => updateCount(type, 1)}

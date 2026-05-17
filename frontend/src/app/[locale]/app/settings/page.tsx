@@ -10,27 +10,24 @@ import {
   Receipt,
   Users,
   Globe,
+  Palette,
   Bell,
   ChevronRight,
   Trash2,
   Plus,
 } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { PageHeader } from "@/components/shared/page-header";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { ROOMS, STAFF } from "@/lib/mock-data";
 import type { StaffMember, NotificationSetting } from "@/types";
-import { cn } from "@/lib/utils";
-
-const languages = [
-  { code: "en", label: "English" },
-  { code: "hi", label: "Hindi" },
-  { code: "kn", label: "Kannada" },
-];
 
 const defaultNotifications: NotificationSetting[] = [
   { type: "New booking", enabled: true },
@@ -42,6 +39,7 @@ const defaultNotifications: NotificationSetting[] = [
 ];
 
 export default function SettingsPage() {
+  const t = useTranslations("settings");
   const [propertyName, setPropertyName] = useState("SOYL Residency");
   const [address, setAddress] = useState("123 MG Road, Bangalore 560001");
   const [gstin, setGstin] = useState("29ABCDE1234F1Z5");
@@ -49,7 +47,6 @@ export default function SettingsPage() {
   const [gstEnabled, setGstEnabled] = useState(true);
   const [defaultTaxRate, setDefaultTaxRate] = useState("12");
   const [staff, setStaff] = useState<StaffMember[]>(STAFF);
-  const [activeLang, setActiveLang] = useState("en");
   const [notifications, setNotifications] = useState(defaultNotifications);
 
   function toggleNotification(index: number) {
@@ -77,9 +74,24 @@ export default function SettingsPage() {
       className="pb-8"
     >
       <div className="mx-auto max-w-2xl px-4">
-        <PageHeader title="Settings" />
+        <PageHeader title={t("title")} />
 
         <div className="space-y-4">
+          {/* Appearance */}
+          <Card className="surface-card">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2 text-base">
+                <Palette className="size-4 shrink-0 text-primary" aria-hidden />
+                {t("appearance")}
+              </CardTitle>
+              <CardDescription>{t("appearanceDescription")}</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <p className="text-sm font-medium text-foreground">{t("themeLabel")}</p>
+              <ThemeToggle />
+            </CardContent>
+          </Card>
+
           {/* Property Profile */}
           <Card className="border-white/[0.06] bg-white/80">
             <CardHeader className="pb-2">
@@ -184,6 +196,7 @@ export default function SettingsPage() {
                   <Button
                     variant="ghost"
                     size="icon"
+                    aria-label={`Remove staff ${s.name}`}
                     onClick={() => removeStaff(s.id)}
                     className="size-9 text-destructive hover:bg-destructive/10"
                   >
@@ -202,40 +215,25 @@ export default function SettingsPage() {
           </Card>
 
           {/* Language */}
-          <Card className="border-white/[0.06] bg-white/80">
+          <Card className="surface-card">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
-                <Globe className="size-4 text-primary" />
-                Language
+                <Globe className="size-4 shrink-0 text-primary" aria-hidden />
+                {t("language")}
               </CardTitle>
+              <CardDescription>{t("languageDescription")}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex gap-2">
-                {languages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    type="button"
-                    onClick={() => setActiveLang(lang.code)}
-                    className={cn(
-                      "min-h-touch flex-1 rounded-lg border px-3 py-2 text-sm font-semibold shadow-soft transition-colors",
-                      activeLang === lang.code
-                        ? "border-primary bg-primary text-white shadow-card"
-                        : "border-white/[0.06] bg-white/80 text-foreground hover:bg-muted"
-                    )}
-                  >
-                    {lang.label}
-                  </button>
-                ))}
-              </div>
+              <LanguageSwitcher />
             </CardContent>
           </Card>
 
           {/* Notifications */}
-          <Card className="border-white/[0.06] bg-white/80">
+          <Card className="surface-card">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
-                <Bell className="size-4 text-primary" />
-                Notifications
+                <Bell className="size-4 shrink-0 text-primary" aria-hidden />
+                {t("notifications")}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-1">

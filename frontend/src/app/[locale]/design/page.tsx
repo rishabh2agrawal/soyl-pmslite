@@ -149,7 +149,7 @@ export default function DesignSystemPage() {
                 <Button size="sm" className="bg-primary text-white hover:bg-primary-light">Small</Button>
                 <Button className="min-h-touch bg-primary text-white hover:bg-primary-light">Default</Button>
                 <Button size="lg" className="bg-primary text-white hover:bg-primary-light">Large</Button>
-                <Button size="icon" className="bg-primary text-white hover:bg-primary-light">
+                <Button size="icon" aria-label="Add sample" className="bg-primary text-white hover:bg-primary-light">
                   <Plus className="size-4" />
                 </Button>
               </div>

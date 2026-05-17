@@ -148,6 +148,7 @@ export default function ManageRatesPage() {
                 <Button
                   variant="ghost"
                   size="icon"
+                  aria-label="Remove rate override"
                   onClick={() => removeOverride(ov.id)}
                   className="size-9 text-destructive hover:bg-destructive/10"
                 >

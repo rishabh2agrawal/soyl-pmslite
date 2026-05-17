@@ -2,7 +2,11 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { Locale, UserRole } from "@/types";
 
+export type ThemeMode = "light" | "dark" | "system";
+
 interface AppState {
+  theme: ThemeMode;
+  setTheme: (theme: ThemeMode) => void;
   locale: Locale;
   setLocale: (locale: Locale) => void;
   userRole: UserRole;
@@ -22,6 +26,8 @@ interface AppState {
 export const useAppStore = create<AppState>()(
   persist(
     (set) => ({
+      theme: "light",
+      setTheme: (theme) => set({ theme }),
       locale: "en",
       setLocale: (locale) => set({ locale }),
       userRole: "owner",

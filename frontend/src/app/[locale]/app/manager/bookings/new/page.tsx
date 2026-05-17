@@ -464,6 +464,7 @@ function Stepper({
         type="button"
         variant="outline"
         size="icon"
+        aria-label="Decrease quantity"
         className="min-h-touch min-w-touch border-white/[0.12] bg-white/[0.03] hover:bg-white/[0.07]"
         disabled={value <= min}
         onClick={() => onChange(value - 1)}
@@ -475,6 +476,7 @@ function Stepper({
         type="button"
         variant="outline"
         size="icon"
+        aria-label="Increase quantity"
         className="min-h-touch min-w-touch border-white/[0.12] bg-white/[0.03] hover:bg-white/[0.07]"
         disabled={value >= max}
         onClick={() => onChange(value + 1)}

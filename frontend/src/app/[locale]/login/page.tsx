@@ -2,159 +2,171 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Link, useRouter } from "@/i18n/routing";
 import { useAppStore } from "@/lib/store";
-import {
-  Eye,
-  EyeOff,
-  ArrowRight,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
 import { pageTransitionProps } from "@/lib/motion";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { LanguageSwitcher } from "@/components/shared/language-switcher";
+import { useTranslations } from "next-intl";
+import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function LoginPage() {
+  const t = useTranslations("login");
   const router = useRouter();
-  const [phone, setPhone] = useState("");
+  const propertyName = useAppStore((s) => s.propertyName);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [role, setRole] = useState<"owner" | "manager">("manager");
   const [loading, setLoading] = useState(false);
   const { setOnboardingComplete, setPropertyName, setUserRole } = useAppStore();
 
+  const displayName = propertyName?.trim() || "Your property";
+
   const handleLogin = async () => {
     setLoading(true);
     await new Promise((r) => setTimeout(r, 800));
-    setPropertyName("Sunset Lodge");
+    setPropertyName(propertyName?.trim() || "Sunset Lodge");
     setOnboardingComplete(true);
     setUserRole(role);
     router.replace(role === "owner" ? "/app/owner" : "/app/manager");
     setLoading(false);
   };
 
+  const canSubmit = email.includes("@") && password.length >= 1;
+
   return (
-    <div className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-ink px-4">
+    <div className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-primary/10 via-background to-background px-4 dark:from-teal/10 dark:via-background dark:to-background">
       <div className="pointer-events-none fixed inset-0">
-        <div className="absolute left-1/2 top-1/3 h-[400px] w-[600px] max-w-[100vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal/[0.05] blur-[80px]" />
+        <div className="absolute left-1/2 top-1/3 h-[420px] w-[620px] max-w-[100vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/12 blur-[90px] dark:bg-teal/10" />
       </div>
 
       <motion.div {...pageTransitionProps} className="relative w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center gap-3">
-          <Image
-            src="/icon.png"
-            alt="SOYL"
-            width={52}
-            height={52}
-            className="size-[52px] rounded-full shadow-glow"
-            priority
-          />
+          <div className="flex size-16 items-center justify-center rounded-full bg-muted shadow-md ring-4 ring-border">
+            <Image
+              src="/icon.png"
+              alt=""
+              width={40}
+              height={40}
+              className="size-10 rounded-full"
+              priority
+            />
+          </div>
           <div className="text-center">
-            <h1 className="text-xl font-semibold tracking-tight text-chalk">
-              soyl<span className="text-teal">PMS</span>
-            </h1>
-            <p className="mt-0.5 text-xs text-plum">Welcome back</p>
+            <h1 className="text-2xl font-bold text-foreground">{displayName}</h1>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              Property Management System
+            </p>
           </div>
         </div>
 
-        <div className="mb-6 flex rounded-xl border border-white/[0.07] bg-white/[0.02] p-1">
+        <div className="mb-6 flex rounded-xl border border-border bg-muted/40 p-1 dark:border-white/10 dark:bg-white/5">
           {(["manager", "owner"] as const).map((r) => (
             <button
               key={r}
               type="button"
               onClick={() => setRole(r)}
-              className={cn(
-                "flex-1 rounded-lg py-2 text-sm font-medium transition-all",
+              className={
                 role === r
-                  ? "border border-teal/20 bg-teal/12 text-teal"
-                  : "text-plum hover:text-chalk",
-              )}
+                  ? "flex-1 rounded-lg border border-primary/25 bg-background py-2 text-sm font-medium text-primary shadow-sm transition-all dark:border-teal dark:bg-teal/10 dark:text-teal"
+                  : "flex-1 rounded-lg py-2 text-sm font-medium text-muted-foreground transition-all hover:text-foreground"
+              }
+              aria-label={r}
+              aria-pressed={role === r}
             >
               {r.charAt(0).toUpperCase() + r.slice(1)}
             </button>
           ))}
         </div>
 
-        <div className="liquid-glass rounded-2xl p-6 shadow-raised">
-          <div className="space-y-4">
-            <div>
-              <label className="mb-1.5 block text-2xs font-semibold uppercase tracking-[0.15em] text-plum">
-                Mobile number
-              </label>
-              <div className="flex overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.03] transition-all focus-within:border-teal/40 focus-within:shadow-glow-sm">
-                <span className="flex items-center border-r border-white/[0.08] px-3 text-xs text-plum">
-                  +91
-                </span>
-                <input
-                  type="tel"
-                  value={phone}
-                  onChange={(e) =>
-                    setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))
-                  }
-                  placeholder="9876543210"
-                  inputMode="tel"
-                  className="flex-1 bg-transparent px-3 py-3 text-sm text-chalk outline-none placeholder:text-plum/40"
-                />
-              </div>
+        <div className="surface-card space-y-5 p-6 dark:liquid-glass">
+          <div className="space-y-1.5">
+            <Label htmlFor="email">{t("email")}</Label>
+            <div className="flex items-center gap-2.5 rounded-xl border border-border bg-muted/50 px-3 py-3 transition-all focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/15 dark:bg-white/[0.04] dark:focus-within:border-teal/40 dark:focus-within:ring-teal/20">
+              <Mail className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+              <input
+                id="email"
+                type="email"
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="your@email.com"
+                className="flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground/60"
+              />
             </div>
-
-            <div>
-              <label className="mb-1.5 block text-2xs font-semibold uppercase tracking-[0.15em] text-plum">
-                Password
-              </label>
-              <div className="flex overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.03] transition-all focus-within:border-teal/40 focus-within:shadow-glow-sm">
-                <input
-                  type={showPass ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter password"
-                  className="flex-1 bg-transparent px-3 py-3 text-sm text-chalk outline-none placeholder:text-plum/40"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPass(!showPass)}
-                  className="px-3 text-plum transition-colors hover:text-chalk"
-                >
-                  {showPass ? (
-                    <EyeOff className="size-4" />
-                  ) : (
-                    <Eye className="size-4" />
-                  )}
-                </button>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleLogin}
-              disabled={loading || phone.length < 10}
-              className={cn(
-                "group mt-1 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-teal text-sm font-semibold text-ink shadow-glow transition-all duration-200 hover:bg-chalk hover:shadow-raised active:scale-[0.98]",
-                "disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none",
-              )}
-            >
-              {loading ? (
-                <div className="size-4 animate-spin rounded-full border-2 border-ink/30 border-t-ink" />
-              ) : (
-                <>
-                  Sign in{" "}
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                </>
-              )}
-            </button>
           </div>
 
-          <p className="mt-4 text-center text-2xs text-plum">
-            Demo — any 10-digit number · any password
-          </p>
+          <div className="space-y-1.5">
+            <Label htmlFor="password">{t("password")}</Label>
+            <div className="flex items-center gap-2.5 rounded-xl border border-border bg-muted/50 px-3 py-3 transition-all focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/15 dark:bg-white/[0.04] dark:focus-within:border-teal/40 dark:focus-within:ring-teal/20">
+              <Lock className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+              <input
+                id="password"
+                type={showPass ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                autoComplete="current-password"
+                className="min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground/60"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPass(!showPass)}
+                className="shrink-0 text-muted-foreground transition-colors hover:text-foreground"
+                aria-label={showPass ? "Hide password" : "Show password"}
+              >
+                {showPass ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between gap-2">
+            <label className="flex cursor-not-allowed items-center gap-2 text-sm text-muted-foreground opacity-70">
+              <Checkbox disabled aria-hidden />
+              {t("remember")}
+            </label>
+            <a
+              href="#"
+              className="text-sm font-medium text-primary hover:underline dark:text-teal"
+            >
+              {t("forgot")}
+            </a>
+          </div>
+
+          <Button
+            type="button"
+            onClick={handleLogin}
+            disabled={loading || !canSubmit}
+            className="h-12 w-full rounded-xl bg-primary font-semibold text-primary-foreground shadow-lg shadow-primary/25 dark:bg-teal dark:text-ink dark:shadow-glow"
+          >
+            {loading ? t("signingIn") : t("signIn")}
+          </Button>
+
+          <p className="text-center text-xs text-muted-foreground">{t("needAccess")}</p>
+          <p className="text-center text-2xs text-muted-foreground/80">{t("demoHint")}</p>
         </div>
 
-        <p className="mt-4 text-center text-sm text-plum">
-          New property?{" "}
+        <p className="mt-6 text-center text-xs text-muted-foreground">
+          © {new Date().getFullYear()} SOYL AI Private Limited · Story Of Your Life
+        </p>
+
+        <div className="mt-4 flex items-center justify-center gap-2">
+          <ThemeToggle compact />
+          <LanguageSwitcher compact />
+        </div>
+
+        <p className="mt-4 text-center text-sm text-muted-foreground">
+          {t("newProperty")}{" "}
           <Link
             href="/onboarding"
-            className="font-medium text-teal transition-colors hover:text-chalk"
+            className="font-medium text-primary hover:underline dark:text-teal"
           >
-            Set up your account →
+            {t("setup")} →
           </Link>
         </p>
       </motion.div>

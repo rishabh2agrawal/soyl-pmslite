@@ -19,6 +19,7 @@ import {
   stagger,
   staggerItem,
   landingPreview,
+  pageTransitionProps,
 } from "@/lib/motion";
 import type { LucideIcon } from "lucide-react";
 import { Link } from "@/i18n/routing";
@@ -118,7 +119,10 @@ function featureIconWrap(accent: "teal" | "plum") {
 
 export default function LandingPage() {
   return (
-    <div className="min-h-dvh overflow-x-hidden bg-ink text-chalk">
+    <motion.div
+      {...pageTransitionProps}
+      className="min-h-dvh overflow-x-hidden bg-ink text-chalk"
+    >
       <LandingNav />
       <HeroSection />
       <FeaturesSection />
@@ -126,7 +130,7 @@ export default function LandingPage() {
       <TestimonialsSection />
       <CTASection />
       <LandingFooter />
-    </div>
+    </motion.div>
   );
 }
 

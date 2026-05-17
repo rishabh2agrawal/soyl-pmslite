@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: ["selector", '[data-theme="dark"]'],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -68,6 +69,11 @@ const config: Config = {
         amber: {
           DEFAULT: "#c9a84c",
           light: "#dec07a",
+        },
+        purple: {
+          DEFAULT: "#7c5aed",
+          dim: "rgba(124,90,237,0.12)",
+          glow: "rgba(124,90,237,0.22)",
         },
       },
       fontFamily: {

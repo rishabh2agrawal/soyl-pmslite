@@ -174,6 +174,7 @@ export default function HousekeepingPage() {
                           <Button
                             size="icon"
                             variant="ghost"
+                            aria-label={`Voice note for room ${room.number}`}
                             className="size-9 shrink-0 text-plum hover:text-teal"
                             type="button"
                             onClick={() =>

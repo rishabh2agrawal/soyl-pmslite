@@ -21,6 +21,18 @@
     "syncing": "Syncing…",
     "syncComplete": "Sync complete"
   },
+  "login": {
+    "email": "Email Address",
+    "password": "Password",
+    "remember": "Remember me",
+    "forgot": "Forgot password?",
+    "signIn": "Sign in to Dashboard",
+    "signingIn": "Signing in…",
+    "needAccess": "Need access? Contact your hotel administrator.",
+    "demoHint": "Demo — use any email with @ and any password.",
+    "newProperty": "New property?",
+    "setup": "Set up your account"
+  },
   "nav": {
     "pulse": "Pulse",
     "today": "Today",
@@ -289,6 +301,10 @@
   },
   "settings": {
     "title": "Settings",
+    "appearance": "Appearance",
+    "appearanceDescription": "Theme and visual preferences.",
+    "themeLabel": "Theme",
+    "languageDescription": "Choose your preferred language for the interface.",
     "propertyProfile": "Property Profile",
     "rooms": "Rooms",
     "rates": "Rates",

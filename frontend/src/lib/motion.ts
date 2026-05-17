@@ -80,11 +80,13 @@ export const staggerItem: Variants = {
   },
 };
 
-/** Spread on `<motion.div />` — standard page entrance */
+/** Spread on `<motion.div />` — standard page entrance (light-tuned easing) */
+const pageEase = [0.25, 0.46, 0.45, 0.94] as const;
+
 export const pageTransitionProps = {
-  variants: fadeUp,
-  initial: "hidden" as const,
-  animate: "visible" as const,
+  initial: { opacity: 0, y: 8 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.25, ease: pageEase },
 };
 
 /** Stagger container / item — uses `animate="show"` to match existing pages */
