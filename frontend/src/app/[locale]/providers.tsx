@@ -6,6 +6,13 @@ import { Toaster } from "@/components/ui/sonner";
 import { useAppStore } from "@/lib/store";
 import { useEffect, useState } from "react";
 
+function PersistRehydrate({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    void useAppStore.persist.rehydrate();
+  }, []);
+  return <>{children}</>;
+}
+
 function OnlineStatusProvider({ children }: { children: React.ReactNode }) {
   const setIsOnline = useAppStore((s) => s.setIsOnline);
 
@@ -41,10 +48,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider delayDuration={300}>
-        <OnlineStatusProvider>
-          {children}
-          <Toaster />
-        </OnlineStatusProvider>
+        <PersistRehydrate>
+          <OnlineStatusProvider>
+            {children}
+            <Toaster />
+          </OnlineStatusProvider>
+        </PersistRehydrate>
       </TooltipProvider>
     </QueryClientProvider>
   );

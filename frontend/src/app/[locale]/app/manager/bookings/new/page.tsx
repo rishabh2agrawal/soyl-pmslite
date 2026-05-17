@@ -26,10 +26,14 @@ import { CurrencyInput } from "@/components/shared/currency-input";
 import { ROOMS } from "@/lib/mock-data";
 import { formatCurrency } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
+import { pageTransitionProps } from "@/lib/motion";
 import type { BookingSource, InvoiceType, PaymentMethod, IdProofType } from "@/types";
 
 const today = new Date().toISOString().split("T")[0];
 const tomorrow = new Date(Date.now() + 86400000).toISOString().split("T")[0];
+
+const formLabelClass =
+  "text-xs text-plum font-medium uppercase tracking-wide";
 
 const bookingSchema = z.object({
   check_in: z.string().min(1, "Check-in date is required"),
@@ -137,294 +141,285 @@ export default function NewBookingPage() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="space-y-6 px-4 pb-28"
-    >
-      <PageHeader
-        title="New Booking"
-        showBack
-        onBack={() => router.back()}
-      />
+    <motion.div {...pageTransitionProps} className="space-y-6 pb-28">
+      <PageHeader title="New Booking" showBack onBack={() => router.back()} />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Dates */}
-        <Card className="border-soyl-border/70 bg-white/80">
-          <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="check_in">Check-in Date</Label>
-              <Input
-                id="check_in"
-                type="date"
-                className="min-h-touch mt-1"
-                {...register("check_in")}
-              />
-              {errors.check_in && (
-                <p className="mt-1 text-xs text-soyl-danger">{errors.check_in.message}</p>
-              )}
-            </div>
-            <div>
-              <Label htmlFor="check_out">Check-out Date</Label>
-              <Input
-                id="check_out"
-                type="date"
-                className="min-h-touch mt-1"
-                {...register("check_out")}
-              />
-              {errors.check_out && (
-                <p className="mt-1 text-xs text-soyl-danger">{errors.check_out.message}</p>
-              )}
-            </div>
-          </CardContent>
-        </Card>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
+        <div className="space-y-6">
+          <FormPhase phase={1} title="Stay" />
 
-        {/* Room */}
-        <Card className="border-soyl-border/70 bg-white/80">
-          <CardContent className="space-y-2">
-            <Label>Room</Label>
-            <Controller
-              control={control}
-              name="room_id"
-              render={({ field }) => (
-                <Select
-                  value={field.value}
-                  onValueChange={(val) => handleRoomChange(val ?? "")}
-                >
-                  <SelectTrigger className="min-h-touch mt-1">
-                    <SelectValue placeholder="Select room" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {availableRooms.map((room) => (
-                      <SelectItem key={room.id} value={room.id}>
-                        {room.number} - {room.type} ({formatCurrency(room.base_rate)}/night)
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
-            />
-            {errors.room_id && (
-              <p className="mt-1 text-xs text-soyl-danger">{errors.room_id.message}</p>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Guest info */}
-        <Card className="border-soyl-border/70 bg-white/80">
-          <CardContent className="space-y-4">
-            <div>
-              <Label>Guest Name</Label>
-              <Controller
-                control={control}
-                name="guest_name"
-                render={({ field }) => (
-                  <VoiceInput
-                    value={field.value}
-                    onChange={field.onChange}
-                    placeholder="Enter guest name"
-                    className="mt-1"
-                  />
+          <Card>
+            <CardContent className="space-y-4">
+              <div>
+                <Label htmlFor="check_in" className={formLabelClass}>
+                  Check-in date
+                </Label>
+                <Input id="check_in" type="date" className="mt-1" {...register("check_in")} />
+                {errors.check_in && (
+                  <p className="mt-1 text-xs text-destructive">{errors.check_in.message}</p>
                 )}
-              />
-              {errors.guest_name && (
-                <p className="mt-1 text-xs text-soyl-danger">{errors.guest_name.message}</p>
-              )}
-            </div>
-            <div>
-              <Label>Phone</Label>
-              <Controller
-                control={control}
-                name="phone"
-                render={({ field }) => (
-                  <PhoneInput
-                    value={field.value}
-                    onChange={field.onChange}
-                    className="mt-1"
-                  />
+              </div>
+              <div>
+                <Label htmlFor="check_out" className={formLabelClass}>
+                  Check-out date
+                </Label>
+                <Input id="check_out" type="date" className="mt-1" {...register("check_out")} />
+                {errors.check_out && (
+                  <p className="mt-1 text-xs text-destructive">{errors.check_out.message}</p>
                 )}
-              />
-              {errors.phone && (
-                <p className="mt-1 text-xs text-soyl-danger">{errors.phone.message}</p>
-              )}
-            </div>
-          </CardContent>
-        </Card>
+              </div>
+            </CardContent>
+          </Card>
 
-        {/* Occupancy */}
-        <Card className="border-soyl-border/70 bg-white/80">
-          <CardContent className="space-y-4">
-            <div className="flex items-center justify-between">
-              <Label>Adults</Label>
-              <Stepper
-                value={adults}
-                min={1}
-                max={6}
-                onChange={(v) => setValue("adults", v)}
-              />
-            </div>
-            <div className="flex items-center justify-between">
-              <Label>Children</Label>
-              <Stepper
-                value={children}
-                min={0}
-                max={4}
-                onChange={(v) => setValue("children", v)}
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* ID Proof */}
-        <Card className="border-soyl-border/70 bg-white/80">
-          <CardContent className="space-y-4">
-            <div>
-              <Label>ID Proof Type</Label>
+          <Card>
+            <CardContent className="space-y-2">
+              <Label className={formLabelClass}>Room</Label>
               <Controller
                 control={control}
-                name="id_type"
+                name="room_id"
                 render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="min-h-touch mt-1">
-                      <SelectValue placeholder="Select ID type" />
+                  <Select
+                    value={field.value}
+                    onValueChange={(val) => handleRoomChange(val ?? "")}
+                  >
+                    <SelectTrigger className="mt-1 min-h-touch">
+                      <SelectValue placeholder="Select room" />
                     </SelectTrigger>
                     <SelectContent>
-                      {ID_TYPES.map((t) => (
-                        <SelectItem key={t.value} value={t.value}>
-                          {t.label}
+                      {availableRooms.map((room) => (
+                        <SelectItem key={room.id} value={room.id}>
+                          {room.number} - {room.type} ({formatCurrency(room.base_rate)}
+                          /night)
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 )}
               />
-            </div>
-            <div>
-              <Label htmlFor="id_number">ID Number</Label>
-              <Input
-                id="id_number"
-                placeholder="XXXX XXXX 1234"
-                className="min-h-touch mt-1"
-                {...register("id_number")}
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Rate */}
-        <Card className="border-soyl-border/70 bg-white/80">
-          <CardContent className="space-y-2">
-            <Label>Room Rate (per night)</Label>
-            <Controller
-              control={control}
-              name="rate"
-              render={({ field }) => (
-                <CurrencyInput
-                  value={field.value}
-                  onChange={field.onChange}
-                  className="mt-1"
-                />
+              {errors.room_id && (
+                <p className="mt-1 text-xs text-destructive">{errors.room_id.message}</p>
               )}
-            />
-            {errors.rate && (
-              <p className="mt-1 text-xs text-soyl-danger">{errors.rate.message}</p>
-            )}
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
 
-        {/* Source */}
-        <Card className="border-soyl-border/70 bg-white/80">
-          <CardContent>
-            <Label className="mb-3 block">Booking Source</Label>
-            <div className="flex flex-wrap gap-2">
-              {SOURCE_OPTIONS.map((opt) => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() => setValue("source", opt.value)}
-                  className={cn(
-                    "min-h-touch rounded-full border px-4 py-2 text-sm font-semibold shadow-soft transition-colors",
-                    source === opt.value
-                      ? "border-soyl-primary bg-soyl-primary text-white shadow-card"
-                      : "border-soyl-border/70 bg-white/80 text-soyl-text hover:bg-soyl-bg",
+        <div className="space-y-6">
+          <FormPhase phase={2} title="Guest" />
+
+          <Card>
+            <CardContent className="space-y-4">
+              <div>
+                <Label className={formLabelClass}>Guest name</Label>
+                <Controller
+                  control={control}
+                  name="guest_name"
+                  render={({ field }) => (
+                    <VoiceInput
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder="Enter guest name"
+                      className="mt-1"
+                    />
                   )}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                />
+                {errors.guest_name && (
+                  <p className="mt-1 text-xs text-destructive">{errors.guest_name.message}</p>
+                )}
+              </div>
+              <div>
+                <Label className={formLabelClass}>Phone</Label>
+                <Controller
+                  control={control}
+                  name="phone"
+                  render={({ field }) => (
+                    <PhoneInput
+                      value={field.value}
+                      onChange={field.onChange}
+                      className="mt-1"
+                    />
+                  )}
+                />
+                {errors.phone && (
+                  <p className="mt-1 text-xs text-destructive">{errors.phone.message}</p>
+                )}
+              </div>
+            </CardContent>
+          </Card>
 
-        {/* Payment */}
-        <Card className="border-soyl-border/70 bg-white/80">
-          <CardContent className="space-y-4">
-            <div>
-              <Label>Advance Amount</Label>
+          <Card>
+            <CardContent className="space-y-4">
+              <div>
+                <Label className={formLabelClass}>ID proof type</Label>
+                <Controller
+                  control={control}
+                  name="id_type"
+                  render={({ field }) => (
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger className="mt-1 min-h-touch">
+                        <SelectValue placeholder="Select ID type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {ID_TYPES.map((t) => (
+                          <SelectItem key={t.value} value={t.value}>
+                            {t.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              </div>
+              <div>
+                <Label htmlFor="id_number" className={formLabelClass}>
+                  ID number
+                </Label>
+                <Input
+                  id="id_number"
+                  placeholder="XXXX XXXX 1234"
+                  className="mt-1"
+                  {...register("id_number")}
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between gap-4">
+                <Label className={formLabelClass}>Adults</Label>
+                <Stepper
+                  value={adults}
+                  min={1}
+                  max={6}
+                  onChange={(v) => setValue("adults", v)}
+                />
+              </div>
+              <div className="flex items-center justify-between gap-4">
+                <Label className={formLabelClass}>Children</Label>
+                <Stepper
+                  value={children}
+                  min={0}
+                  max={4}
+                  onChange={(v) => setValue("children", v)}
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="space-y-6">
+          <FormPhase phase={3} title="Pricing & billing" />
+
+          <Card>
+            <CardContent className="space-y-2">
+              <Label className={formLabelClass}>Room rate (per night)</Label>
               <Controller
                 control={control}
-                name="advance_amount"
+                name="rate"
                 render={({ field }) => (
                   <CurrencyInput
-                    value={field.value || ""}
+                    value={field.value}
                     onChange={field.onChange}
-                    placeholder="0"
                     className="mt-1"
                   />
                 )}
               />
-            </div>
-            <div>
-              <Label>Payment Method</Label>
-              <Controller
-                control={control}
-                name="advance_method"
-                render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="min-h-touch mt-1">
-                      <SelectValue placeholder="Select method" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {PAYMENT_METHODS.map((m) => (
-                        <SelectItem key={m.value} value={m.value}>
-                          {m.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-            </div>
-          </CardContent>
-        </Card>
+              {errors.rate && (
+                <p className="mt-1 text-xs text-destructive">{errors.rate.message}</p>
+              )}
+            </CardContent>
+          </Card>
 
-        {/* Invoice type */}
-        <Card className="border-soyl-border/70 bg-white/80">
-          <CardContent>
-            <Label className="mb-3 block">Invoice Type</Label>
-            <div className="flex gap-2">
-              {[
-                { value: "gst" as InvoiceType, label: "GST Invoice" },
-                { value: "cash_receipt" as InvoiceType, label: "Cash Receipt" },
-              ].map((opt) => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() => setValue("invoice_type", opt.value)}
-                  className={cn(
-                    "min-h-touch flex-1 rounded-xl border px-4 py-3 text-sm font-semibold shadow-soft transition-colors",
-                    invoiceType === opt.value
-                      ? "border-soyl-primary bg-soyl-primary/10 text-soyl-primary shadow-card"
-                      : "border-soyl-border/70 bg-white/80 text-soyl-text hover:bg-soyl-bg",
+          <Card>
+            <CardContent>
+              <Label className={`mb-3 block ${formLabelClass}`}>Booking source</Label>
+              <div className="flex flex-wrap gap-2">
+                {SOURCE_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => setValue("source", opt.value)}
+                    className={cn(
+                      "min-h-touch rounded-full border px-4 py-2 text-sm font-semibold transition-all",
+                      source === opt.value
+                        ? "border-transparent bg-teal text-ink shadow-glow-sm"
+                        : "border border-white/[0.07] bg-white/[0.02] text-plum hover:border-white/[0.12] hover:text-chalk",
+                    )}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="space-y-4">
+              <div>
+                <Label className={formLabelClass}>Advance amount</Label>
+                <Controller
+                  control={control}
+                  name="advance_amount"
+                  render={({ field }) => (
+                    <CurrencyInput
+                      value={field.value || ""}
+                      onChange={field.onChange}
+                      placeholder="0"
+                      className="mt-1"
+                    />
                   )}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                />
+              </div>
+              <div>
+                <Label className={formLabelClass}>Payment method</Label>
+                <Controller
+                  control={control}
+                  name="advance_method"
+                  render={({ field }) => (
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger className="mt-1 min-h-touch">
+                        <SelectValue placeholder="Select method" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {PAYMENT_METHODS.map((m) => (
+                          <SelectItem key={m.value} value={m.value}>
+                            {m.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent>
+              <Label className={`mb-3 block ${formLabelClass}`}>Invoice type</Label>
+              <div className="flex gap-2">
+                {[
+                  { value: "gst" as InvoiceType, label: "GST invoice" },
+                  { value: "cash_receipt" as InvoiceType, label: "Cash receipt" },
+                ].map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => setValue("invoice_type", opt.value)}
+                    className={cn(
+                      "min-h-touch flex-1 rounded-xl border px-4 py-3 text-sm font-semibold transition-colors",
+                      invoiceType === opt.value
+                        ? "border-teal/40 bg-teal/10 text-teal shadow-glow-sm"
+                        : "border border-white/[0.07] bg-white/[0.02] text-plum hover:border-white/[0.12] hover:text-chalk",
+                    )}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
         <StickyCTA
           primaryLabel="Confirm Booking"
@@ -433,6 +428,22 @@ export default function NewBookingPage() {
         />
       </form>
     </motion.div>
+  );
+}
+
+function FormPhase({ phase, title }: { phase: number; title: string }) {
+  return (
+    <div className="flex items-start gap-3 border-b border-white/[0.06] pb-3">
+      <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-teal/12 text-xs font-semibold text-teal">
+        {phase}
+      </span>
+      <div className="min-w-0">
+        <p className="text-2xs font-semibold uppercase tracking-widest text-plum">
+          Phase {phase}
+        </p>
+        <p className="text-lg font-semibold tracking-tight text-chalk">{title}</p>
+      </div>
+    </div>
   );
 }
 
@@ -453,20 +464,18 @@ function Stepper({
         type="button"
         variant="outline"
         size="icon"
-        className="min-h-touch min-w-touch border-soyl-border"
+        className="min-h-touch min-w-touch border-white/[0.12] bg-white/[0.03] hover:bg-white/[0.07]"
         disabled={value <= min}
         onClick={() => onChange(value - 1)}
       >
         −
       </Button>
-      <span className="w-8 text-center text-lg font-semibold text-soyl-text">
-        {value}
-      </span>
+      <span className="w-8 text-center text-lg font-semibold text-chalk">{value}</span>
       <Button
         type="button"
         variant="outline"
         size="icon"
-        className="min-h-touch min-w-touch border-soyl-border"
+        className="min-h-touch min-w-touch border-white/[0.12] bg-white/[0.03] hover:bg-white/[0.07]"
         disabled={value >= max}
         onClick={() => onChange(value + 1)}
       >

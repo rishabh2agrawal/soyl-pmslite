@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -88,8 +89,7 @@ export default function ManageRatesPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      {...pageTransitionProps}
       className="pb-8"
     >
       <div className="mx-auto max-w-2xl px-4">
@@ -99,18 +99,18 @@ export default function ManageRatesPage() {
           onBack={() => router.back()}
         />
 
-        <Card className="mb-6 border-soyl-border/70 bg-white/80">
+        <Card className="mb-6 border-white/[0.06] bg-white/80">
           <CardHeader className="pb-2">
-            <CardTitle className="text-base font-semibold text-soyl-text">
+            <CardTitle className="text-base font-semibold text-foreground">
               Base Rates by Room Type
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {baseRates.map((br) => (
               <div key={br.type} className="flex items-center justify-between gap-4">
-                <span className="text-sm font-medium text-soyl-text">{br.type}</span>
+                <span className="text-sm font-medium text-foreground">{br.type}</span>
                 <div className="relative w-32">
-                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-soyl-muted">
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                     ₹
                   </span>
                   <Input
@@ -125,9 +125,9 @@ export default function ManageRatesPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardHeader className="pb-2">
-            <CardTitle className="text-base font-semibold text-soyl-text">
+            <CardTitle className="text-base font-semibold text-foreground">
               Date-Based Overrides
             </CardTitle>
           </CardHeader>
@@ -135,13 +135,13 @@ export default function ManageRatesPage() {
             {overrides.map((ov) => (
               <div
                 key={ov.id}
-                className="flex items-center justify-between rounded-lg bg-soyl-bg/70 p-3"
+                className="flex items-center justify-between rounded-lg bg-navy-500/70 p-3"
               >
                 <div>
-                  <p className="text-sm font-medium text-soyl-text">
+                  <p className="text-sm font-medium text-foreground">
                     {ov.room_type} — {formatCurrency(ov.rate)}
                   </p>
-                  <p className="text-xs text-soyl-muted">
+                  <p className="text-xs text-muted-foreground">
                     {ov.start_date} to {ov.end_date}
                   </p>
                 </div>
@@ -149,15 +149,15 @@ export default function ManageRatesPage() {
                   variant="ghost"
                   size="icon"
                   onClick={() => removeOverride(ov.id)}
-                  className="size-9 text-soyl-danger hover:bg-soyl-danger/10"
+                  className="size-9 text-destructive hover:bg-destructive/10"
                 >
                   <Trash2 className="size-4" />
                 </Button>
               </div>
             ))}
 
-            <div className="space-y-3 rounded-lg border border-dashed border-soyl-border/70 p-3">
-              <p className="text-xs font-medium uppercase tracking-wider text-soyl-muted">
+            <div className="space-y-3 rounded-lg border border-dashed border-white/[0.06] p-3">
+              <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 Add Override
               </p>
               <div className="grid grid-cols-2 gap-3">
@@ -210,7 +210,7 @@ export default function ManageRatesPage() {
               </div>
               <Button
                 onClick={addOverride}
-                className="min-h-touch w-full gap-2 bg-soyl-primary text-white hover:bg-soyl-primary-light"
+                className="min-h-touch w-full gap-2 bg-primary text-white hover:bg-primary-light"
               >
                 <Plus className="size-4" /> Add Override
               </Button>

@@ -1,5 +1,7 @@
 "use client";
 
+import { pageTransitionProps } from "@/lib/motion";
+
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -62,16 +64,14 @@ export default function GuestsPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      {...pageTransitionProps}
       className="space-y-5 px-4 pb-8"
     >
       <PageHeader title="Guests" />
 
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-soyl-muted" />
+        <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -106,12 +106,12 @@ export default function GuestsPage() {
                 right={
                   <div className="flex flex-col items-end gap-1">
                     {guest.last_stay && (
-                      <span className="text-xs text-soyl-muted">
+                      <span className="text-xs text-muted-foreground">
                         {formatRelativeDate(guest.last_stay)}
                       </span>
                     )}
                     {guest.lifetime_spend != null && (
-                      <span className="text-xs font-medium text-soyl-text">
+                      <span className="text-xs font-medium text-foreground">
                         {formatCurrency(guest.lifetime_spend)}
                       </span>
                     )}
@@ -123,9 +123,9 @@ export default function GuestsPage() {
                             variant="outline"
                             className={cn(
                               "text-[10px] px-1.5 py-0",
-                              tag === "vip" && "border-soyl-accent text-soyl-accent",
-                              tag === "repeat" && "border-soyl-secondary text-soyl-secondary",
-                              tag === "corporate" && "border-soyl-primary text-soyl-primary",
+                              tag === "vip" && "border-amber text-amber-light",
+                              tag === "repeat" && "border-emerald text-emerald-light",
+                              tag === "corporate" && "border-primary text-primary",
                             )}
                           >
                             {tag.toUpperCase()}

@@ -17,11 +17,11 @@ const eventConfig: Record<
   { icon: typeof CalendarPlus; color: string; bg: string }
 > = {
   booking: { icon: CalendarPlus, color: "text-blue-600", bg: "bg-blue-100" },
-  check_in: { icon: LogIn, color: "text-soyl-secondary", bg: "bg-green-100" },
+  check_in: { icon: LogIn, color: "text-emerald-light", bg: "bg-green-100" },
   check_out: { icon: LogOut, color: "text-gray-600", bg: "bg-gray-100" },
   request: { icon: Bell, color: "text-orange-600", bg: "bg-orange-100" },
-  payment: { icon: CreditCard, color: "text-soyl-accent", bg: "bg-yellow-100" },
-  cancellation: { icon: XCircle, color: "text-soyl-danger", bg: "bg-red-100" },
+  payment: { icon: CreditCard, color: "text-amber-light", bg: "bg-yellow-100" },
+  cancellation: { icon: XCircle, color: "text-destructive", bg: "bg-red-100" },
   room_change: { icon: ArrowRightLeft, color: "text-purple-600", bg: "bg-purple-100" },
 };
 
@@ -39,7 +39,7 @@ export function TimelineEntry({ event, isLast = false, className }: TimelineEntr
     <div className={cn("relative flex gap-3", className)}>
       {/* Connector line */}
       {!isLast && (
-        <div className="absolute left-[15px] top-8 bottom-0 w-px bg-soyl-border" />
+        <div className="absolute left-[15px] top-8 bottom-0 w-px bg-border" />
       )}
 
       {/* Icon */}
@@ -55,8 +55,8 @@ export function TimelineEntry({ event, isLast = false, className }: TimelineEntr
 
       {/* Content */}
       <div className="flex-1 pb-6">
-        <p className="text-sm font-medium text-soyl-text">{event.summary}</p>
-        <div className="mt-0.5 flex items-center gap-2 text-xs text-soyl-muted">
+        <p className="text-sm font-medium text-foreground">{event.summary}</p>
+        <div className="mt-0.5 flex items-center gap-2 text-xs text-muted-foreground">
           <span>{event.actor}</span>
           <span>·</span>
           <time dateTime={event.timestamp}>

@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -19,13 +20,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/shared/page-header";
 import { FilterChips } from "@/components/shared/filter-chips";
+import { ChartMount } from "@/components/shared/chart-mount";
 import { WEEK_DATA } from "@/lib/mock-data";
 import { formatCurrency, formatCurrencyCompact } from "@/lib/formatters";
 
 const COLORS = {
-  primary: "#B85518",
-  secondary: "#1F5C3F",
-  accent: "#C9971F",
+  primary: "#AFD0CC",
+  secondary: "#19A97B",
+  accent: "#F5A623",
   muted: "#5C5C5C",
   border: "#D9D5CC",
 };
@@ -66,9 +68,7 @@ export default function ReportsPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35 }}
+      {...pageTransitionProps}
       className="space-y-5 px-4 pb-8"
     >
       <PageHeader
@@ -88,14 +88,14 @@ export default function ReportsPage() {
 
       {/* Occupancy Tab */}
       {tab === "occupancy" && (
-        <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
+        <Card className="border-white/[0.06] bg-white/80 shadow-soft">
           <CardHeader>
-            <CardTitle className="text-sm font-semibold text-soyl-text">
+            <CardTitle className="text-sm font-semibold text-foreground">
               Occupancy Rate
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-56">
+            <ChartMount className="h-56">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={data.occupancy_by_day}>
                   <CartesianGrid strokeDasharray="3 3" stroke={COLORS.border} />
@@ -129,21 +129,21 @@ export default function ReportsPage() {
                   />
                 </LineChart>
               </ResponsiveContainer>
-            </div>
+            </ChartMount>
           </CardContent>
         </Card>
       )}
 
       {/* Revenue Tab */}
       {tab === "revenue" && (
-        <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
+        <Card className="border-white/[0.06] bg-white/80 shadow-soft">
           <CardHeader>
-            <CardTitle className="text-sm font-semibold text-soyl-text">
+            <CardTitle className="text-sm font-semibold text-foreground">
               Revenue
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-56">
+            <ChartMount className="h-56">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data.revenue_by_day}>
                   <CartesianGrid strokeDasharray="3 3" stroke={COLORS.border} />
@@ -174,16 +174,16 @@ export default function ReportsPage() {
                   />
                 </BarChart>
               </ResponsiveContainer>
-            </div>
+            </ChartMount>
           </CardContent>
         </Card>
       )}
 
       {/* GST Tab */}
       {tab === "gst" && (
-        <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
+        <Card className="border-white/[0.06] bg-white/80 shadow-soft">
           <CardHeader>
-            <CardTitle className="text-sm font-semibold text-soyl-text">
+            <CardTitle className="text-sm font-semibold text-foreground">
               GST Summary
             </CardTitle>
           </CardHeader>
@@ -191,7 +191,7 @@ export default function ReportsPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-soyl-border text-left text-soyl-muted">
+                  <tr className="border-b border-border text-left text-muted-foreground">
                     <th className="pb-2 pr-3 font-medium">Description</th>
                     <th className="pb-2 text-right font-medium">Taxable</th>
                     <th className="pb-2 text-right font-medium">CGST</th>
@@ -203,37 +203,37 @@ export default function ReportsPage() {
                   {MOCK_GST.map((row) => (
                     <tr
                       key={row.description}
-                      className="border-b border-soyl-border/50"
+                      className="border-b border-white/[0.08]"
                     >
-                      <td className="py-2.5 pr-3 text-soyl-text">
+                      <td className="py-2.5 pr-3 text-foreground">
                         {row.description}
                       </td>
-                      <td className="py-2.5 text-right text-soyl-text">
+                      <td className="py-2.5 text-right text-foreground">
                         {formatCurrency(row.taxable)}
                       </td>
-                      <td className="py-2.5 text-right text-soyl-muted">
+                      <td className="py-2.5 text-right text-muted-foreground">
                         {formatCurrency(row.cgst)}
                       </td>
-                      <td className="py-2.5 text-right text-soyl-muted">
+                      <td className="py-2.5 text-right text-muted-foreground">
                         {formatCurrency(row.sgst)}
                       </td>
-                      <td className="py-2.5 text-right text-soyl-muted">
+                      <td className="py-2.5 text-right text-muted-foreground">
                         {formatCurrency(row.igst)}
                       </td>
                     </tr>
                   ))}
                   <tr className="font-semibold">
-                    <td className="pt-3 pr-3 text-soyl-text">Total</td>
-                    <td className="pt-3 text-right text-soyl-text">
+                    <td className="pt-3 pr-3 text-foreground">Total</td>
+                    <td className="pt-3 text-right text-foreground">
                       {formatCurrency(gstTotal.taxable)}
                     </td>
-                    <td className="pt-3 text-right text-soyl-primary">
+                    <td className="pt-3 text-right text-primary">
                       {formatCurrency(gstTotal.cgst)}
                     </td>
-                    <td className="pt-3 text-right text-soyl-primary">
+                    <td className="pt-3 text-right text-primary">
                       {formatCurrency(gstTotal.sgst)}
                     </td>
-                    <td className="pt-3 text-right text-soyl-muted">
+                    <td className="pt-3 text-right text-muted-foreground">
                       {formatCurrency(gstTotal.igst)}
                     </td>
                   </tr>
@@ -247,7 +247,7 @@ export default function ReportsPage() {
       {/* Export Button */}
       <Button
         variant="outline"
-        className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border-soyl-border text-sm font-medium text-soyl-text"
+        className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border-border text-sm font-medium text-foreground"
         onClick={() => {
           // PDF export placeholder
         }}

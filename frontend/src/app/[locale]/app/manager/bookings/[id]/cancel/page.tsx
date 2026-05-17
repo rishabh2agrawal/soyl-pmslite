@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
@@ -77,7 +78,7 @@ export default function CancelBookingPage() {
 
   if (!booking) {
     return (
-      <div className="flex items-center justify-center py-20 text-soyl-muted">
+      <div className="flex items-center justify-center py-20 text-muted-foreground">
         Booking not found
       </div>
     );
@@ -95,9 +96,7 @@ export default function CancelBookingPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      {...pageTransitionProps}
       className="space-y-6 px-4 pb-28"
     >
       <PageHeader
@@ -109,7 +108,7 @@ export default function CancelBookingPage() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Reason */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardContent className="space-y-4">
             <div>
               <Label>Cancellation Reason</Label>
@@ -132,7 +131,7 @@ export default function CancelBookingPage() {
                 )}
               />
               {errors.reason && (
-                <p className="mt-1 text-xs text-soyl-danger">{errors.reason.message}</p>
+                <p className="mt-1 text-xs text-destructive">{errors.reason.message}</p>
               )}
             </div>
           </CardContent>
@@ -140,16 +139,16 @@ export default function CancelBookingPage() {
 
         {/* Refund */}
         {(booking.advance_amount ?? 0) > 0 && (
-          <Card className="border-soyl-border/70 bg-white/80">
+          <Card className="border-white/[0.06] bg-white/80">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-soyl-muted">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
                 Refund Details
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex justify-between text-sm">
-                <span className="text-soyl-muted">Advance Paid</span>
-                <span className="font-medium text-soyl-text">
+                <span className="text-muted-foreground">Advance Paid</span>
+                <span className="font-medium text-foreground">
                   {formatCurrency(booking.advance_amount || 0)}
                 </span>
               </div>
@@ -193,7 +192,7 @@ export default function CancelBookingPage() {
         )}
 
         {/* Comment */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardContent>
             <Label htmlFor="comment">Additional Comments</Label>
             <Textarea
@@ -209,7 +208,7 @@ export default function CancelBookingPage() {
           primaryLabel="Confirm Cancellation"
           onPrimary={handleSubmit(onSubmit)}
           loading={loading}
-          className="[&>button:last-child]:bg-soyl-danger [&>button:last-child]:hover:bg-soyl-danger-light"
+          className="[&>button:last-child]:bg-destructive [&>button:last-child]:hover:bg-destructive-light"
         />
       </form>
     </motion.div>

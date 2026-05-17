@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useCallback } from "react";
 import { motion } from "framer-motion";
@@ -52,9 +53,7 @@ export default function SummaryPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35 }}
+      {...pageTransitionProps}
       className="space-y-6 px-4 pb-8"
     >
       <PageHeader
@@ -64,48 +63,48 @@ export default function SummaryPage() {
       />
 
       {/* Summary Card */}
-      <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
+      <Card className="border-white/[0.06] bg-white/80 shadow-soft">
         <CardContent className="space-y-4 p-5">
           <div className="text-center">
-            <h2 className="text-lg font-bold text-soyl-text">
+            <h2 className="text-lg font-bold text-foreground">
               {propertyName}
             </h2>
-            <p className="text-sm text-soyl-muted">
+            <p className="text-sm text-muted-foreground">
               {formatDate(pulse.date, "EEEE, dd MMM yyyy")}
             </p>
           </div>
 
-          <div className="h-px bg-soyl-border" />
+          <div className="h-px bg-border" />
 
           <div className="grid grid-cols-2 gap-4">
             <SummaryRow
-              icon={<Bed className="size-4 text-soyl-secondary" />}
+              icon={<Bed className="size-4 text-emerald-light" />}
               label="Occupancy"
               value={`${pulse.occupancy.occupied}/${pulse.occupancy.total}`}
               sub={formatPercent(pulse.occupancy.percent)}
             />
             <SummaryRow
-              icon={<ArrowDownCircle className="size-4 text-soyl-primary" />}
+              icon={<ArrowDownCircle className="size-4 text-primary" />}
               label="Check-ins"
               value={String(pulse.today.check_ins)}
             />
             <SummaryRow
-              icon={<ArrowUpCircle className="size-4 text-soyl-muted" />}
+              icon={<ArrowUpCircle className="size-4 text-muted-foreground" />}
               label="Check-outs"
               value={String(pulse.today.check_outs)}
             />
             <SummaryRow
-              icon={<IndianRupee className="size-4 text-soyl-accent" />}
+              icon={<IndianRupee className="size-4 text-amber-light" />}
               label="Earnings"
               value={formatCurrency(pulse.today.earnings)}
             />
             <SummaryRow
-              icon={<Bell className="size-4 text-soyl-accent" />}
+              icon={<Bell className="size-4 text-amber-light" />}
               label="Open Requests"
               value={String(pulse.attention_count)}
             />
             <SummaryRow
-              icon={<Users className="size-4 text-soyl-secondary" />}
+              icon={<Users className="size-4 text-emerald-light" />}
               label="In-house"
               value={String(pulse.in_house_count)}
             />
@@ -126,7 +125,7 @@ export default function SummaryPage() {
         <Button
           variant="outline"
           onClick={handleCopy}
-          className="flex h-12 w-full items-center justify-center gap-2 rounded-xl border-soyl-border text-base font-medium text-soyl-text"
+          className="flex h-12 w-full items-center justify-center gap-2 rounded-xl border-border text-base font-medium text-foreground"
         >
           <Copy className="size-5" />
           Copy to clipboard
@@ -153,11 +152,11 @@ function SummaryRow({
     <div className="flex items-start gap-2">
       <div className="mt-0.5">{icon}</div>
       <div>
-        <p className="text-xs text-soyl-muted">{label}</p>
-        <p className="text-sm font-semibold text-soyl-text">
+        <p className="text-xs text-muted-foreground">{label}</p>
+        <p className="text-sm font-semibold text-foreground">
           {value}
           {sub && (
-            <span className="ml-1 text-xs font-normal text-soyl-muted">
+            <span className="ml-1 text-xs font-normal text-muted-foreground">
               ({sub})
             </span>
           )}

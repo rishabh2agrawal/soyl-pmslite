@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -27,8 +28,7 @@ export default function DayClosePage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      {...pageTransitionProps}
       className="pb-28"
     >
       <div className="mx-auto max-w-2xl px-4">
@@ -59,9 +59,9 @@ export default function DayClosePage() {
           />
         </div>
 
-        <Card className="mb-6 border-soyl-border/70 bg-white/80">
+        <Card className="mb-6 border-white/[0.06] bg-white/80">
           <CardHeader className="pb-2">
-            <CardTitle className="text-base font-semibold text-soyl-text">
+            <CardTitle className="text-base font-semibold text-foreground">
               Cash Breakdown
             </CardTitle>
           </CardHeader>
@@ -69,17 +69,17 @@ export default function DayClosePage() {
             {data.breakdown.map((item, i) => (
               <div
                 key={i}
-                className="flex items-center justify-between border-b border-soyl-border/70 px-4 py-3 last:border-b-0"
+                className="flex items-center justify-between border-b border-white/[0.06] px-4 py-3 last:border-b-0"
               >
-                <span className="text-sm text-soyl-text">{item.label}</span>
-                <span className="text-sm font-medium text-soyl-text">
+                <span className="text-sm text-foreground">{item.label}</span>
+                <span className="text-sm font-medium text-foreground">
                   {formatCurrency(item.amount)}
                 </span>
               </div>
             ))}
-            <div className="flex items-center justify-between bg-soyl-bg/80 px-4 py-3 font-semibold">
-              <span className="text-sm text-soyl-text">Subtotal</span>
-              <span className="text-sm text-soyl-text">
+            <div className="flex items-center justify-between bg-navy-500/80 px-4 py-3 font-semibold">
+              <span className="text-sm text-foreground">Subtotal</span>
+              <span className="text-sm text-foreground">
                 {formatCurrency(data.breakdown.reduce((s, i) => s + i.amount, 0))}
               </span>
             </div>
@@ -87,7 +87,7 @@ export default function DayClosePage() {
         </Card>
 
         <div className="mb-4 space-y-2">
-          <label className="text-sm font-medium text-soyl-text">
+          <label className="text-sm font-medium text-foreground">
             Actual Closing Cash
           </label>
           <CurrencyInput
@@ -105,9 +105,9 @@ export default function DayClosePage() {
           ) : (
             <div className={cn(
               "flex items-center gap-2 rounded-lg border px-4 py-3",
-              "border-soyl-danger/30 bg-soyl-danger/5"
+              "border-destructive/30 bg-destructive/5"
             )}>
-              <span className="text-sm font-medium text-soyl-danger">
+              <span className="text-sm font-medium text-destructive">
                 Variance: {formatCurrency(Math.abs(variance))}
                 {variance > 0 ? " (over)" : " (short)"}
               </span>

@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
@@ -45,7 +46,7 @@ export default function ExtendStayPage() {
 
   if (!booking) {
     return (
-      <div className="flex items-center justify-center py-20 text-soyl-muted">
+      <div className="flex items-center justify-center py-20 text-muted-foreground">
         Booking not found
       </div>
     );
@@ -74,9 +75,7 @@ export default function ExtendStayPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      {...pageTransitionProps}
       className="space-y-6 px-4 pb-28"
     >
       <PageHeader
@@ -88,22 +87,22 @@ export default function ExtendStayPage() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Current checkout */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardContent>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-soyl-muted">Current Check-out</p>
-                <p className="text-lg font-semibold text-soyl-text">
+                <p className="text-sm text-muted-foreground">Current Check-out</p>
+                <p className="text-lg font-semibold text-foreground">
                   {formatDate(booking.check_out)}
                 </p>
               </div>
-              <CalendarPlus className="size-5 text-soyl-muted" />
+              <CalendarPlus className="size-5 text-muted-foreground" />
             </div>
           </CardContent>
         </Card>
 
         {/* New checkout */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardContent className="space-y-4">
             <div>
               <Label htmlFor="new_check_out">New Check-out Date</Label>
@@ -117,9 +116,9 @@ export default function ExtendStayPage() {
             </div>
 
             {additionalNights > 0 && (
-              <div className="flex items-center gap-2 rounded-xl bg-soyl-secondary/10 p-3 text-sm">
-                <CheckCircle className="size-4 text-soyl-secondary" />
-                <span className="text-soyl-text">
+              <div className="flex items-center gap-2 rounded-xl bg-secondary/10 p-3 text-sm">
+                <CheckCircle className="size-4 text-emerald-light" />
+                <span className="text-foreground">
                   Room available for {additionalNights} additional night(s)
                 </span>
               </div>
@@ -128,7 +127,7 @@ export default function ExtendStayPage() {
         </Card>
 
         {/* Rate override */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <Label>Override Rate</Label>
@@ -154,7 +153,7 @@ export default function ExtendStayPage() {
               </div>
             )}
             {!overrideRate && (
-              <p className="text-sm text-soyl-muted">
+              <p className="text-sm text-muted-foreground">
                 Current rate: {formatCurrency(booking.rate)}/night
               </p>
             )}

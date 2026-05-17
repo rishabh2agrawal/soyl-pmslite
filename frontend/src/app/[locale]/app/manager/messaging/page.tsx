@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -58,8 +59,7 @@ export default function MessagingPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      {...pageTransitionProps}
       className="pb-8"
     >
       <div className="mx-auto max-w-2xl px-4">
@@ -104,7 +104,7 @@ function TemplateEditor({
   return (
     <div className="space-y-4">
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-soyl-text">
+        <label className="mb-1.5 block text-sm font-medium text-foreground">
           Template
         </label>
         <div className="mb-2 flex flex-wrap gap-1.5">
@@ -115,7 +115,7 @@ function TemplateEditor({
               onClick={() => {
                 onChange(template + placeholder);
               }}
-              className="rounded-full bg-soyl-primary/10 px-2.5 py-1 text-xs font-medium text-soyl-primary hover:bg-soyl-primary/20"
+              className="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary hover:bg-primary/20"
             >
               {placeholder}
             </button>
@@ -129,12 +129,12 @@ function TemplateEditor({
         />
       </div>
 
-      <Card className="border-soyl-border">
+      <Card className="border-border">
         <CardContent className="py-4">
-          <p className="mb-2 text-xs font-medium uppercase tracking-wider text-soyl-muted">
+          <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Preview
           </p>
-          <pre className="whitespace-pre-wrap text-sm text-soyl-text">
+          <pre className="whitespace-pre-wrap text-sm text-foreground">
             {renderPreview(template)}
           </pre>
         </CardContent>

@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -47,21 +48,15 @@ import { ConfirmationDialog } from "@/components/shared/confirmation-dialog";
 import { LoadingSkeleton } from "@/components/shared/loading-skeleton";
 import { cn } from "@/lib/utils";
 import type { BookingStatus, RoomStatus, RequestStatus } from "@/types";
-
-const SOYL_COLORS = [
-  { name: "Primary", value: "#B85518", token: "soyl-primary" },
-  { name: "Primary Light", value: "#D4783E", token: "soyl-primary-light" },
-  { name: "Secondary", value: "#1F5C3F", token: "soyl-secondary" },
-  { name: "Secondary Light", value: "#2A7A54", token: "soyl-secondary-light" },
-  { name: "Accent", value: "#C9971F", token: "soyl-accent" },
-  { name: "Accent Light", value: "#E0B84A", token: "soyl-accent-light" },
-  { name: "Background", value: "#F5F4F0", token: "soyl-bg" },
-  { name: "Surface", value: "#FFFFFF", token: "soyl-surface" },
-  { name: "Border", value: "#D9D5CC", token: "soyl-border" },
-  { name: "Text", value: "#1A1A1A", token: "soyl-text" },
-  { name: "Muted", value: "#5C5C5C", token: "soyl-muted" },
-  { name: "Danger", value: "#8B2C2C", token: "soyl-danger" },
-  { name: "Danger Light", value: "#A83E3E", token: "soyl-danger-light" },
+const DESIGN_TOKENS = [
+  { name: "Ink", value: "#030709", token: "ink" },
+  { name: "Chalk", value: "#F8FCFD", token: "chalk" },
+  { name: "Teal", value: "#AFD0CC", token: "teal.DEFAULT" },
+  { name: "Plum", value: "#635467", token: "plum.DEFAULT" },
+  { name: "Surface 1", value: "#0D1419", token: "surface.1" },
+  { name: "Surface 2", value: "#111D22", token: "surface.2" },
+  { name: "Amber accent", value: "#C9A84C", token: "amber.DEFAULT" },
+  { name: "Destructive", value: "#E07070", token: "destructive" },
 ];
 
 const TYPE_SCALE = [
@@ -78,8 +73,8 @@ const TYPE_SCALE = [
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mb-12">
-      <h2 className="mb-4 text-xl font-bold text-soyl-text">{title}</h2>
-      <Separator className="mb-6 bg-soyl-border" />
+      <h2 className="mb-4 text-xl font-bold text-foreground">{title}</h2>
+      <Separator className="mb-6 bg-border" />
       {children}
     </section>
   );
@@ -96,25 +91,24 @@ export default function DesignSystemPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      {...pageTransitionProps}
       className="pb-12"
     >
       <div className="mx-auto max-w-4xl px-4 py-6">
-        <h1 className="mb-1 text-3xl font-bold text-soyl-text">SOYL Design System</h1>
-        <p className="mb-8 text-sm text-soyl-muted">
+        <h1 className="mb-1 text-3xl font-bold text-foreground">SOYL Design System</h1>
+        <p className="mb-8 text-sm text-muted-foreground">
           Component gallery and design token reference
         </p>
 
         {/* Colors */}
         <Section title="Colors">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-            {SOYL_COLORS.map((c) => (
-              <div key={c.token} className="overflow-hidden rounded-lg border border-soyl-border/70 bg-white/80 shadow-soft">
+            {DESIGN_TOKENS.map((c) => (
+              <div key={c.token} className="overflow-hidden rounded-lg border border-white/[0.06] bg-white/80 shadow-soft">
                 <div className="h-16" style={{ backgroundColor: c.value }} />
                 <div className="bg-white/80 p-2">
-                  <p className="text-xs font-semibold text-soyl-text">{c.name}</p>
-                  <p className="text-xs text-soyl-muted">{c.value}</p>
+                  <p className="text-xs font-semibold text-foreground">{c.name}</p>
+                  <p className="text-xs text-muted-foreground">{c.value}</p>
                 </div>
               </div>
             ))}
@@ -126,8 +120,8 @@ export default function DesignSystemPage() {
           <div className="space-y-3">
             {TYPE_SCALE.map((t) => (
               <div key={t.name} className="flex items-baseline gap-4">
-                <span className="w-20 shrink-0 text-xs text-soyl-muted">{t.size}</span>
-                <span className={cn(t.class, "font-semibold text-soyl-text")}>
+                <span className="w-20 shrink-0 text-xs text-muted-foreground">{t.size}</span>
+                <span className={cn(t.class, "font-semibold text-foreground")}>
                   text-{t.name}: The quick brown fox
                 </span>
               </div>
@@ -139,23 +133,23 @@ export default function DesignSystemPage() {
         <Section title="Buttons">
           <div className="space-y-4">
             <div>
-              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-soyl-muted">Variants</p>
+              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">Variants</p>
               <div className="flex flex-wrap gap-3">
-                <Button className="min-h-touch bg-soyl-primary text-white hover:bg-soyl-primary-light">Primary</Button>
-                <Button variant="outline" className="min-h-touch border-soyl-border text-soyl-text">Outline</Button>
-                <Button variant="ghost" className="min-h-touch text-soyl-text">Ghost</Button>
+                <Button className="min-h-touch bg-primary text-white hover:bg-primary-light">Primary</Button>
+                <Button variant="outline" className="min-h-touch border-border text-foreground">Outline</Button>
+                <Button variant="ghost" className="min-h-touch text-foreground">Ghost</Button>
                 <Button variant="secondary" className="min-h-touch">Secondary</Button>
-                <Button className="min-h-touch bg-soyl-danger text-white hover:bg-soyl-danger-light">Destructive</Button>
+                <Button className="min-h-touch bg-destructive text-white hover:bg-destructive-light">Destructive</Button>
                 <Button disabled className="min-h-touch">Disabled</Button>
               </div>
             </div>
             <div>
-              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-soyl-muted">Sizes</p>
+              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">Sizes</p>
               <div className="flex flex-wrap items-center gap-3">
-                <Button size="sm" className="bg-soyl-primary text-white hover:bg-soyl-primary-light">Small</Button>
-                <Button className="min-h-touch bg-soyl-primary text-white hover:bg-soyl-primary-light">Default</Button>
-                <Button size="lg" className="bg-soyl-primary text-white hover:bg-soyl-primary-light">Large</Button>
-                <Button size="icon" className="bg-soyl-primary text-white hover:bg-soyl-primary-light">
+                <Button size="sm" className="bg-primary text-white hover:bg-primary-light">Small</Button>
+                <Button className="min-h-touch bg-primary text-white hover:bg-primary-light">Default</Button>
+                <Button size="lg" className="bg-primary text-white hover:bg-primary-light">Large</Button>
+                <Button size="icon" className="bg-primary text-white hover:bg-primary-light">
                   <Plus className="size-4" />
                 </Button>
               </div>
@@ -227,7 +221,7 @@ export default function DesignSystemPage() {
         <Section title="Status Badges">
           <div className="space-y-4">
             <div>
-              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-soyl-muted">Booking Status</p>
+              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">Booking Status</p>
               <div className="flex flex-wrap gap-2">
                 {(["confirmed", "checked_in", "checked_out", "cancelled", "no_show"] as BookingStatus[]).map((s) => (
                   <StatusBadge key={s} domain="booking" status={s} />
@@ -235,7 +229,7 @@ export default function DesignSystemPage() {
               </div>
             </div>
             <div>
-              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-soyl-muted">Room Status</p>
+              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">Room Status</p>
               <div className="flex flex-wrap gap-2">
                 {(["available", "occupied", "blocked", "maintenance", "dirty", "cleaning", "inspected"] as RoomStatus[]).map((s) => (
                   <StatusBadge key={s} domain="room" status={s} />
@@ -243,7 +237,7 @@ export default function DesignSystemPage() {
               </div>
             </div>
             <div>
-              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-soyl-muted">Request Status</p>
+              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">Request Status</p>
               <div className="flex flex-wrap gap-2">
                 {(["open", "in_progress", "resolved", "escalated"] as RequestStatus[]).map((s) => (
                   <StatusBadge key={s} domain="request" status={s} />
@@ -251,7 +245,7 @@ export default function DesignSystemPage() {
               </div>
             </div>
             <div>
-              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-soyl-muted">Room Status Pills</p>
+              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">Room Status Pills</p>
               <div className="flex flex-wrap gap-2">
                 {(["available", "occupied", "dirty", "cleaning", "inspected"] as RoomStatus[]).map((s) => (
                   <RoomStatusPill key={s} roomNumber={`10${(["available", "occupied", "dirty", "cleaning", "inspected"] as RoomStatus[]).indexOf(s) + 1}`} status={s} />
@@ -277,7 +271,7 @@ export default function DesignSystemPage() {
 
         {/* List Rows */}
         <Section title="List Rows">
-          <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
+          <Card className="border-white/[0.06] bg-white/80 shadow-soft">
             <CardContent className="p-0">
               <ListRow
                 title="Rajesh Kumar"
@@ -286,15 +280,15 @@ export default function DesignSystemPage() {
                 right={<StatusBadge domain="booking" status="checked_in" />}
                 onClick={() => {}}
               />
-              <Separator className="bg-soyl-border" />
+              <Separator className="bg-border" />
               <ListRow
                 title="Priya Sharma"
                 subtitle="Room 102 · Checkout tomorrow"
                 avatar="PS"
-                right={<Badge variant="outline" className="border-soyl-border text-soyl-muted">₹2,500</Badge>}
+                right={<Badge variant="outline" className="border-border text-muted-foreground">₹2,500</Badge>}
                 onClick={() => {}}
               />
-              <Separator className="bg-soyl-border" />
+              <Separator className="bg-border" />
               <ListRow
                 title="Extra towels needed"
                 subtitle="Room 101 · 2h ago"
@@ -309,14 +303,14 @@ export default function DesignSystemPage() {
         {/* Empty States */}
         <Section title="Empty States">
           <div className="grid gap-4 sm:grid-cols-2">
-            <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
+            <Card className="border-white/[0.06] bg-white/80 shadow-soft">
               <EmptyState
                 icon={<BedDouble className="size-10" />}
                 title="No rooms found"
                 description="Try changing your filters to see more rooms."
               />
             </Card>
-            <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
+            <Card className="border-white/[0.06] bg-white/80 shadow-soft">
               <EmptyState
                 icon={<CalendarPlus className="size-10" />}
                 title="No bookings yet"
@@ -332,15 +326,15 @@ export default function DesignSystemPage() {
         <Section title="Loading Skeletons">
           <div className="grid gap-6 sm:grid-cols-3">
             <div>
-              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-soyl-muted">Card</p>
+              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">Card</p>
               <LoadingSkeleton variant="card" count={2} />
             </div>
             <div>
-              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-soyl-muted">List</p>
+              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">List</p>
               <LoadingSkeleton variant="list" count={3} />
             </div>
             <div>
-              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-soyl-muted">Detail</p>
+              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">Detail</p>
               <LoadingSkeleton variant="detail" />
             </div>
           </div>
@@ -352,21 +346,21 @@ export default function DesignSystemPage() {
             <Button
               variant="outline"
               onClick={() => setDialogOpen(true)}
-              className="min-h-touch border-soyl-border text-soyl-text"
+              className="min-h-touch border-border text-foreground"
             >
               Open Dialog
             </Button>
             <Button
               variant="outline"
               onClick={() => setConfirmOpen(true)}
-              className="min-h-touch border-soyl-border text-soyl-text"
+              className="min-h-touch border-border text-foreground"
             >
               Confirmation Dialog
             </Button>
             <Button
               variant="outline"
               onClick={() => setSheetOpen(true)}
-              className="min-h-touch border-soyl-border text-soyl-text"
+              className="min-h-touch border-border text-foreground"
             >
               Open Sheet
             </Button>
@@ -380,12 +374,12 @@ export default function DesignSystemPage() {
                   This is a standard dialog with header, content, and actions.
                 </DialogDescription>
               </DialogHeader>
-              <p className="text-sm text-soyl-text">Dialog body content goes here.</p>
+              <p className="text-sm text-foreground">Dialog body content goes here.</p>
               <DialogFooter>
                 <Button variant="outline" onClick={() => setDialogOpen(false)} className="min-h-touch">
                   Cancel
                 </Button>
-                <Button onClick={() => setDialogOpen(false)} className="min-h-touch bg-soyl-primary text-white hover:bg-soyl-primary-light">
+                <Button onClick={() => setDialogOpen(false)} className="min-h-touch bg-primary text-white hover:bg-primary-light">
                   Confirm
                 </Button>
               </DialogFooter>
@@ -416,7 +410,7 @@ export default function DesignSystemPage() {
                   <Label>Amount</Label>
                   <CurrencyInput value="1500" onChange={() => {}} />
                 </div>
-                <Button className="min-h-touch w-full bg-soyl-primary text-white hover:bg-soyl-primary-light">
+                <Button className="min-h-touch w-full bg-primary text-white hover:bg-primary-light">
                   Submit
                 </Button>
               </div>

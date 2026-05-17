@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -72,8 +73,7 @@ export default function SettingsPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      {...pageTransitionProps}
       className="pb-8"
     >
       <div className="mx-auto max-w-2xl px-4">
@@ -81,10 +81,10 @@ export default function SettingsPage() {
 
         <div className="space-y-4">
           {/* Property Profile */}
-          <Card className="border-soyl-border/70 bg-white/80">
+          <Card className="border-white/[0.06] bg-white/80">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
-                <Building2 className="size-4 text-soyl-primary" />
+                <Building2 className="size-4 text-primary" />
                 Property Profile
               </CardTitle>
             </CardHeader>
@@ -109,15 +109,15 @@ export default function SettingsPage() {
           </Card>
 
           {/* Rooms & Rates */}
-          <Card className="border-soyl-border/70 bg-white/80">
+          <Card className="border-white/[0.06] bg-white/80">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
-                <BedDouble className="size-4 text-soyl-primary" />
+                <BedDouble className="size-4 text-primary" />
                 Rooms & Rates
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <p className="text-sm text-soyl-muted">
+              <p className="text-sm text-muted-foreground">
                 {Object.entries(roomSummary)
                   .map(([type, count]) => `${count} ${type}`)
                   .join(", ")}{" "}
@@ -125,12 +125,12 @@ export default function SettingsPage() {
               </p>
               <div className="flex gap-3">
                 <Link href="settings/rooms" className="flex-1">
-                  <Button variant="outline" className="min-h-touch w-full justify-between border-soyl-border/70 bg-white/80 text-soyl-text">
+                  <Button variant="outline" className="min-h-touch w-full justify-between border-white/[0.06] bg-white/80 text-foreground">
                     Manage Rooms <ChevronRight className="size-4" />
                   </Button>
                 </Link>
                 <Link href="settings/rates" className="flex-1">
-                  <Button variant="outline" className="min-h-touch w-full justify-between border-soyl-border/70 bg-white/80 text-soyl-text">
+                  <Button variant="outline" className="min-h-touch w-full justify-between border-white/[0.06] bg-white/80 text-foreground">
                     Manage Rates <ChevronRight className="size-4" />
                   </Button>
                 </Link>
@@ -139,10 +139,10 @@ export default function SettingsPage() {
           </Card>
 
           {/* Tax (GST) */}
-          <Card className="border-soyl-border/70 bg-white/80">
+          <Card className="border-white/[0.06] bg-white/80">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
-                <Receipt className="size-4 text-soyl-primary" />
+                <Receipt className="size-4 text-primary" />
                 Tax (GST)
               </CardTitle>
             </CardHeader>
@@ -167,25 +167,25 @@ export default function SettingsPage() {
           </Card>
 
           {/* Staff */}
-          <Card className="border-soyl-border/70 bg-white/80">
+          <Card className="border-white/[0.06] bg-white/80">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
-                <Users className="size-4 text-soyl-primary" />
+                <Users className="size-4 text-primary" />
                 Staff
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {staff.map((s) => (
-                <div key={s.id} className="flex items-center justify-between rounded-lg bg-soyl-bg/70 p-3">
+                <div key={s.id} className="flex items-center justify-between rounded-lg bg-navy-500/70 p-3">
                   <div>
-                    <p className="text-sm font-medium text-soyl-text">{s.name}</p>
-                    <p className="text-xs text-soyl-muted">{s.phone}</p>
+                    <p className="text-sm font-medium text-foreground">{s.name}</p>
+                    <p className="text-xs text-muted-foreground">{s.phone}</p>
                   </div>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => removeStaff(s.id)}
-                    className="size-9 text-soyl-danger hover:bg-soyl-danger/10"
+                    className="size-9 text-destructive hover:bg-destructive/10"
                   >
                     <Trash2 className="size-4" />
                   </Button>
@@ -194,7 +194,7 @@ export default function SettingsPage() {
               <Button
                 variant="outline"
                 onClick={() => toast.info("Add manager flow coming soon")}
-                className="min-h-touch w-full gap-2 border-soyl-border/70 bg-white/80 text-soyl-text"
+                className="min-h-touch w-full gap-2 border-white/[0.06] bg-white/80 text-foreground"
               >
                 <Plus className="size-4" /> Add Manager
               </Button>
@@ -202,10 +202,10 @@ export default function SettingsPage() {
           </Card>
 
           {/* Language */}
-          <Card className="border-soyl-border/70 bg-white/80">
+          <Card className="border-white/[0.06] bg-white/80">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
-                <Globe className="size-4 text-soyl-primary" />
+                <Globe className="size-4 text-primary" />
                 Language
               </CardTitle>
             </CardHeader>
@@ -219,8 +219,8 @@ export default function SettingsPage() {
                     className={cn(
                       "min-h-touch flex-1 rounded-lg border px-3 py-2 text-sm font-semibold shadow-soft transition-colors",
                       activeLang === lang.code
-                        ? "border-soyl-primary bg-soyl-primary text-white shadow-card"
-                        : "border-soyl-border/70 bg-white/80 text-soyl-text hover:bg-soyl-bg"
+                        ? "border-primary bg-primary text-white shadow-card"
+                        : "border-white/[0.06] bg-white/80 text-foreground hover:bg-muted"
                     )}
                   >
                     {lang.label}
@@ -231,17 +231,17 @@ export default function SettingsPage() {
           </Card>
 
           {/* Notifications */}
-          <Card className="border-soyl-border/70 bg-white/80">
+          <Card className="border-white/[0.06] bg-white/80">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
-                <Bell className="size-4 text-soyl-primary" />
+                <Bell className="size-4 text-primary" />
                 Notifications
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-1">
               {notifications.map((n, i) => (
                 <div key={n.type} className="flex min-h-touch items-center justify-between py-1">
-                  <span className="text-sm text-soyl-text">{n.type}</span>
+                  <span className="text-sm text-foreground">{n.type}</span>
                   <Switch checked={n.enabled} onCheckedChange={() => toggleNotification(i)} />
                 </div>
               ))}

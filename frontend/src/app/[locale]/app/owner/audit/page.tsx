@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
@@ -48,8 +49,7 @@ export default function AuditLogPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      {...pageTransitionProps}
       className="pb-8"
     >
       <div className="mx-auto max-w-4xl px-4">
@@ -57,7 +57,7 @@ export default function AuditLogPage() {
         <FilterChips options={FILTER_OPTIONS} activeValue={filter} onChange={setFilter} className="mb-4" />
 
         <div className="relative mb-4">
-          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-soyl-muted" />
+          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Search entries..."
             value={search}
@@ -68,34 +68,34 @@ export default function AuditLogPage() {
 
         {/* Desktop table */}
         <div className="hidden md:block">
-          <div className="overflow-hidden rounded-xl border border-soyl-border/70 bg-white/80 shadow-soft">
+          <div className="overflow-hidden rounded-xl border border-white/[0.06] bg-white/80 shadow-soft">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-soyl-border bg-soyl-bg">
-                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">Timestamp</th>
-                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">User</th>
-                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">Action</th>
-                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">Entity</th>
-                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">Changes</th>
+                <tr className="border-b border-border bg-muted">
+                  <th className="px-4 py-3 text-left font-medium text-muted-foreground">Timestamp</th>
+                  <th className="px-4 py-3 text-left font-medium text-muted-foreground">User</th>
+                  <th className="px-4 py-3 text-left font-medium text-muted-foreground">Action</th>
+                  <th className="px-4 py-3 text-left font-medium text-muted-foreground">Entity</th>
+                  <th className="px-4 py-3 text-left font-medium text-muted-foreground">Changes</th>
                 </tr>
               </thead>
               <tbody>
                 {entries.map((entry) => (
-                  <tr key={entry.id} className="border-b border-soyl-border last:border-b-0">
-                    <td className="whitespace-nowrap px-4 py-3 text-soyl-muted">
+                  <tr key={entry.id} className="border-b border-border last:border-b-0">
+                    <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
                       {formatDate(entry.timestamp, "dd MMM")} {formatTime(entry.timestamp)}
                     </td>
-                    <td className="px-4 py-3 font-medium text-soyl-text">{entry.user}</td>
+                    <td className="px-4 py-3 font-medium text-foreground">{entry.user}</td>
                     <td className="px-4 py-3">
-                      <span className="inline-flex rounded-full bg-soyl-bg px-2.5 py-0.5 text-xs font-medium text-soyl-text">
+                      <span className="inline-flex rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-foreground">
                         {entry.action.replace(/_/g, " ")}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-soyl-text">{entry.entity}</td>
-                    <td className="px-4 py-3 text-xs text-soyl-muted">
+                    <td className="px-4 py-3 text-foreground">{entry.entity}</td>
+                    <td className="px-4 py-3 text-xs text-muted-foreground">
                       {entry.before && <span className="line-through">{entry.before}</span>}
                       {entry.before && entry.after && " → "}
-                      {entry.after && <span className="font-medium text-soyl-text">{entry.after}</span>}
+                      {entry.after && <span className="font-medium text-foreground">{entry.after}</span>}
                     </td>
                   </tr>
                 ))}
@@ -107,22 +107,22 @@ export default function AuditLogPage() {
         {/* Mobile cards */}
         <div className="space-y-3 md:hidden">
           {entries.map((entry) => (
-            <Card key={entry.id} className="border-soyl-border/70 bg-white/80 p-3 shadow-soft">
+            <Card key={entry.id} className="border-white/[0.06] bg-white/80 p-3 shadow-soft">
               <div className="mb-1 flex items-center justify-between">
-                <span className="text-xs text-soyl-muted">
+                <span className="text-xs text-muted-foreground">
                   {formatDate(entry.timestamp, "dd MMM")} {formatTime(entry.timestamp)}
                 </span>
-                <span className="inline-flex rounded-full bg-soyl-bg/80 px-2 py-0.5 text-xs font-medium text-soyl-text">
+                <span className="inline-flex rounded-full bg-navy-500/80 px-2 py-0.5 text-xs font-medium text-foreground">
                   {entry.action.replace(/_/g, " ")}
                 </span>
               </div>
-              <p className="text-sm font-medium text-soyl-text">{entry.entity}</p>
-              <p className="text-xs text-soyl-muted">by {entry.user}</p>
+              <p className="text-sm font-medium text-foreground">{entry.entity}</p>
+              <p className="text-xs text-muted-foreground">by {entry.user}</p>
               {(entry.before || entry.after) && (
-                <div className="mt-2 rounded-md bg-soyl-bg p-2 text-xs text-soyl-muted">
+                <div className="mt-2 rounded-md bg-muted p-2 text-xs text-muted-foreground">
                   {entry.before && <span className="line-through">{entry.before}</span>}
                   {entry.before && entry.after && " → "}
-                  {entry.after && <span className="font-medium text-soyl-text">{entry.after}</span>}
+                  {entry.after && <span className="font-medium text-foreground">{entry.after}</span>}
                 </div>
               )}
             </Card>

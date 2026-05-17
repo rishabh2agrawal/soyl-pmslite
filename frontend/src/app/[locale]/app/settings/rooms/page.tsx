@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -55,8 +56,7 @@ export default function ManageRoomsPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      {...pageTransitionProps}
       className="pb-8"
     >
       <div className="mx-auto max-w-3xl px-4">
@@ -67,7 +67,7 @@ export default function ManageRoomsPage() {
           action={
             <Button
               onClick={addRoom}
-              className="min-h-touch gap-2 bg-soyl-primary text-white hover:bg-soyl-primary-light"
+              className="min-h-touch gap-2 bg-primary text-white hover:bg-primary-light"
             >
               <Plus className="size-4" /> Add Room
             </Button>
@@ -79,12 +79,12 @@ export default function ManageRoomsPage() {
             const isEditing = editingId === room.id;
 
             return (
-              <Card key={room.id} className="border-soyl-border/70 bg-white/80 p-4 shadow-soft">
+              <Card key={room.id} className="border-white/[0.06] bg-white/80 p-4 shadow-soft">
                 {isEditing ? (
                   <div className="space-y-3">
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="mb-1 block text-xs font-medium text-soyl-muted">Number</label>
+                        <label className="mb-1 block text-xs font-medium text-muted-foreground">Number</label>
                         <Input
                           value={editData.number ?? ""}
                           onChange={(e) => setEditData({ ...editData, number: e.target.value })}
@@ -92,7 +92,7 @@ export default function ManageRoomsPage() {
                         />
                       </div>
                       <div>
-                        <label className="mb-1 block text-xs font-medium text-soyl-muted">Type</label>
+                        <label className="mb-1 block text-xs font-medium text-muted-foreground">Type</label>
                         <Select
                           value={editData.type ?? "Standard"}
                           onValueChange={(v) => setEditData({ ...editData, type: v })}
@@ -108,7 +108,7 @@ export default function ManageRoomsPage() {
                         </Select>
                       </div>
                       <div>
-                        <label className="mb-1 block text-xs font-medium text-soyl-muted">Floor</label>
+                        <label className="mb-1 block text-xs font-medium text-muted-foreground">Floor</label>
                         <Input
                           type="number"
                           value={editData.floor ?? 1}
@@ -117,7 +117,7 @@ export default function ManageRoomsPage() {
                         />
                       </div>
                       <div>
-                        <label className="mb-1 block text-xs font-medium text-soyl-muted">Base Rate</label>
+                        <label className="mb-1 block text-xs font-medium text-muted-foreground">Base Rate</label>
                         <Input
                           type="number"
                           value={editData.base_rate ?? 0}
@@ -138,7 +138,7 @@ export default function ManageRoomsPage() {
                       <Button
                         size="sm"
                         onClick={() => saveEdit(room.id)}
-                        className="min-h-[36px] gap-1 bg-soyl-primary text-white hover:bg-soyl-primary-light"
+                        className="min-h-[36px] gap-1 bg-primary text-white hover:bg-primary-light"
                       >
                         <Check className="size-4" /> Save
                       </Button>
@@ -147,10 +147,10 @@ export default function ManageRoomsPage() {
                 ) : (
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <span className="text-lg font-bold text-soyl-text">{room.number}</span>
+                      <span className="text-lg font-bold text-foreground">{room.number}</span>
                       <div className="flex flex-col">
-                        <span className="text-sm text-soyl-text">{room.type} · Floor {room.floor}</span>
-                        <span className="text-xs text-soyl-muted">{formatCurrency(room.base_rate)}/night</span>
+                        <span className="text-sm text-foreground">{room.type} · Floor {room.floor}</span>
+                        <span className="text-xs text-muted-foreground">{formatCurrency(room.base_rate)}/night</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -159,7 +159,7 @@ export default function ManageRoomsPage() {
                         variant="ghost"
                         size="icon"
                         onClick={() => startEdit(room)}
-                        className="size-9 text-soyl-muted hover:text-soyl-primary"
+                        className="size-9 text-muted-foreground hover:text-primary"
                       >
                         <Pencil className="size-4" />
                       </Button>

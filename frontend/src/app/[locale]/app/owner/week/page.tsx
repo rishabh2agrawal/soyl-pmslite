@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -20,13 +21,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PageHeader } from "@/components/shared/page-header";
 import { MetricCard } from "@/components/shared/metric-card";
 import { FilterChips } from "@/components/shared/filter-chips";
+import { ChartMount } from "@/components/shared/chart-mount";
 import { WEEK_DATA } from "@/lib/mock-data";
 import { formatCurrency, formatCurrencyCompact } from "@/lib/formatters";
 
 const COLORS = {
-  primary: "#B85518",
-  secondary: "#1F5C3F",
-  accent: "#C9971F",
+  primary: "#AFD0CC",
+  secondary: "#19A97B",
+  accent: "#F5A623",
   muted: "#5C5C5C",
   border: "#D9D5CC",
 };
@@ -43,9 +45,7 @@ export default function WeekPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35 }}
+      {...pageTransitionProps}
       className="space-y-6 px-4 pb-8"
     >
       <PageHeader
@@ -61,14 +61,14 @@ export default function WeekPage() {
       />
 
       {/* Occupancy Trend */}
-      <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
+      <Card className="border-white/[0.06] bg-white/80 shadow-soft">
         <CardHeader>
-          <CardTitle className="text-sm font-semibold text-soyl-text">
+          <CardTitle className="text-sm font-semibold text-foreground">
             Occupancy Trend
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-48">
+          <ChartMount>
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={data.occupancy_by_day}>
                 <CartesianGrid strokeDasharray="3 3" stroke={COLORS.border} />
@@ -103,19 +103,19 @@ export default function WeekPage() {
                 />
               </LineChart>
             </ResponsiveContainer>
-          </div>
+          </ChartMount>
         </CardContent>
       </Card>
 
       {/* Revenue Trend */}
-      <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
+      <Card className="border-white/[0.06] bg-white/80 shadow-soft">
         <CardHeader>
-          <CardTitle className="text-sm font-semibold text-soyl-text">
+          <CardTitle className="text-sm font-semibold text-foreground">
             Revenue Trend
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-48">
+          <ChartMount>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data.revenue_by_day}>
                 <CartesianGrid strokeDasharray="3 3" stroke={COLORS.border} />
@@ -146,19 +146,19 @@ export default function WeekPage() {
                 />
               </BarChart>
             </ResponsiveContainer>
-          </div>
+          </ChartMount>
         </CardContent>
       </Card>
 
       {/* Requests vs Resolved */}
-      <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
+      <Card className="border-white/[0.06] bg-white/80 shadow-soft">
         <CardHeader>
-          <CardTitle className="text-sm font-semibold text-soyl-text">
+          <CardTitle className="text-sm font-semibold text-foreground">
             Requests vs Resolved
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-48">
+          <ChartMount>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data.requests_vs_resolved}>
                 <CartesianGrid strokeDasharray="3 3" stroke={COLORS.border} />
@@ -197,7 +197,7 @@ export default function WeekPage() {
                 />
               </BarChart>
             </ResponsiveContainer>
-          </div>
+          </ChartMount>
         </CardContent>
       </Card>
 
@@ -214,9 +214,9 @@ export default function WeekPage() {
       />
 
       {/* Per-room Performance */}
-      <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
+      <Card className="border-white/[0.06] bg-white/80 shadow-soft">
         <CardHeader>
-          <CardTitle className="text-sm font-semibold text-soyl-text">
+          <CardTitle className="text-sm font-semibold text-foreground">
             Per-room Performance
           </CardTitle>
         </CardHeader>
@@ -225,7 +225,7 @@ export default function WeekPage() {
           <div className="hidden sm:block">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-soyl-border text-left text-soyl-muted">
+                <tr className="border-b border-border text-left text-muted-foreground">
                   <th className="pb-2 font-medium">Room</th>
                   <th className="pb-2 text-right font-medium">Nights Sold</th>
                   <th className="pb-2 text-right font-medium">Revenue</th>
@@ -236,18 +236,18 @@ export default function WeekPage() {
                 {data.per_room.map((r) => (
                   <tr
                     key={r.room}
-                    className="border-b border-soyl-border/50 last:border-0"
+                    className="border-b border-white/[0.08] last:border-0"
                   >
-                    <td className="py-2.5 font-medium text-soyl-text">
+                    <td className="py-2.5 font-medium text-foreground">
                       {r.room}
                     </td>
-                    <td className="py-2.5 text-right text-soyl-muted">
+                    <td className="py-2.5 text-right text-muted-foreground">
                       {r.nights}
                     </td>
-                    <td className="py-2.5 text-right font-medium text-soyl-text">
+                    <td className="py-2.5 text-right font-medium text-foreground">
                       {formatCurrency(r.revenue)}
                     </td>
-                    <td className="py-2.5 text-right text-soyl-muted">
+                    <td className="py-2.5 text-right text-muted-foreground">
                       {formatCurrency(r.avg_rate)}
                     </td>
                   </tr>
@@ -261,25 +261,25 @@ export default function WeekPage() {
             {data.per_room.map((r) => (
               <div
                 key={r.room}
-                className="rounded-lg border border-soyl-border/70 bg-white/70 p-3"
+                className="rounded-lg border border-white/[0.06] bg-white/70 p-3"
               >
-                <div className="mb-1.5 text-sm font-semibold text-soyl-text">
+                <div className="mb-1.5 text-sm font-semibold text-foreground">
                   Room {r.room}
                 </div>
                 <div className="grid grid-cols-3 gap-2 text-xs">
                   <div>
-                    <span className="text-soyl-muted">Nights</span>
-                    <p className="font-medium text-soyl-text">{r.nights}</p>
+                    <span className="text-muted-foreground">Nights</span>
+                    <p className="font-medium text-foreground">{r.nights}</p>
                   </div>
                   <div>
-                    <span className="text-soyl-muted">Revenue</span>
-                    <p className="font-medium text-soyl-text">
+                    <span className="text-muted-foreground">Revenue</span>
+                    <p className="font-medium text-foreground">
                       {formatCurrency(r.revenue)}
                     </p>
                   </div>
                   <div>
-                    <span className="text-soyl-muted">Avg Rate</span>
-                    <p className="font-medium text-soyl-text">
+                    <span className="text-muted-foreground">Avg Rate</span>
+                    <p className="font-medium text-foreground">
                       {formatCurrency(r.avg_rate)}
                     </p>
                   </div>

@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useMemo } from "react";
 import { motion } from "framer-motion";
@@ -37,16 +38,14 @@ export default function GuestDetailPage() {
   if (!guest) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
-        <p className="text-soyl-muted">Guest not found</p>
+        <p className="text-muted-foreground">Guest not found</p>
       </div>
     );
   }
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      {...pageTransitionProps}
       className="space-y-6 px-4 pb-8"
     >
       <PageHeader
@@ -55,7 +54,7 @@ export default function GuestDetailPage() {
         onBack={() => router.back()}
         action={
           <Link href="/en/app/manager/bookings/new">
-            <Button size="sm" className="bg-soyl-primary text-white hover:bg-soyl-primary-light">
+            <Button size="sm" className="bg-primary text-white hover:bg-primary-light">
               <Plus className="mr-1.5 size-4" />
               Book
             </Button>
@@ -65,17 +64,17 @@ export default function GuestDetailPage() {
 
       {/* Profile */}
       <div className="flex items-center gap-4">
-        <div className="flex size-16 items-center justify-center rounded-full bg-soyl-primary/10 text-lg font-bold text-soyl-primary">
+        <div className="flex size-16 items-center justify-center rounded-full bg-primary/10 text-lg font-bold text-primary">
           {getInitials(guest.name)}
         </div>
         <div className="flex-1">
-          <h2 className="text-xl font-bold text-soyl-text">{guest.name}</h2>
+          <h2 className="text-xl font-bold text-foreground">{guest.name}</h2>
           <div className="mt-1 flex flex-wrap gap-1.5">
             {guest.tags?.map((tag) => (
               <Badge
                 key={tag}
                 variant="secondary"
-                className="bg-soyl-accent/10 text-soyl-accent text-xs"
+                className="bg-amber/10 text-amber-light text-xs"
               >
                 {tag}
               </Badge>
@@ -85,22 +84,22 @@ export default function GuestDetailPage() {
       </div>
 
       {/* Contact info */}
-      <Card className="border-soyl-border/70 bg-white/80">
+      <Card className="border-white/[0.06] bg-white/80">
         <CardContent className="space-y-3 py-3">
           <div className="flex items-center gap-3">
-            <Phone className="size-4 text-soyl-muted" />
-            <span className="text-sm text-soyl-text">{guest.phone}</span>
+            <Phone className="size-4 text-muted-foreground" />
+            <span className="text-sm text-foreground">{guest.phone}</span>
           </div>
           {guest.email && (
             <div className="flex items-center gap-3">
-              <Mail className="size-4 text-soyl-muted" />
-              <span className="text-sm text-soyl-text">{guest.email}</span>
+              <Mail className="size-4 text-muted-foreground" />
+              <span className="text-sm text-foreground">{guest.email}</span>
             </div>
           )}
           {guest.id_type && (
             <div className="flex items-center gap-3">
-              <CreditCard className="size-4 text-soyl-muted" />
-              <span className="text-sm text-soyl-text">
+              <CreditCard className="size-4 text-muted-foreground" />
+              <span className="text-sm text-foreground">
                 {guest.id_type.replace("_", " ")} · {guest.id_number_masked}
               </span>
             </div>
@@ -117,24 +116,24 @@ export default function GuestDetailPage() {
 
       {/* Notes */}
       {guest.notes && (
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardHeader className="pb-1">
             <CardTitle className="flex items-center gap-2 text-sm font-semibold">
-              <FileText className="size-4 text-soyl-muted" />
+              <FileText className="size-4 text-muted-foreground" />
               Notes
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-soyl-muted">{guest.notes}</p>
+            <p className="text-sm text-muted-foreground">{guest.notes}</p>
           </CardContent>
         </Card>
       )}
 
       {/* Stay history */}
-      <Card className="border-soyl-border/70 bg-white/80">
+      <Card className="border-white/[0.06] bg-white/80">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-2 text-base font-semibold">
-            <Tag className="size-4 text-soyl-primary" />
+            <Tag className="size-4 text-primary" />
             Stay History
             <Badge variant="outline" className="ml-auto">
               {stays.length}
@@ -143,7 +142,7 @@ export default function GuestDetailPage() {
         </CardHeader>
         <CardContent className="space-y-1">
           {stays.length === 0 ? (
-            <p className="py-4 text-center text-sm text-soyl-muted">No stays recorded</p>
+            <p className="py-4 text-center text-sm text-muted-foreground">No stays recorded</p>
           ) : (
             stays.map((booking) => (
               <Link

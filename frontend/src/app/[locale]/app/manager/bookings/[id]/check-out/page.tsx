@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
@@ -79,7 +80,7 @@ export default function CheckOutPage() {
 
   if (!booking || !room) {
     return (
-      <div className="flex items-center justify-center py-20 text-soyl-muted">
+      <div className="flex items-center justify-center py-20 text-muted-foreground">
         Booking not found
       </div>
     );
@@ -126,9 +127,7 @@ export default function CheckOutPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      {...pageTransitionProps}
       className="space-y-6 px-4 pb-28"
     >
       <PageHeader
@@ -139,41 +138,41 @@ export default function CheckOutPage() {
       />
 
       {/* Stay summary */}
-      <Card className="border-soyl-border/70 bg-white/80">
+      <Card className="border-white/[0.06] bg-white/80">
         <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-medium text-soyl-muted">
+          <CardTitle className="text-sm font-medium text-muted-foreground">
             Stay Summary
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
-              <p className="text-xs text-soyl-muted">Check-in</p>
-              <p className="font-semibold text-soyl-text text-sm">
+              <p className="text-xs text-muted-foreground">Check-in</p>
+              <p className="font-semibold text-foreground text-sm">
                 {formatDate(booking.check_in, "dd MMM")}
               </p>
             </div>
             <div>
-              <p className="text-xs text-soyl-muted">Check-out</p>
-              <p className="font-semibold text-soyl-text text-sm">
+              <p className="text-xs text-muted-foreground">Check-out</p>
+              <p className="font-semibold text-foreground text-sm">
                 {formatDate(booking.check_out, "dd MMM")}
               </p>
             </div>
             <div>
-              <p className="text-xs text-soyl-muted">Nights</p>
-              <p className="font-semibold text-soyl-text text-sm">{nights}</p>
+              <p className="text-xs text-muted-foreground">Nights</p>
+              <p className="font-semibold text-foreground text-sm">{nights}</p>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Charges */}
-      <Card className="border-soyl-border/70 bg-white/80">
+      <Card className="border-white/[0.06] bg-white/80">
         <CardHeader className="pb-2">
-          <CardTitle className="flex items-center justify-between text-sm font-medium text-soyl-muted">
+          <CardTitle className="flex items-center justify-between text-sm font-medium text-muted-foreground">
             Charges
             <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-              <Button size="sm" variant="outline" className="h-8 border-soyl-border/70 text-soyl-text" onClick={() => setSheetOpen(true)}>
+              <Button size="sm" variant="outline" className="h-8 border-white/[0.06] text-foreground" onClick={() => setSheetOpen(true)}>
                 <Plus className="mr-1 size-3.5" />
                 Add Charge
               </Button>
@@ -201,7 +200,7 @@ export default function CheckOutPage() {
                   </div>
                   <Button
                     onClick={addCharge}
-                    className="min-h-touch w-full bg-soyl-primary text-white hover:bg-soyl-primary-light"
+                    className="min-h-touch w-full bg-primary text-white hover:bg-primary-light"
                   >
                     Add Charge
                   </Button>
@@ -212,49 +211,49 @@ export default function CheckOutPage() {
         </CardHeader>
         <CardContent className="space-y-2">
           <div className="flex justify-between py-1.5 text-sm">
-            <span className="text-soyl-text">
+            <span className="text-foreground">
               Room {booking.room_number} × {nights} night(s)
             </span>
-            <span className="font-medium text-soyl-text">
+            <span className="font-medium text-foreground">
               {formatCurrency(roomTotal)}
             </span>
           </div>
           {extraCharges.map((c) => (
             <div key={c.id} className="flex justify-between py-1.5 text-sm">
-              <span className="text-soyl-text">{c.description}</span>
-              <span className="font-medium text-soyl-text">
+              <span className="text-foreground">{c.description}</span>
+              <span className="font-medium text-foreground">
                 {formatCurrency(c.amount)}
               </span>
             </div>
           ))}
-          <Separator className="bg-soyl-border" />
+          <Separator className="bg-border" />
           <div className="flex justify-between py-1 text-sm">
-            <span className="text-soyl-muted">Subtotal</span>
-            <span className="font-medium text-soyl-text">
+            <span className="text-muted-foreground">Subtotal</span>
+            <span className="font-medium text-foreground">
               {formatCurrency(subtotal)}
             </span>
           </div>
           {booking.invoice_type === "gst" && (
             <div className="flex justify-between py-1 text-sm">
-              <span className="text-soyl-muted">GST (12%)</span>
-              <span className="font-medium text-soyl-text">
+              <span className="text-muted-foreground">GST (12%)</span>
+              <span className="font-medium text-foreground">
                 {formatCurrency(gstAmount)}
               </span>
             </div>
           )}
           <div className="flex justify-between py-1 text-sm">
-            <span className="text-soyl-muted">Advance Paid</span>
-            <span className="font-medium text-soyl-secondary">
+            <span className="text-muted-foreground">Advance Paid</span>
+            <span className="font-medium text-emerald-light">
               -{formatCurrency(advance)}
             </span>
           </div>
-          <Separator className="bg-soyl-border" />
+          <Separator className="bg-border" />
           <div className="flex justify-between">
-            <span className="font-semibold text-soyl-text">Balance Due</span>
+            <span className="font-semibold text-foreground">Balance Due</span>
             <span
               className={cn(
                 "text-lg font-bold",
-                balanceDue > 0 ? "text-soyl-danger" : "text-soyl-secondary",
+                balanceDue > 0 ? "text-destructive" : "text-emerald-light",
               )}
             >
               {formatCurrency(Math.max(0, balanceDue))}
@@ -265,9 +264,9 @@ export default function CheckOutPage() {
 
       {/* Payment capture */}
       {balanceDue > 0 && (
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-soyl-muted">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
               Collect Payment
             </CardTitle>
           </CardHeader>
@@ -313,12 +312,12 @@ export default function CheckOutPage() {
       )}
 
       {/* Generate / Share */}
-      <Card className="border-soyl-border/70 bg-white/80">
+      <Card className="border-white/[0.06] bg-white/80">
         <CardContent className="space-y-3">
           <Button
             type="button"
             variant="outline"
-            className="min-h-touch w-full border-soyl-border text-soyl-text"
+            className="min-h-touch w-full border-border text-foreground"
           >
             <Receipt className="mr-2 size-4" />
             Generate {booking.invoice_type === "gst" ? "Invoice" : "Receipt"}
@@ -326,7 +325,7 @@ export default function CheckOutPage() {
           <Button
             type="button"
             variant="outline"
-            className="min-h-touch w-full border-soyl-border text-soyl-text"
+            className="min-h-touch w-full border-border text-foreground"
           >
             <MessageCircle className="mr-2 size-4 text-green-600" />
             Share via WhatsApp

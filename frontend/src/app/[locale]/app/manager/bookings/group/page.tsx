@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -83,9 +84,7 @@ export default function GroupBookingPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      {...pageTransitionProps}
       className="space-y-6 px-4 pb-28"
     >
       <PageHeader
@@ -96,9 +95,9 @@ export default function GroupBookingPage() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Primary contact */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm font-medium text-soyl-muted">
+            <CardTitle className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
               <Users className="size-4" />
               Primary Contact
             </CardTitle>
@@ -113,7 +112,7 @@ export default function GroupBookingPage() {
                 {...register("contact_name")}
               />
               {errors.contact_name && (
-                <p className="mt-1 text-xs text-soyl-danger">
+                <p className="mt-1 text-xs text-destructive">
                   {errors.contact_name.message}
                 </p>
               )}
@@ -132,7 +131,7 @@ export default function GroupBookingPage() {
                 )}
               />
               {errors.contact_phone && (
-                <p className="mt-1 text-xs text-soyl-danger">
+                <p className="mt-1 text-xs text-destructive">
                   {errors.contact_phone.message}
                 </p>
               )}
@@ -147,7 +146,7 @@ export default function GroupBookingPage() {
                 {...register("contact_email")}
               />
               {errors.contact_email && (
-                <p className="mt-1 text-xs text-soyl-danger">
+                <p className="mt-1 text-xs text-destructive">
                   {errors.contact_email.message}
                 </p>
               )}
@@ -156,9 +155,9 @@ export default function GroupBookingPage() {
         </Card>
 
         {/* Room type selector */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-soyl-muted">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
               Room Selection
             </CardTitle>
           </CardHeader>
@@ -172,11 +171,11 @@ export default function GroupBookingPage() {
               return (
                 <div
                   key={type}
-                  className="flex items-center justify-between rounded-lg border border-soyl-border/70 bg-white/70 p-3"
+                  className="flex items-center justify-between rounded-lg border border-white/[0.06] bg-white/70 p-3"
                 >
                   <div>
-                    <p className="font-medium text-soyl-text">{type}</p>
-                    <p className="text-xs text-soyl-muted">
+                    <p className="font-medium text-foreground">{type}</p>
+                    <p className="text-xs text-muted-foreground">
                       {formatCurrency(rate)}/night · {available} available
                     </p>
                   </div>
@@ -185,20 +184,20 @@ export default function GroupBookingPage() {
                       type="button"
                       variant="outline"
                       size="icon"
-                      className="min-h-touch min-w-touch border-soyl-border/70"
+                      className="min-h-touch min-w-touch border-white/[0.06]"
                       disabled={roomCounts[type] <= 0}
                       onClick={() => updateCount(type, -1)}
                     >
                       −
                     </Button>
-                    <span className="w-6 text-center font-semibold text-soyl-text">
+                    <span className="w-6 text-center font-semibold text-foreground">
                       {roomCounts[type]}
                     </span>
                     <Button
                       type="button"
                       variant="outline"
                       size="icon"
-                      className="min-h-touch min-w-touch border-soyl-border/70"
+                      className="min-h-touch min-w-touch border-white/[0.06]"
                       disabled={roomCounts[type] >= available}
                       onClick={() => updateCount(type, 1)}
                     >
@@ -212,7 +211,7 @@ export default function GroupBookingPage() {
         </Card>
 
         {/* Group rate override */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardContent>
             <Label>Group Rate Override (optional)</Label>
             <Controller
@@ -231,18 +230,18 @@ export default function GroupBookingPage() {
         </Card>
 
         {/* Summary */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardContent className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-soyl-muted">Total Rooms</span>
-              <span className="font-semibold text-soyl-text">{totalRooms}</span>
+              <span className="text-muted-foreground">Total Rooms</span>
+              <span className="font-semibold text-foreground">{totalRooms}</span>
             </div>
-            <Separator className="bg-soyl-border" />
+            <Separator className="bg-border" />
             <div className="flex justify-between">
-              <span className="font-medium text-soyl-text">
+              <span className="font-medium text-foreground">
                 Estimated Total / Night
               </span>
-              <span className="text-lg font-bold text-soyl-text">
+              <span className="text-lg font-bold text-foreground">
                 {formatCurrency(totalRate)}
               </span>
             </div>

@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import { onboardingStepVariants } from "@/lib/motion";
 import {
   ArrowLeft,
   ArrowRight,
@@ -41,17 +42,8 @@ interface ManagerEntry {
 
 const STEPS = 5;
 
-const slideVariants = {
-  enter: (dir: number) => ({
-    x: dir > 0 ? 300 : -300,
-    opacity: 0,
-  }),
-  center: { x: 0, opacity: 1 },
-  exit: (dir: number) => ({
-    x: dir > 0 ? -300 : 300,
-    opacity: 0,
-  }),
-};
+const onLabelClass =
+  "text-xs text-plum font-medium uppercase tracking-wide";
 
 export default function OnboardingPage() {
   const t = useTranslations("onboarding");
@@ -184,13 +176,13 @@ export default function OnboardingPage() {
   return (
     <div className="flex min-h-dvh flex-col bg-background">
       {/* Progress */}
-      <div className="sticky top-0 z-10 border-b border-soyl-border/70 bg-white/85 px-4 pb-2 pt-4 shadow-soft backdrop-blur-sm safe-area-pt">
-        <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
-          <span>
+      <div className="glass-heavy safe-area-pt sticky top-0 z-10 border-b border-white/[0.06] px-4 pb-2 pt-4 shadow-[0_1px_0_rgba(255,255,255,0.04)]">
+        <div className="mb-2 flex items-center justify-between">
+          <span className="text-xs text-plum">
             {step + 1} / {STEPS}
           </span>
         </div>
-        <Progress value={((step + 1) / STEPS) * 100} className="h-1.5" />
+        <Progress value={((step + 1) / STEPS) * 100} className="h-1.5 bg-white/[0.08]" />
       </div>
 
       {/* Content */}
@@ -199,13 +191,14 @@ export default function OnboardingPage() {
           <motion.div
             key={step}
             custom={direction}
-            variants={slideVariants}
+            variants={onboardingStepVariants}
             initial="enter"
             animate="center"
             exit="exit"
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="space-y-6"
           >
+            <div className="liquid-glass rounded-2xl border-0 px-4 py-6">
             {step === 0 && (
               <StepWelcome
                 languages={languages}
@@ -250,26 +243,38 @@ export default function OnboardingPage() {
                 t={t}
               />
             )}
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>
 
       {/* Navigation buttons */}
-      <div className="sticky bottom-0 flex items-center gap-3 border-t border-soyl-border/70 bg-white/90 px-4 py-3 shadow-[0_-8px_20px_rgba(26,18,9,0.1)] backdrop-blur-xl safe-area-pb">
+      <div className="glass-heavy safe-area-pb sticky bottom-0 flex items-center gap-3 border-t border-white/[0.06] px-4 py-3 shadow-[0_-12px_30px_rgba(0,0,0,0.35)]">
         {step > 0 && (
-          <Button variant="outline" onClick={goBack} className="gap-2">
+          <Button
+            variant="outline"
+            onClick={goBack}
+            className="gap-2 border border-white/[0.09] bg-white/[0.03] font-medium text-chalk hover:bg-white/[0.07]"
+          >
             <ArrowLeft className="h-4 w-4" />
             {t("back")}
           </Button>
         )}
         <div className="flex-1" />
         {step < STEPS - 1 ? (
-          <Button onClick={goNext} disabled={!canProceed()} className="gap-2">
+          <Button
+            onClick={goNext}
+            disabled={!canProceed()}
+            className="gap-2 bg-teal font-semibold text-ink shadow-glow hover:bg-chalk"
+          >
             {t("next")}
             <ArrowRight className="h-4 w-4" />
           </Button>
         ) : (
-          <Button onClick={handleComplete} className="gap-2">
+          <Button
+            onClick={handleComplete}
+            className="gap-2 bg-teal font-semibold text-ink shadow-glow hover:bg-chalk"
+          >
             <Check className="h-4 w-4" />
             {t("finish")}
           </Button>
@@ -294,25 +299,26 @@ function StepWelcome({
 }) {
   return (
     <div className="flex flex-col items-center text-center">
-      <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-        <Globe className="h-8 w-8 text-primary" />
+      <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl liquid-glass ring-1 ring-teal/15">
+        <Globe className="size-8 text-teal" />
       </div>
-      <h1 className="text-2xl font-bold text-foreground">{t("welcomeTitle")}</h1>
-      <p className="mt-2 text-muted-foreground">{t("welcomeSubtitle")}</p>
+      <h1 className="text-2xl font-bold text-chalk">{t("welcomeTitle")}</h1>
+      <p className="mt-2 text-sm text-plum">{t("welcomeSubtitle")}</p>
 
       <div className="mt-8 grid w-full max-w-sm grid-cols-3 gap-3">
         {languages.map((lang) => (
           <button
             key={lang.code}
             onClick={() => onSelect(lang.code)}
+            type="button"
             className={cn(
-              "flex flex-col items-center gap-2 rounded-xl border-2 bg-white/80 p-4 shadow-soft transition-all",
+              "flex flex-col items-center gap-2 rounded-xl border p-4 transition-all",
               selectedLang === lang.code
-                ? "border-primary bg-primary/10"
-                : "border-border hover:border-primary/40",
+                ? "border-2 border-teal/50 bg-teal/10 text-chalk shadow-glow-sm"
+                : "border border-white/[0.08] bg-white/[0.02] text-plum hover:border-white/[0.16]",
             )}
           >
-            <span className="text-2xl font-bold text-foreground">
+            <span className="text-2xl font-bold text-chalk">
               {lang.script}
             </span>
             <span className="text-sm font-medium">{lang.label}</span>
@@ -339,10 +345,12 @@ function StepProperty({
 
   return (
     <div className="space-y-5">
-      <h2 className="text-xl font-bold">{t("propertyTitle")}</h2>
+      <h2 className="text-xl font-bold text-chalk">{t("propertyTitle")}</h2>
 
       <div className="space-y-2">
-        <Label htmlFor="prop-name">{t("propertyName")}</Label>
+        <Label htmlFor="prop-name" className={onLabelClass}>
+          {t("propertyName")}
+        </Label>
         <Input
           id="prop-name"
           value={property.name}
@@ -353,21 +361,24 @@ function StepProperty({
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="prop-address">{t("address")}</Label>
+        <Label htmlFor="prop-address" className={onLabelClass}>
+          {t("address")}
+        </Label>
         <Textarea
           id="prop-address"
           value={property.address}
           onChange={(e) => update("address", e.target.value)}
           placeholder={t("addressPlaceholder")}
           rows={2}
-          className="min-h-touch"
         />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="prop-phone">{t("phone")}</Label>
-        <div className="flex">
-          <span className="flex items-center rounded-l-md border border-r-0 border-input bg-muted px-3 text-sm text-muted-foreground">
+        <Label htmlFor="prop-phone" className={onLabelClass}>
+          {t("phone")}
+        </Label>
+        <div className="flex overflow-hidden rounded-md">
+          <span className="flex items-center border border-r-0 border-white/[0.08] bg-white/[0.03] px-3 text-xs font-medium text-plum">
             +91
           </span>
           <Input
@@ -377,14 +388,14 @@ function StepProperty({
               update("phone", e.target.value.replace(/\D/g, "").slice(0, 10))
             }
             placeholder="9876543210"
-            className="rounded-l-none"
+            className="rounded-none border-l-0"
             inputMode="tel"
           />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label>{t("propertyType")}</Label>
+        <Label className={onLabelClass}>{t("propertyType")}</Label>
         <Select
           value={property.type}
           onValueChange={(v) => update("type", v)}
@@ -403,7 +414,9 @@ function StepProperty({
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="prop-gstin">{t("gstin")} ({t("optional")})</Label>
+        <Label htmlFor="prop-gstin" className={onLabelClass}>
+          {t("gstin")} ({t("optional")})
+        </Label>
         <Input
           id="prop-gstin"
           value={property.gstin}
@@ -415,8 +428,14 @@ function StepProperty({
       </div>
 
       <div className="space-y-2">
-        <Label>{t("logo")} ({t("optional")})</Label>
-        <Input type="file" accept="image/*" className="min-h-touch" />
+        <Label className={onLabelClass}>
+          {t("logo")} ({t("optional")})
+        </Label>
+        <Input
+          type="file"
+          accept="image/*"
+          className="min-h-touch cursor-pointer border-white/[0.08] bg-white/[0.04] px-3 py-2 text-xs text-plum file:mr-3 file:rounded-md file:border-0 file:bg-teal/15 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-teal"
+        />
       </div>
     </div>
   );
@@ -444,22 +463,20 @@ function StepRooms({
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold">{t("roomsTitle")}</h2>
-        <p className="text-sm text-muted-foreground">{t("roomsSubtitle")}</p>
+        <h2 className="text-xl font-bold text-chalk">{t("roomsTitle")}</h2>
+        <p className="text-sm text-plum">{t("roomsSubtitle")}</p>
       </div>
 
       <div className="space-y-4">
         {roomTypes.map((room, idx) => (
-          <div
-            key={room.id}
-            className="space-y-3 rounded-xl border border-soyl-border/70 bg-white/80 p-4 shadow-soft"
-          >
+          <div key={room.id} className="liquid-glass space-y-3 rounded-xl border-0 p-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-muted-foreground">
+              <span className="text-sm font-medium text-plum">
                 {t("roomType")} {idx + 1}
               </span>
               {roomTypes.length > 1 && (
                 <button
+                  type="button"
                   onClick={() => removeRoomType(room.id)}
                   className="rounded-md p-1.5 text-destructive hover:bg-destructive/10"
                 >
@@ -476,29 +493,27 @@ function StepRooms({
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <Label className="text-xs">{t("count")}</Label>
+                <Label className={onLabelClass}>{t("count")}</Label>
                 <div className="flex items-center gap-2">
                   <Button
+                    type="button"
                     variant="outline"
                     size="icon"
-                    className="min-h-touch min-w-touch"
+                    className="min-h-touch min-w-touch border-white/[0.12] bg-white/[0.03] hover:bg-white/[0.07]"
                     onClick={() =>
-                      updateRoomType(
-                        room.id,
-                        "count",
-                        Math.max(1, room.count - 1),
-                      )
+                      updateRoomType(room.id, "count", Math.max(1, room.count - 1))
                     }
                   >
                     -
                   </Button>
-                  <span className="w-8 text-center font-semibold">
+                  <span className="w-8 text-center font-semibold text-chalk">
                     {room.count}
                   </span>
                   <Button
+                    type="button"
                     variant="outline"
                     size="icon"
-                    className="min-h-touch min-w-touch"
+                    className="min-h-touch min-w-touch border-white/[0.12] bg-white/[0.03] hover:bg-white/[0.07]"
                     onClick={() =>
                       updateRoomType(room.id, "count", room.count + 1)
                     }
@@ -509,22 +524,18 @@ function StepRooms({
               </div>
 
               <div className="space-y-1.5">
-                <Label className="text-xs">{t("baseRate")}</Label>
-                <div className="flex">
-                  <span className="flex items-center rounded-l-md border border-r-0 border-input bg-muted px-2 text-sm text-muted-foreground">
+                <Label className={onLabelClass}>{t("baseRate")}</Label>
+                <div className="flex overflow-hidden rounded-md">
+                  <span className="flex items-center border border-r-0 border-white/[0.08] bg-white/[0.03] px-2 text-xs font-medium text-plum">
                     ₹
                   </span>
                   <Input
                     type="number"
                     value={room.baseRate}
                     onChange={(e) =>
-                      updateRoomType(
-                        room.id,
-                        "baseRate",
-                        Number(e.target.value),
-                      )
+                      updateRoomType(room.id, "baseRate", Number(e.target.value))
                     }
-                    className="rounded-l-none"
+                    className="rounded-none border-l-0"
                     inputMode="numeric"
                   />
                 </div>
@@ -534,23 +545,29 @@ function StepRooms({
         ))}
       </div>
 
-      <Button variant="outline" onClick={addRoomType} className="w-full gap-2">
+      <Button
+        type="button"
+        variant="outline"
+        onClick={addRoomType}
+        className="w-full gap-2 border-white/[0.12] bg-white/[0.03] text-chalk hover:bg-white/[0.07]"
+      >
         <Plus className="h-4 w-4" />
         {t("addRoomType")}
       </Button>
 
-      <div className="flex items-center justify-between rounded-lg border border-soyl-border/70 bg-white/80 px-4 py-3">
-        <span className="text-sm">{t("autoNumber")}</span>
+      <div className="liquid-glass flex items-center justify-between rounded-xl border-0 px-4 py-3">
+        <span className="text-sm text-chalk">{t("autoNumber")}</span>
         <button
+          type="button"
           onClick={() => setAutoNumber(!autoNumber)}
           className={cn(
             "relative h-6 w-11 rounded-full transition-colors",
-            autoNumber ? "bg-primary" : "bg-border",
+            autoNumber ? "bg-teal" : "bg-plum/30",
           )}
         >
           <span
             className={cn(
-              "absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition-transform shadow-soft",
+              "absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-ink shadow-md transition-transform",
               autoNumber && "translate-x-5",
             )}
           />
@@ -558,8 +575,8 @@ function StepRooms({
       </div>
 
       {totalRooms > 0 && (
-        <p className="text-sm text-muted-foreground">
-          {t("totalRooms")}: <strong>{totalRooms}</strong>
+        <p className="text-sm text-plum">
+          {t("totalRooms")}: <strong className="text-chalk">{totalRooms}</strong>
         </p>
       )}
     </div>
@@ -580,27 +597,27 @@ function StepRates({
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold">{t("ratesTitle")}</h2>
-        <p className="text-sm text-muted-foreground">{t("ratesSubtitle")}</p>
+        <h2 className="text-xl font-bold text-chalk">{t("ratesTitle")}</h2>
+        <p className="text-sm text-plum">{t("ratesSubtitle")}</p>
       </div>
 
       {namedTypes.length === 0 ? (
-        <p className="text-sm text-muted-foreground">{t("noRoomTypes")}</p>
+        <p className="text-sm text-plum">{t("noRoomTypes")}</p>
       ) : (
         <div className="space-y-3">
           {namedTypes.map((room) => (
             <div
               key={room.id}
-              className="flex items-center justify-between rounded-xl border border-soyl-border/70 bg-white/80 px-4 py-3 shadow-soft"
+              className="liquid-glass flex items-center justify-between rounded-xl border-0 px-4 py-3"
             >
               <div>
-                <p className="font-medium">{room.name}</p>
-                <p className="text-xs text-muted-foreground">
+                <p className="font-medium text-chalk">{room.name}</p>
+                <p className="text-xs text-plum">
                   {room.count} {room.count === 1 ? "room" : "rooms"}
                 </p>
               </div>
-              <div className="flex w-32">
-                <span className="flex items-center rounded-l-md border border-r-0 border-input bg-muted px-2 text-sm text-muted-foreground">
+              <div className="flex w-32 overflow-hidden rounded-md">
+                <span className="flex items-center border border-r-0 border-white/[0.08] bg-white/[0.03] px-2 text-xs font-medium text-plum">
                   ₹
                 </span>
                 <Input
@@ -609,7 +626,7 @@ function StepRates({
                   onChange={(e) =>
                     updateRoomType(room.id, "baseRate", Number(e.target.value))
                   }
-                  className="rounded-l-none"
+                  className="rounded-none border-l-0"
                   inputMode="numeric"
                 />
               </div>
@@ -639,13 +656,13 @@ function StepRoles({
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold">{t("rolesTitle")}</h2>
-        <p className="text-sm text-muted-foreground">{t("rolesSubtitle")}</p>
+        <h2 className="text-xl font-bold text-chalk">{t("rolesTitle")}</h2>
+        <p className="text-sm text-plum">{t("rolesSubtitle")}</p>
       </div>
 
       <div className="flex gap-2">
-        <div className="flex flex-1">
-          <span className="flex items-center rounded-l-md border border-r-0 border-input bg-muted px-3 text-sm text-muted-foreground">
+        <div className="flex min-w-0 flex-1 overflow-hidden rounded-md">
+          <span className="flex items-center border border-r-0 border-white/[0.08] bg-white/[0.03] px-3 text-xs font-medium text-plum">
             +91
           </span>
           <Input
@@ -654,14 +671,15 @@ function StepRoles({
               setManagerPhone(e.target.value.replace(/\D/g, "").slice(0, 10))
             }
             placeholder={t("managerPhonePlaceholder")}
-            className="rounded-l-none"
+            className="min-w-0 rounded-none border-l-0"
             inputMode="tel"
           />
         </div>
         <Button
+          type="button"
           onClick={addManager}
           disabled={managerPhone.length < 10}
-          size="default"
+          className="shrink-0 bg-teal font-semibold text-ink shadow-glow hover:bg-chalk"
         >
           {t("invite")}
         </Button>
@@ -672,10 +690,11 @@ function StepRoles({
           {managers.map((m) => (
             <div
               key={m.id}
-              className="flex items-center justify-between rounded-lg border border-soyl-border/70 bg-white/80 px-4 py-3 shadow-soft"
+              className="liquid-glass flex items-center justify-between rounded-xl border-0 px-4 py-3"
             >
-              <span className="text-sm font-medium">+91 {m.phone}</span>
+              <span className="text-sm font-medium text-chalk">+91 {m.phone}</span>
               <button
+                type="button"
                 onClick={() => removeManager(m.id)}
                 className="rounded-md p-1.5 text-destructive hover:bg-destructive/10"
               >

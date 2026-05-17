@@ -37,6 +37,9 @@ export const useAppStore = create<AppState>()(
       propertyName: "",
       setPropertyName: (propertyName) => set({ propertyName }),
     }),
-    { name: "soyl-pms-store" },
+    {
+      name: "soyl-pms-store",
+      skipHydration: true,
+    },
   ),
 );

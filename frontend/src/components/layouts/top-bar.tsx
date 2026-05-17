@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Bell, Settings } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
@@ -18,33 +19,45 @@ export function TopBar({
   rightAction,
 }: TopBarProps) {
   return (
-    <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-soyl-border/70 bg-white/85 px-4 shadow-soft backdrop-blur-xl safe-area-pt">
-      <h1 className="text-lg font-semibold tracking-tight text-foreground">
-        {title}
-      </h1>
+    <header className="glass-heavy fixed inset-x-0 top-0 z-40 h-14 border-b border-white/[0.06] safe-area-pt">
+      <div className="flex h-full items-center justify-between px-4">
+        <div className="flex min-w-0 items-center gap-2.5">
+          <Image
+            src="/icon.png"
+            alt="SOYL"
+            width={28}
+            height={28}
+            className="size-7 shrink-0 rounded-full"
+            priority
+          />
+          <h1 className="truncate text-sm font-semibold tracking-tight text-chalk">
+            {title}
+          </h1>
+        </div>
 
-      <div className="flex items-center gap-1">
-        {rightAction}
-        {showNotifications && (
-          <Link
-            href="/app/notifications"
-            className={cn(
-              "flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-soyl-bg hover:text-foreground",
-            )}
-          >
-            <Bell className="h-5 w-5" />
-          </Link>
-        )}
-        {showSettings && (
-          <Link
-            href="/app/settings"
-            className={cn(
-              "flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-soyl-bg hover:text-foreground",
-            )}
-          >
-            <Settings className="h-5 w-5" />
-          </Link>
-        )}
+        <div className="flex items-center gap-1.5">
+          {rightAction}
+          {showNotifications && (
+            <Link
+              href="/app/notifications"
+              className={cn(
+                "flex size-9 items-center justify-center rounded-xl text-plum transition-all hover:bg-white/[0.05] hover:text-chalk",
+              )}
+            >
+              <Bell className="size-4" />
+            </Link>
+          )}
+          {showSettings && (
+            <Link
+              href="/app/settings"
+              className={cn(
+                "flex size-9 items-center justify-center rounded-xl text-plum transition-all hover:bg-white/[0.05] hover:text-chalk",
+              )}
+            >
+              <Settings className="size-4" />
+            </Link>
+          )}
+        </div>
       </div>
     </header>
   );

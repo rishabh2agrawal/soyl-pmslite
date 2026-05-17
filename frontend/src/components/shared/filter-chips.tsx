@@ -14,11 +14,16 @@ interface FilterChipsProps {
   className?: string;
 }
 
-export function FilterChips({ options, activeValue, onChange, className }: FilterChipsProps) {
+export function FilterChips({
+  options,
+  activeValue,
+  onChange,
+  className,
+}: FilterChipsProps) {
   return (
     <div
       className={cn(
-        "flex gap-2 overflow-x-auto pb-1 scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+        "scrollbar-none flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
         className,
       )}
     >
@@ -30,10 +35,10 @@ export function FilterChips({ options, activeValue, onChange, className }: Filte
             type="button"
             onClick={() => onChange(opt.value)}
             className={cn(
-              "shrink-0 min-h-touch rounded-full border px-4 py-2 text-sm font-medium transition-colors",
+              "min-h-touch shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-all",
               isActive
-                ? "border-soyl-primary bg-soyl-primary text-white"
-                : "border-soyl-border bg-soyl-surface text-soyl-text hover:bg-soyl-bg",
+                ? "border-teal/40 bg-teal/10 text-teal"
+                : "border-white/[0.07] bg-transparent text-plum hover:border-white/[0.12] hover:text-chalk",
             )}
           >
             {opt.label}

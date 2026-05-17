@@ -55,8 +55,8 @@ export function ConfirmationDialog({
             className={cn(
               "min-h-touch",
               variant === "destructive"
-                ? "bg-soyl-danger text-white hover:bg-soyl-danger-light"
-                : "bg-soyl-primary text-white hover:bg-soyl-primary-light",
+                ? "bg-destructive text-white hover:bg-destructive-light"
+                : "bg-primary text-white hover:bg-primary-light",
             )}
           >
             {confirmLabel}

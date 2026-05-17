@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
@@ -50,9 +51,7 @@ export default function StoryPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35 }}
+      {...pageTransitionProps}
       className="space-y-5 px-4 pb-8"
     >
       <PageHeader
@@ -68,7 +67,7 @@ export default function StoryPage() {
       />
 
       <div className="relative">
-        <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-soyl-muted" />
+        <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           placeholder="Search events..."
           value={search}

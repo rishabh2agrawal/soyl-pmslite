@@ -2,8 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SOYL Lite PMS",
-  description: "Smart property management for Indian hotels",
+  title: "soylPMS — Property Management System",
+  description:
+    "Modern hotel PMS for Indian hospitality. Check-ins in 30 seconds.",
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({

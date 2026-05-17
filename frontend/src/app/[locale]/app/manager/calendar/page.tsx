@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
@@ -17,11 +18,11 @@ const DAY_OPTIONS = [
 ];
 
 const statusColors: Record<BookingStatus, string> = {
-  confirmed: "bg-soyl-primary",
-  checked_in: "bg-soyl-secondary",
-  checked_out: "bg-soyl-border",
-  cancelled: "bg-soyl-danger",
-  no_show: "bg-soyl-accent",
+  confirmed: "bg-teal/70",
+  checked_in: "bg-teal",
+  checked_out: "bg-plum/60",
+  cancelled: "bg-destructive/60",
+  no_show: "bg-[#C9A84C]/70",
 };
 
 const CELL_WIDTH = 64;
@@ -53,9 +54,7 @@ export default function CalendarPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      {...pageTransitionProps}
       className="space-y-5 px-4 pb-8"
     >
       <PageHeader title="Calendar" subtitle="Room availability grid" />
@@ -66,7 +65,7 @@ export default function CalendarPage() {
         onChange={setDayRange}
       />
 
-      <div className="overflow-x-auto rounded-xl border border-soyl-border/70 bg-white/80 shadow-soft">
+      <div className="liquid-glass overflow-hidden rounded-2xl border-0 shadow-none">
         <div
           className="grid"
           style={{
@@ -74,18 +73,18 @@ export default function CalendarPage() {
           }}
         >
           {/* Header row */}
-          <div className="sticky left-0 z-20 border-b border-r border-soyl-border/70 bg-soyl-bg/80 px-3 py-2">
-            <span className="text-xs font-medium text-soyl-muted">Room</span>
+          <div className="sticky left-0 z-20 border-b border-r border-white/[0.04] bg-surface-1 px-3 py-2 backdrop-blur-sm">
+            <span className="text-xs font-medium text-plum">Room</span>
           </div>
           {dates.map((d) => (
             <div
               key={d.toISOString()}
-              className="border-b border-r border-soyl-border/70 bg-soyl-bg/80 px-1 py-2 text-center"
+              className="border-b border-r border-white/[0.04] bg-white/[0.03] px-1 py-2 text-center backdrop-blur-sm"
             >
-              <div className="text-[10px] font-medium text-soyl-muted">
+              <div className="text-[10px] font-medium text-plum">
                 {format(d, "EEE")}
               </div>
-              <div className="text-xs font-semibold text-soyl-text">
+              <div className="text-xs font-semibold text-chalk">
                 {format(d, "dd")}
               </div>
             </div>
@@ -114,7 +113,7 @@ export default function CalendarPage() {
           ([status, color]) => (
             <div key={status} className="flex items-center gap-1.5">
               <span className={cn("size-3 rounded-sm", color)} />
-              <span className="text-xs capitalize text-soyl-muted">
+              <span className="text-xs capitalize text-plum">
                 {status.replace("_", " ")}
               </span>
             </div>
@@ -143,11 +142,9 @@ function RoomRow({
   return (
     <>
       {/* Sticky room label */}
-      <div className="sticky left-0 z-10 flex flex-col justify-center border-b border-r border-soyl-border/70 bg-white/80 px-3 py-2">
-        <span className="text-sm font-semibold text-soyl-text">
-          {roomNumber}
-        </span>
-        <span className="text-[10px] text-soyl-muted">{roomType}</span>
+      <div className="sticky left-0 z-10 flex flex-col justify-center border-b border-r border-white/[0.04] bg-surface-1 px-3 py-2 backdrop-blur-sm">
+        <span className="text-sm font-semibold text-chalk">{roomNumber}</span>
+        <span className="text-[10px] text-plum">{roomType}</span>
       </div>
 
       {/* Date cells */}
@@ -172,7 +169,7 @@ function RoomRow({
               key={date.toISOString()}
               href={`/app/manager/bookings/${booking.id}`}
               className={cn(
-                "relative flex items-center border-b border-r border-soyl-border/70",
+                "relative flex items-center border-b border-r border-white/[0.04]",
                 isStart ? "justify-start" : "justify-center",
               )}
             >
@@ -197,7 +194,7 @@ function RoomRow({
           <Link
             key={date.toISOString()}
             href={`/app/manager/bookings/new?room=${roomId}&date=${dateStr}`}
-            className="border-b border-r border-soyl-border/70 bg-white/70 transition-colors hover:bg-soyl-bg"
+            className="border-b border-r border-white/[0.04] bg-white/[0.02] transition-colors hover:bg-teal/[0.06]"
           />
         );
       })}

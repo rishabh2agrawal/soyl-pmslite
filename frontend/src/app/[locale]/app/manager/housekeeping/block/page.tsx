@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -47,8 +48,7 @@ export default function BlockRoomPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      {...pageTransitionProps}
       className="pb-28"
     >
       <div className="mx-auto max-w-lg px-4">
@@ -58,7 +58,7 @@ export default function BlockRoomPage() {
           onBack={() => router.back()}
         />
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 rounded-xl border border-soyl-border/70 bg-white/80 p-4 shadow-soft">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 rounded-xl border border-white/[0.06] bg-white/80 p-4 shadow-soft">
           <div className="space-y-2">
             <Label htmlFor="room_id">Room</Label>
             <Select
@@ -107,7 +107,7 @@ export default function BlockRoomPage() {
               {...register("reason", { required: true })}
             />
             {errors.reason && (
-              <p className="text-xs text-soyl-danger">Reason is required</p>
+              <p className="text-xs text-destructive">Reason is required</p>
             )}
           </div>
 

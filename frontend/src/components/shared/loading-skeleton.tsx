@@ -13,7 +13,7 @@ interface LoadingSkeletonProps {
 
 function CardSkeleton() {
   return (
-    <div className="rounded-xl border border-soyl-border bg-soyl-surface p-4">
+    <div className="rounded-xl border border-border bg-card p-4">
       <div className="flex items-start justify-between">
         <div className="flex flex-col gap-2">
           <Skeleton className="h-8 w-24" />

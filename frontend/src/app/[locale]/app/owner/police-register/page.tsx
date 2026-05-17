@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { motion } from "framer-motion";
 import { FileDown } from "lucide-react";
@@ -42,8 +43,7 @@ export default function PoliceRegisterPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      {...pageTransitionProps}
       className="pb-8"
     >
       <div className="mx-auto max-w-4xl px-4">
@@ -53,7 +53,7 @@ export default function PoliceRegisterPage() {
             <Button
               variant="outline"
               onClick={handleExport}
-              className="min-h-touch gap-2 border-soyl-border text-soyl-text"
+              className="min-h-touch gap-2 border-border text-foreground"
             >
               <FileDown className="size-4" />
               Export PDF
@@ -63,28 +63,28 @@ export default function PoliceRegisterPage() {
 
         {/* Desktop table */}
         <div className="hidden md:block">
-          <div className="overflow-hidden rounded-xl border border-soyl-border/70 bg-white/80 shadow-soft">
+          <div className="overflow-hidden rounded-xl border border-white/[0.06] bg-white/80 shadow-soft">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-soyl-border bg-soyl-bg">
-                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">Guest Name</th>
-                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">ID Proof</th>
-                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">Room</th>
-                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">Arrival</th>
-                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">Departure</th>
+                <tr className="border-b border-border bg-muted">
+                  <th className="px-4 py-3 text-left font-medium text-muted-foreground">Guest Name</th>
+                  <th className="px-4 py-3 text-left font-medium text-muted-foreground">ID Proof</th>
+                  <th className="px-4 py-3 text-left font-medium text-muted-foreground">Room</th>
+                  <th className="px-4 py-3 text-left font-medium text-muted-foreground">Arrival</th>
+                  <th className="px-4 py-3 text-left font-medium text-muted-foreground">Departure</th>
                 </tr>
               </thead>
               <tbody>
                 {registerEntries.map((entry) => (
-                  <tr key={entry.id} className="border-b border-soyl-border last:border-b-0">
-                    <td className="px-4 py-3 font-medium text-soyl-text">{entry.guest_name}</td>
-                    <td className="px-4 py-3 text-soyl-text">
+                  <tr key={entry.id} className="border-b border-border last:border-b-0">
+                    <td className="px-4 py-3 font-medium text-foreground">{entry.guest_name}</td>
+                    <td className="px-4 py-3 text-foreground">
                       {formatIdType(entry.id_type)}{" "}
-                      <span className="text-soyl-muted">{entry.id_number}</span>
+                      <span className="text-muted-foreground">{entry.id_number}</span>
                     </td>
-                    <td className="px-4 py-3 text-soyl-text">{entry.room_number}</td>
-                    <td className="px-4 py-3 text-soyl-muted">{formatDate(entry.arrival)}</td>
-                    <td className="px-4 py-3 text-soyl-muted">{formatDate(entry.departure)}</td>
+                    <td className="px-4 py-3 text-foreground">{entry.room_number}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{formatDate(entry.arrival)}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{formatDate(entry.departure)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -95,17 +95,17 @@ export default function PoliceRegisterPage() {
         {/* Mobile cards */}
         <div className="space-y-3 md:hidden">
           {registerEntries.map((entry) => (
-            <Card key={entry.id} className="border-soyl-border/70 bg-white/80 p-3 shadow-soft">
+            <Card key={entry.id} className="border-white/[0.06] bg-white/80 p-3 shadow-soft">
               <div className="mb-1 flex items-center justify-between">
-                <span className="font-medium text-soyl-text">{entry.guest_name}</span>
-                <span className="rounded bg-soyl-bg/80 px-2 py-0.5 text-xs font-medium text-soyl-text">
+                <span className="font-medium text-foreground">{entry.guest_name}</span>
+                <span className="rounded bg-navy-500/80 px-2 py-0.5 text-xs font-medium text-foreground">
                   Room {entry.room_number}
                 </span>
               </div>
-              <p className="text-xs text-soyl-muted">
+              <p className="text-xs text-muted-foreground">
                 {formatIdType(entry.id_type)} · {entry.id_number}
               </p>
-              <div className="mt-2 flex gap-4 text-xs text-soyl-muted">
+              <div className="mt-2 flex gap-4 text-xs text-muted-foreground">
                 <span>In: {formatDate(entry.arrival)}</span>
                 <span>Out: {formatDate(entry.departure)}</span>
               </div>

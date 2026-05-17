@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
@@ -103,8 +104,7 @@ export default function FolioPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      {...pageTransitionProps}
       className="pb-8"
     >
       <div className="mx-auto max-w-2xl px-4">
@@ -114,9 +114,9 @@ export default function FolioPage() {
           onBack={() => router.back()}
         />
 
-        <div className="mb-4 rounded-lg border border-soyl-border/70 bg-white/80 p-3 shadow-soft">
-          <p className="text-sm font-medium text-soyl-text">{booking.guest_name}</p>
-          <p className="text-xs text-soyl-muted">
+        <div className="mb-4 rounded-lg border border-white/[0.06] bg-white/80 p-3 shadow-soft">
+          <p className="text-sm font-medium text-foreground">{booking.guest_name}</p>
+          <p className="text-xs text-muted-foreground">
             {formatDate(booking.check_in)} — {formatDate(booking.check_out)}
           </p>
         </div>
@@ -126,26 +126,26 @@ export default function FolioPage() {
           className={cn(
             "mb-6 border-2",
             balance > 0
-              ? "border-soyl-danger/30 bg-soyl-danger/10"
-              : "border-soyl-secondary/30 bg-soyl-secondary/10"
+              ? "border-destructive/30 bg-destructive/10"
+              : "border-emerald/30 bg-secondary/10"
           )}
         >
           <CardContent className="py-5 text-center">
-            <p className="text-sm text-soyl-muted">Balance Due</p>
+            <p className="text-sm text-muted-foreground">Balance Due</p>
             <p
               className={cn(
                 "text-3xl font-bold",
-                balance > 0 ? "text-soyl-danger" : "text-soyl-secondary"
+                balance > 0 ? "text-destructive" : "text-emerald-light"
               )}
             >
               {formatCurrency(Math.abs(balance))}
             </p>
             {balance <= 0 && (
-              <p className="mt-1 text-xs text-soyl-secondary">
+              <p className="mt-1 text-xs text-emerald-light">
                 {balance === 0 ? "Fully Settled" : "Credit Balance"}
               </p>
             )}
-            <div className="mt-3 flex justify-center gap-6 text-xs text-soyl-muted">
+            <div className="mt-3 flex justify-center gap-6 text-xs text-muted-foreground">
               <span>Charges: {formatCurrency(totalCharges)}</span>
               <span>Paid: {formatCurrency(totalPayments)}</span>
             </div>
@@ -153,12 +153,12 @@ export default function FolioPage() {
         </Card>
 
         {/* Charges */}
-        <Card className="mb-4 border-soyl-border/70 bg-white/80">
+        <Card className="mb-4 border-white/[0.06] bg-white/80">
           <CardHeader className="flex-row items-center justify-between pb-2">
-            <CardTitle className="text-base font-semibold text-soyl-text">Charges</CardTitle>
+            <CardTitle className="text-base font-semibold text-foreground">Charges</CardTitle>
             <Sheet open={chargeSheetOpen} onOpenChange={setChargeSheetOpen}>
               <SheetTrigger asChild>
-                <Button size="sm" variant="outline" className="gap-1 border-soyl-border/70 text-soyl-text">
+                <Button size="sm" variant="outline" className="gap-1 border-white/[0.06] text-foreground">
                   <Plus className="size-3.5" /> Add
                 </Button>
               </SheetTrigger>
@@ -201,7 +201,7 @@ export default function FolioPage() {
                   </div>
                   <Button
                     onClick={addCharge}
-                    className="min-h-touch w-full bg-soyl-primary text-white hover:bg-soyl-primary-light"
+                    className="min-h-touch w-full bg-primary text-white hover:bg-primary-light"
                   >
                     Add Charge
                   </Button>
@@ -211,24 +211,24 @@ export default function FolioPage() {
           </CardHeader>
           <CardContent className="space-y-0 p-0">
             {charges.map((c) => (
-              <div key={c.id} className="flex items-center justify-between border-b border-soyl-border/70 px-4 py-3 last:border-b-0">
+              <div key={c.id} className="flex items-center justify-between border-b border-white/[0.06] px-4 py-3 last:border-b-0">
                 <div>
-                  <p className="text-sm text-soyl-text">{c.description}</p>
-                  <p className="text-xs text-soyl-muted">{formatDate(c.date)}</p>
+                  <p className="text-sm text-foreground">{c.description}</p>
+                  <p className="text-xs text-muted-foreground">{formatDate(c.date)}</p>
                 </div>
-                <span className="text-sm font-medium text-soyl-text">{formatCurrency(c.amount)}</span>
+                <span className="text-sm font-medium text-foreground">{formatCurrency(c.amount)}</span>
               </div>
             ))}
           </CardContent>
         </Card>
 
         {/* Payments */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardHeader className="flex-row items-center justify-between pb-2">
-            <CardTitle className="text-base font-semibold text-soyl-text">Payments</CardTitle>
+            <CardTitle className="text-base font-semibold text-foreground">Payments</CardTitle>
             <Sheet open={paymentSheetOpen} onOpenChange={setPaymentSheetOpen}>
               <SheetTrigger asChild>
-                <Button size="sm" variant="outline" className="gap-1 border-soyl-border/70 text-soyl-text">
+                <Button size="sm" variant="outline" className="gap-1 border-white/[0.06] text-foreground">
                   <Plus className="size-3.5" /> Add
                 </Button>
               </SheetTrigger>
@@ -261,7 +261,7 @@ export default function FolioPage() {
                   </div>
                   <Button
                     onClick={addPayment}
-                    className="min-h-touch w-full bg-soyl-primary text-white hover:bg-soyl-primary-light"
+                    className="min-h-touch w-full bg-primary text-white hover:bg-primary-light"
                   >
                     Record Payment
                   </Button>
@@ -271,19 +271,19 @@ export default function FolioPage() {
           </CardHeader>
           <CardContent className="space-y-0 p-0">
             {payments.map((p) => (
-              <div key={p.id} className="flex items-center justify-between border-b border-soyl-border/70 px-4 py-3 last:border-b-0">
+              <div key={p.id} className="flex items-center justify-between border-b border-white/[0.06] px-4 py-3 last:border-b-0">
                 <div className="flex items-center gap-2">
                   {p.method === "cash" ? (
-                    <IndianRupee className="size-4 text-soyl-muted" />
+                    <IndianRupee className="size-4 text-muted-foreground" />
                   ) : (
-                    <CreditCard className="size-4 text-soyl-muted" />
+                    <CreditCard className="size-4 text-muted-foreground" />
                   )}
                   <div>
-                    <p className="text-sm capitalize text-soyl-text">{p.method.replace("_", " ")}</p>
-                    <p className="text-xs text-soyl-muted">{formatDate(p.date)}</p>
+                    <p className="text-sm capitalize text-foreground">{p.method.replace("_", " ")}</p>
+                    <p className="text-xs text-muted-foreground">{formatDate(p.date)}</p>
                   </div>
                 </div>
-                <span className="text-sm font-medium text-soyl-secondary">{formatCurrency(p.amount)}</span>
+                <span className="text-sm font-medium text-emerald-light">{formatCurrency(p.amount)}</span>
               </div>
             ))}
           </CardContent>

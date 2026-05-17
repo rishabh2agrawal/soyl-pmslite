@@ -15,14 +15,20 @@ interface VoiceInputProps extends Omit<ComponentProps<"input">, "onChange"> {
 export function VoiceInput({
   value,
   onChange,
-  onVoiceResult: _onVoiceResult,
+  onVoiceResult,
   className,
   ...inputProps
 }: VoiceInputProps) {
   const [recording, setRecording] = useState(false);
 
   const toggleRecording = () => {
-    setRecording((prev) => !prev);
+    setRecording((wasRecording) => {
+      const next = !wasRecording;
+      if (wasRecording && onVoiceResult) {
+        onVoiceResult("(voice note)");
+      }
+      return next;
+    });
   };
 
   return (
@@ -30,7 +36,7 @@ export function VoiceInput({
       <Input
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
-        className="min-h-touch pr-12"
+        className="min-h-touch pr-12 focus-visible:ring-teal/25"
         {...inputProps}
       />
       <button
@@ -40,8 +46,8 @@ export function VoiceInput({
         className={cn(
           "absolute right-1 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-md transition-colors",
           recording
-            ? "animate-pulse text-red-500"
-            : "text-soyl-muted hover:text-soyl-primary",
+            ? "animate-pulse text-red-400"
+            : "text-plum hover:text-teal",
         )}
       >
         <Mic className="size-5" />

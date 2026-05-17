@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
@@ -49,12 +50,12 @@ const CATEGORIES: { value: RequestCategory; label: string }[] = [
 ];
 
 const categoryColors: Record<RequestCategory, string> = {
-  housekeeping: "bg-soyl-secondary/15 text-soyl-secondary",
-  maintenance: "bg-soyl-danger/15 text-soyl-danger",
-  food: "bg-soyl-accent/20 text-soyl-accent",
-  amenity: "bg-soyl-primary/15 text-soyl-primary",
-  complaint: "bg-soyl-danger/15 text-soyl-danger",
-  other: "bg-soyl-border/40 text-soyl-muted",
+  housekeeping: "bg-secondary/15 text-emerald-light",
+  maintenance: "bg-destructive/15 text-destructive",
+  food: "bg-amber/20 text-amber-light",
+  amenity: "bg-primary/15 text-primary",
+  complaint: "bg-destructive/15 text-destructive",
+  other: "bg-muted/60 text-muted-foreground",
 };
 
 function getElapsed(loggedAt: string): string {
@@ -129,9 +130,7 @@ export default function RequestsPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      {...pageTransitionProps}
       className="space-y-5 px-4 pb-24"
     >
       <PageHeader title="Requests" />
@@ -153,14 +152,14 @@ export default function RequestsPage() {
           {filtered.map((req) => (
             <Card
               key={req.id}
-              className="cursor-pointer border-soyl-border/70 bg-white/80 shadow-soft transition-colors hover:bg-soyl-bg"
+              className="cursor-pointer border-white/[0.06] bg-white/80 shadow-soft transition-colors hover:bg-muted"
               onClick={() => toggleStatus(req.id)}
             >
               <CardContent className="py-3">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-sm font-semibold text-soyl-text">
+                      <span className="text-sm font-semibold text-foreground">
                         Room {req.room}
                       </span>
                       <span
@@ -172,8 +171,8 @@ export default function RequestsPage() {
                         {req.category}
                       </span>
                     </div>
-                    <p className="text-sm text-soyl-text truncate">{req.text}</p>
-                    <div className="mt-1 flex items-center gap-2 text-xs text-soyl-muted">
+                    <p className="text-sm text-foreground truncate">{req.text}</p>
+                    <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
                       {req.guest_name && <span>{req.guest_name}</span>}
                       {req.guest_name && <span>·</span>}
                       <span>{getElapsed(req.logged_at)}</span>
@@ -191,7 +190,7 @@ export default function RequestsPage() {
       <button
         type="button"
         onClick={() => setSheetOpen(true)}
-        className="fixed bottom-20 right-4 z-30 flex size-14 items-center justify-center rounded-full bg-soyl-primary text-white shadow-card transition-transform hover:scale-105 active:scale-95"
+        className="fixed bottom-20 right-4 z-30 flex size-14 items-center justify-center rounded-full bg-primary text-white shadow-card transition-transform hover:scale-105 active:scale-95"
       >
         <Plus className="size-6" />
       </button>
@@ -262,7 +261,7 @@ export default function RequestsPage() {
             </div>
             <Button
               type="submit"
-              className="min-h-touch w-full bg-soyl-primary text-white hover:bg-soyl-primary-light"
+              className="min-h-touch w-full bg-primary text-white hover:bg-primary-light"
             >
               Log Request
             </Button>

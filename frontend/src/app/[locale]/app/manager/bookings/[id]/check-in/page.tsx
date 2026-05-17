@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
@@ -75,7 +76,7 @@ export default function CheckInPage() {
 
   if (!booking || !room) {
     return (
-      <div className="flex items-center justify-center py-20 text-soyl-muted">
+      <div className="flex items-center justify-center py-20 text-muted-foreground">
         Booking not found
       </div>
     );
@@ -95,9 +96,7 @@ export default function CheckInPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      {...pageTransitionProps}
       className="space-y-6 px-4 pb-28"
     >
       <PageHeader
@@ -109,9 +108,9 @@ export default function CheckInPage() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Verify guest details */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-soyl-muted">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
               Verify Guest Details
             </CardTitle>
           </CardHeader>
@@ -171,45 +170,45 @@ export default function CheckInPage() {
         </Card>
 
         {/* Room assignment */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-soyl-muted">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
               Room Assignment
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center gap-3 rounded-xl bg-soyl-bg/80 p-3">
-              <div className="flex size-12 items-center justify-center rounded-xl bg-soyl-primary/10 shadow-soft">
-                <span className="text-lg font-bold text-soyl-primary">
+            <div className="flex items-center gap-3 rounded-xl bg-navy-500/80 p-3">
+              <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 shadow-soft">
+                <span className="text-lg font-bold text-primary">
                   {room.number}
                 </span>
               </div>
               <div>
-                <p className="font-semibold text-soyl-text">{room.type}</p>
-                <p className="text-sm text-soyl-muted">
+                <p className="font-semibold text-foreground">{room.type}</p>
+                <p className="text-sm text-muted-foreground">
                   Floor {room.floor} · {formatCurrency(booking.rate)}/night
                 </p>
               </div>
-              <CheckCircle className="ml-auto size-5 text-soyl-secondary" />
+              <CheckCircle className="ml-auto size-5 text-emerald-light" />
             </div>
           </CardContent>
         </Card>
 
         {/* Payment capture */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-soyl-muted">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
               Payment
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="flex justify-between text-sm">
-              <span className="text-soyl-muted">Advance Paid</span>
-              <span className="font-medium text-soyl-secondary">
+              <span className="text-muted-foreground">Advance Paid</span>
+              <span className="font-medium text-emerald-light">
                 {formatCurrency(advance)}
               </span>
             </div>
-            <Separator className="bg-soyl-border" />
+            <Separator className="bg-border" />
             <div>
               <Label>Additional Payment</Label>
               <Controller
@@ -250,13 +249,13 @@ export default function CheckInPage() {
         </Card>
 
         {/* Extra actions */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardContent className="space-y-3">
             {booking.is_foreign && (
               <Button
                 type="button"
                 variant="outline"
-                className="min-h-touch w-full border-soyl-border text-soyl-text"
+                className="min-h-touch w-full border-border text-foreground"
               >
                 <FileText className="mr-2 size-4" />
                 Generate C-Form
@@ -265,7 +264,7 @@ export default function CheckInPage() {
             <Button
               type="button"
               variant="outline"
-              className="min-h-touch w-full border-soyl-border text-soyl-text"
+              className="min-h-touch w-full border-border text-foreground"
             >
               <MessageCircle className="mr-2 size-4 text-green-600" />
               Send WhatsApp Welcome

@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
@@ -58,7 +59,7 @@ export default function RoomChangePage() {
 
   if (!booking || !currentRoom) {
     return (
-      <div className="flex items-center justify-center py-20 text-soyl-muted">
+      <div className="flex items-center justify-center py-20 text-muted-foreground">
         Booking not found
       </div>
     );
@@ -78,9 +79,7 @@ export default function RoomChangePage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      {...pageTransitionProps}
       className="space-y-6 px-4 pb-28"
     >
       <PageHeader
@@ -92,22 +91,22 @@ export default function RoomChangePage() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Current room */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-soyl-muted">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
               Current Room
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center gap-3 rounded-xl bg-soyl-bg/80 p-3">
-              <div className="flex size-12 items-center justify-center rounded-xl bg-soyl-primary/10 shadow-soft">
-                <span className="text-lg font-bold text-soyl-primary">
+            <div className="flex items-center gap-3 rounded-xl bg-navy-500/80 p-3">
+              <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 shadow-soft">
+                <span className="text-lg font-bold text-primary">
                   {currentRoom.number}
                 </span>
               </div>
               <div>
-                <p className="font-semibold text-soyl-text">{currentRoom.type}</p>
-                <p className="text-sm text-soyl-muted">
+                <p className="font-semibold text-foreground">{currentRoom.type}</p>
+                <p className="text-sm text-muted-foreground">
                   Floor {currentRoom.floor} · {formatCurrency(booking.rate)}/night
                 </p>
               </div>
@@ -116,13 +115,13 @@ export default function RoomChangePage() {
         </Card>
 
         <div className="flex justify-center">
-          <ArrowRight className="size-5 text-soyl-muted rotate-90" />
+          <ArrowRight className="size-5 text-muted-foreground rotate-90" />
         </div>
 
         {/* New room */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-soyl-muted">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
               New Room
             </CardTitle>
           </CardHeader>
@@ -150,9 +149,9 @@ export default function RoomChangePage() {
             </div>
 
             {newRoom && rateDiff !== 0 && (
-              <div className="rounded-xl bg-soyl-accent/10 p-3 text-sm">
-                <span className="text-soyl-muted">Rate adjustment: </span>
-                <span className="font-medium text-soyl-text">
+              <div className="rounded-xl bg-amber/10 p-3 text-sm">
+                <span className="text-muted-foreground">Rate adjustment: </span>
+                <span className="font-medium text-foreground">
                   {rateDiff > 0 ? "+" : ""}
                   {formatCurrency(rateDiff)}/night
                 </span>
@@ -162,7 +161,7 @@ export default function RoomChangePage() {
         </Card>
 
         {/* Effective date & reason */}
-        <Card className="border-soyl-border/70 bg-white/80">
+        <Card className="border-white/[0.06] bg-white/80">
           <CardContent className="space-y-4">
             <div>
               <Label htmlFor="effective_datetime">Effective Date/Time</Label>

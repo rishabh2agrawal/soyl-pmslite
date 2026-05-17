@@ -9,92 +9,112 @@ const config: Config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      padding: "1.5rem",
+      screens: { "2xl": "1280px" },
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
+        card: { DEFAULT: "hsl(var(--card))", foreground: "hsl(var(--card-foreground))" },
+        popover: { DEFAULT: "hsl(var(--popover))", foreground: "hsl(var(--popover-foreground))" },
+        primary: { DEFAULT: "hsl(var(--primary))", foreground: "hsl(var(--primary-foreground))" },
+        secondary: { DEFAULT: "hsl(var(--secondary))", foreground: "hsl(var(--secondary-foreground))" },
+        muted: { DEFAULT: "hsl(var(--muted))", foreground: "hsl(var(--muted-foreground))" },
+        accent: { DEFAULT: "hsl(var(--accent))", foreground: "hsl(var(--accent-foreground))" },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        ink: "#030709",
+        chalk: "#f8fcfd",
+        teal: {
+          DEFAULT: "#afd0cc",
+          dim: "rgba(175,208,204,0.12)",
+          glow: "rgba(175,208,204,0.20)",
         },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+        plum: {
+          DEFAULT: "#635467",
+          dim: "rgba(99,84,103,0.18)",
         },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+        surface: {
+          1: "#0d1419",
+          2: "#111d22",
+          3: "#162028",
         },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+        /* Legacy names → brand (v1 classnames still resolve) */
+        navy: {
+          900: "#030709",
+          800: "#0d1419",
+          700: "#111d22",
+          600: "#162028",
+          500: "#162028",
+          400: "#1c2838",
+          300: "#243844",
         },
-        soyl: {
-          primary: "#B85518",
-          "primary-light": "#D4783E",
-          secondary: "#1F5C3F",
-          "secondary-light": "#2A7A54",
-          accent: "#C9971F",
-          "accent-light": "#E0B84A",
-          text: "#1A1A1A",
-          muted: "#5C5C5C",
-          bg: "#F5F4F0",
-          surface: "#FFFFFF",
-          border: "#D9D5CC",
-          danger: "#8B2C2C",
-          "danger-light": "#A83E3E",
-          success: "#1F5C3F",
-          warning: "#C9971F",
+        indigo: {
+          DEFAULT: "#afd0cc",
+          light: "#d4ebe8",
+          glow: "rgba(175,208,204,0.20)",
         },
-      },
-      fontSize: {
-        xs: ["0.75rem", { lineHeight: "1rem" }],
-        sm: ["0.875rem", { lineHeight: "1.25rem" }],
-        base: ["1rem", { lineHeight: "1.5rem" }],
-        lg: ["1.125rem", { lineHeight: "1.75rem" }],
-        xl: ["1.25rem", { lineHeight: "1.75rem" }],
-        "2xl": ["1.5rem", { lineHeight: "2rem" }],
-        "3xl": ["2rem", { lineHeight: "2.25rem" }],
-        "4xl": ["3rem", { lineHeight: "1" }],
+        emerald: {
+          DEFAULT: "#afd0cc",
+          light: "#d4ebe8",
+          glow: "rgba(175,208,204,0.18)",
+        },
+        amber: {
+          DEFAULT: "#c9a84c",
+          light: "#dec07a",
+        },
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "Noto Sans", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "var(--font-indic)", "Inter", "system-ui", "sans-serif"],
+        display: ["var(--font-sans)", "var(--font-indic)", "Inter", "system-ui", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "JetBrains Mono", "monospace"],
+      },
+      fontSize: {
+        "2xs": ["0.65rem", { lineHeight: "1rem" }],
+        xs: ["0.75rem", { lineHeight: "1.1rem" }],
+        sm: ["0.875rem", { lineHeight: "1.35rem" }],
+        base: ["1rem", { lineHeight: "1.6rem" }],
+        lg: ["1.125rem", { lineHeight: "1.75rem" }],
+        xl: ["1.25rem", { lineHeight: "1.8rem" }],
+        "2xl": ["1.5rem", { lineHeight: "2rem" }],
+        "3xl": ["2rem", { lineHeight: "2.25rem" }],
+        "4xl": ["2.5rem", { lineHeight: "1.1" }],
+        "5xl": ["3.25rem", { lineHeight: "1.05" }],
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        sm: "0.375rem",
+        md: "0.625rem",
+        lg: "0.75rem",
+        xl: "1rem",
+        "2xl": "1.25rem",
+        "3xl": "1.75rem",
       },
       spacing: {
         touch: "48px",
       },
       boxShadow: {
-        soft: "var(--shadow-soft)",
         card: "var(--shadow-card)",
+        raised: "var(--shadow-raised)",
+        glow: "var(--shadow-glow)",
+        "glow-sm": "var(--shadow-glow-sm)",
+        "glow-emerald": "0 0 20px rgba(175,208,204,0.16)",
+        glass: "inset 0 1px 0 rgba(248,252,253,0.06), 0 4px 24px rgba(3,7,9,0.45)",
+        soft: "0 12px 30px rgba(3,7,9,0.35)",
       },
       backgroundImage: {
-        "soyl-paper":
-          "radial-gradient(800px 500px at 12% 8%, rgba(200, 151, 31, 0.14), transparent 60%), radial-gradient(700px 420px at 90% 12%, rgba(31, 92, 63, 0.12), transparent 58%)",
+        "teal-glow":
+          "radial-gradient(ellipse at center, rgba(175,208,204,0.15) 0%, transparent 70%)",
+        liquid:
+          "linear-gradient(135deg, rgba(248,252,253,0.05) 0%, rgba(175,208,204,0.04) 50%, rgba(99,84,103,0.03) 100%)",
+        "card-shine":
+          "linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%)",
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
       minHeight: {
         touch: "48px",
@@ -120,4 +140,5 @@ const config: Config = {
   },
   plugins: [require("tailwindcss-animate")],
 };
+
 export default config;

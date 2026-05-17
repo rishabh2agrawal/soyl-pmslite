@@ -1,8 +1,7 @@
 "use client";
 
 import { type ReactNode } from "react";
-import { ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface PageHeaderProps {
@@ -23,24 +22,29 @@ export function PageHeader({
   className,
 }: PageHeaderProps) {
   return (
-    <div className={cn("flex items-start gap-3 py-4", className)}>
-      {showBack && (
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onBack}
-          aria-label="Go back"
-          className="mt-0.5 min-h-touch min-w-touch shrink-0"
-        >
-          <ArrowLeft className="size-5" />
-        </Button>
+    <div
+      className={cn(
+        "flex items-start justify-between border-b border-white/[0.06] py-4",
+        className,
       )}
-
-      <div className="min-w-0 flex-1">
-        <h1 className="text-2xl font-semibold text-soyl-text">{title}</h1>
-        {subtitle && (
-          <p className="mt-0.5 text-sm text-soyl-muted/90">{subtitle}</p>
+    >
+      <div className="flex items-center gap-3">
+        {showBack && (
+          <button
+            type="button"
+            onClick={onBack}
+            aria-label="Go back"
+            className="glass glass-hover flex size-9 items-center justify-center rounded-xl text-plum transition-all hover:text-chalk"
+          >
+            <ChevronLeft className="size-5" />
+          </button>
         )}
+        <div>
+          <h1 className="text-xl font-semibold tracking-tight text-chalk">{title}</h1>
+          {subtitle && (
+            <p className="mt-0.5 text-xs text-plum">{subtitle}</p>
+          )}
+        </div>
       </div>
 
       {action && <div className="shrink-0">{action}</div>}

@@ -1,4 +1,5 @@
 "use client";
+import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -44,8 +45,7 @@ export default function NotificationSettingsPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      {...pageTransitionProps}
       className="pb-8"
     >
       <div className="mx-auto max-w-lg px-4">
@@ -56,21 +56,21 @@ export default function NotificationSettingsPage() {
         />
 
         {!pushGranted && (
-          <Card className="mb-6 border-soyl-primary/20 bg-soyl-primary/10 shadow-soft">
+          <Card className="mb-6 border-primary/20 bg-primary/10 shadow-soft">
             <CardContent className="flex flex-col items-center py-6 text-center">
-              <div className="mb-3 rounded-full bg-soyl-primary/10 p-3">
-                <BellRing className="size-6 text-soyl-primary" />
+              <div className="mb-3 rounded-full bg-primary/10 p-3">
+                <BellRing className="size-6 text-primary" />
               </div>
-              <h3 className="text-base font-semibold text-soyl-text">
+              <h3 className="text-base font-semibold text-foreground">
                 Enable Push Notifications
               </h3>
-              <p className="mt-1 max-w-xs text-sm text-soyl-muted">
+              <p className="mt-1 max-w-xs text-sm text-muted-foreground">
                 Stay updated with booking alerts, guest requests, and day close
                 reminders in real time.
               </p>
               <Button
                 onClick={requestPush}
-                className="mt-4 min-h-touch bg-soyl-primary text-white hover:bg-soyl-primary-light"
+                className="mt-4 min-h-touch bg-primary text-white hover:bg-primary-light"
               >
                 Enable Notifications
               </Button>
@@ -80,11 +80,11 @@ export default function NotificationSettingsPage() {
 
         <div className="space-y-2">
           {options.map((opt) => (
-            <Card key={opt.key} className="border-soyl-border/70 bg-white/80">
+            <Card key={opt.key} className="border-white/[0.06] bg-white/80">
               <CardContent className="flex min-h-touch items-center justify-between py-3">
                 <div className="mr-4 flex-1">
-                  <p className="text-sm font-medium text-soyl-text">{opt.label}</p>
-                  <p className="text-xs text-soyl-muted">{opt.description}</p>
+                  <p className="text-sm font-medium text-foreground">{opt.label}</p>
+                  <p className="text-xs text-muted-foreground">{opt.description}</p>
                 </div>
                 <Switch checked={opt.enabled} onCheckedChange={() => toggle(opt.key)} />
               </CardContent>
