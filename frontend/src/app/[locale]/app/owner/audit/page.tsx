@@ -1,0 +1,135 @@
+"use client";
+
+import { useState, useMemo } from "react";
+import { motion } from "framer-motion";
+import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Card } from "@/components/ui/card";
+import { PageHeader } from "@/components/shared/page-header";
+import { FilterChips } from "@/components/shared/filter-chips";
+import { AUDIT_LOG } from "@/lib/mock-data";
+import { formatDate, formatTime } from "@/lib/formatters";
+import { cn } from "@/lib/utils";
+
+const FILTER_OPTIONS = [
+  { value: "all", label: "All" },
+  { value: "booking", label: "Bookings" },
+  { value: "payment", label: "Payments" },
+  { value: "check_in", label: "Check-ins" },
+  { value: "rate", label: "Rate Changes" },
+];
+
+function matchesFilter(action: string, filter: string): boolean {
+  if (filter === "all") return true;
+  if (filter === "booking") return action.includes("booking");
+  if (filter === "payment") return action.includes("payment");
+  if (filter === "check_in") return action.includes("check_in");
+  if (filter === "rate") return action.includes("rate");
+  return false;
+}
+
+export default function AuditLogPage() {
+  const [filter, setFilter] = useState("all");
+  const [search, setSearch] = useState("");
+
+  const entries = useMemo(() => {
+    return AUDIT_LOG.filter((e) => {
+      if (!matchesFilter(e.action, filter)) return false;
+      if (search) {
+        const q = search.toLowerCase();
+        return (
+          e.user.toLowerCase().includes(q) ||
+          e.action.toLowerCase().includes(q) ||
+          e.entity.toLowerCase().includes(q)
+        );
+      }
+      return true;
+    });
+  }, [filter, search]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="min-h-screen bg-soyl-bg pb-6"
+    >
+      <div className="mx-auto max-w-4xl px-4">
+        <PageHeader title="Audit Log" />
+        <FilterChips options={FILTER_OPTIONS} activeValue={filter} onChange={setFilter} className="mb-4" />
+
+        <div className="relative mb-4">
+          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-soyl-muted" />
+          <Input
+            placeholder="Search entries..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="min-h-touch pl-10"
+          />
+        </div>
+
+        {/* Desktop table */}
+        <div className="hidden md:block">
+          <div className="overflow-hidden rounded-xl border border-soyl-border bg-soyl-surface">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-soyl-border bg-soyl-bg">
+                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">Timestamp</th>
+                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">User</th>
+                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">Action</th>
+                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">Entity</th>
+                  <th className="px-4 py-3 text-left font-medium text-soyl-muted">Changes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {entries.map((entry) => (
+                  <tr key={entry.id} className="border-b border-soyl-border last:border-b-0">
+                    <td className="whitespace-nowrap px-4 py-3 text-soyl-muted">
+                      {formatDate(entry.timestamp, "dd MMM")} {formatTime(entry.timestamp)}
+                    </td>
+                    <td className="px-4 py-3 font-medium text-soyl-text">{entry.user}</td>
+                    <td className="px-4 py-3">
+                      <span className="inline-flex rounded-full bg-soyl-bg px-2.5 py-0.5 text-xs font-medium text-soyl-text">
+                        {entry.action.replace(/_/g, " ")}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-soyl-text">{entry.entity}</td>
+                    <td className="px-4 py-3 text-xs text-soyl-muted">
+                      {entry.before && <span className="line-through">{entry.before}</span>}
+                      {entry.before && entry.after && " → "}
+                      {entry.after && <span className="font-medium text-soyl-text">{entry.after}</span>}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Mobile cards */}
+        <div className="space-y-3 md:hidden">
+          {entries.map((entry) => (
+            <Card key={entry.id} className="border-soyl-border p-3">
+              <div className="mb-1 flex items-center justify-between">
+                <span className="text-xs text-soyl-muted">
+                  {formatDate(entry.timestamp, "dd MMM")} {formatTime(entry.timestamp)}
+                </span>
+                <span className="inline-flex rounded-full bg-soyl-bg px-2 py-0.5 text-xs font-medium text-soyl-text">
+                  {entry.action.replace(/_/g, " ")}
+                </span>
+              </div>
+              <p className="text-sm font-medium text-soyl-text">{entry.entity}</p>
+              <p className="text-xs text-soyl-muted">by {entry.user}</p>
+              {(entry.before || entry.after) && (
+                <div className="mt-2 rounded-md bg-soyl-bg p-2 text-xs text-soyl-muted">
+                  {entry.before && <span className="line-through">{entry.before}</span>}
+                  {entry.before && entry.after && " → "}
+                  {entry.after && <span className="font-medium text-soyl-text">{entry.after}</span>}
+                </div>
+              )}
+            </Card>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
