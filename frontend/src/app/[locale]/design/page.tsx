@@ -99,7 +99,7 @@ export default function DesignSystemPage() {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen bg-soyl-bg pb-12"
+      className="pb-12"
     >
       <div className="mx-auto max-w-4xl px-4 py-6">
         <h1 className="mb-1 text-3xl font-bold text-soyl-text">SOYL Design System</h1>
@@ -111,9 +111,9 @@ export default function DesignSystemPage() {
         <Section title="Colors">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
             {SOYL_COLORS.map((c) => (
-              <div key={c.token} className="overflow-hidden rounded-lg border border-soyl-border">
+              <div key={c.token} className="overflow-hidden rounded-lg border border-soyl-border/70 bg-white/80 shadow-soft">
                 <div className="h-16" style={{ backgroundColor: c.value }} />
-                <div className="bg-soyl-surface p-2">
+                <div className="bg-white/80 p-2">
                   <p className="text-xs font-semibold text-soyl-text">{c.name}</p>
                   <p className="text-xs text-soyl-muted">{c.value}</p>
                 </div>
@@ -278,7 +278,7 @@ export default function DesignSystemPage() {
 
         {/* List Rows */}
         <Section title="List Rows">
-          <Card className="border-soyl-border">
+          <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
             <CardContent className="p-0">
               <ListRow
                 title="Rajesh Kumar"
@@ -310,14 +310,14 @@ export default function DesignSystemPage() {
         {/* Empty States */}
         <Section title="Empty States">
           <div className="grid gap-4 sm:grid-cols-2">
-            <Card className="border-soyl-border">
+            <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
               <EmptyState
                 icon={<BedDouble className="size-10" />}
                 title="No rooms found"
                 description="Try changing your filters to see more rooms."
               />
             </Card>
-            <Card className="border-soyl-border">
+            <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
               <EmptyState
                 icon={<CalendarPlus className="size-10" />}
                 title="No bookings yet"

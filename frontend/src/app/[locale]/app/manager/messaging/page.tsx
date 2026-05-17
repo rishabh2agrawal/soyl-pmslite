@@ -61,7 +61,7 @@ export default function MessagingPage() {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen bg-soyl-bg pb-6"
+      className="pb-8"
     >
       <div className="mx-auto max-w-2xl px-4">
         <PageHeader title="Guest Messaging" />

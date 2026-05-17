@@ -51,7 +51,7 @@ export default function AuditLogPage() {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen bg-soyl-bg pb-6"
+      className="pb-8"
     >
       <div className="mx-auto max-w-4xl px-4">
         <PageHeader title="Audit Log" />
@@ -69,7 +69,7 @@ export default function AuditLogPage() {
 
         {/* Desktop table */}
         <div className="hidden md:block">
-          <div className="overflow-hidden rounded-xl border border-soyl-border bg-soyl-surface">
+          <div className="overflow-hidden rounded-xl border border-soyl-border/70 bg-white/80 shadow-soft">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-soyl-border bg-soyl-bg">
@@ -108,12 +108,12 @@ export default function AuditLogPage() {
         {/* Mobile cards */}
         <div className="space-y-3 md:hidden">
           {entries.map((entry) => (
-            <Card key={entry.id} className="border-soyl-border p-3">
+            <Card key={entry.id} className="border-soyl-border/70 bg-white/80 p-3 shadow-soft">
               <div className="mb-1 flex items-center justify-between">
                 <span className="text-xs text-soyl-muted">
                   {formatDate(entry.timestamp, "dd MMM")} {formatTime(entry.timestamp)}
                 </span>
-                <span className="inline-flex rounded-full bg-soyl-bg px-2 py-0.5 text-xs font-medium text-soyl-text">
+                <span className="inline-flex rounded-full bg-soyl-bg/80 px-2 py-0.5 text-xs font-medium text-soyl-text">
                   {entry.action.replace(/_/g, " ")}
                 </span>
               </div>

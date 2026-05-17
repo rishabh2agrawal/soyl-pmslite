@@ -26,7 +26,7 @@ export function StickyCTA({
   return (
     <div
       className={cn(
-        "fixed inset-x-0 bottom-0 z-40 flex items-center gap-3 border-t border-soyl-border bg-white px-4 py-3 shadow-[0_-2px_8px_rgba(0,0,0,0.06)]",
+        "fixed inset-x-0 bottom-0 z-40 flex items-center gap-3 border-t border-soyl-border/70 bg-white/90 px-4 py-3 shadow-[0_-8px_20px_rgba(26,18,9,0.1)] backdrop-blur-xl",
         className,
       )}
     >
@@ -35,7 +35,7 @@ export function StickyCTA({
           variant="outline"
           onClick={onSecondary}
           disabled={disabled || loading}
-          className="min-h-touch flex-1 border-soyl-border text-soyl-text"
+          className="min-h-touch flex-1 border-soyl-border/80 bg-white/70 text-soyl-text"
         >
           {secondaryLabel}
         </Button>

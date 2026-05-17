@@ -90,7 +90,7 @@ export default function ManageRatesPage() {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen bg-soyl-bg pb-6"
+      className="pb-8"
     >
       <div className="mx-auto max-w-2xl px-4">
         <PageHeader
@@ -99,7 +99,7 @@ export default function ManageRatesPage() {
           onBack={() => router.back()}
         />
 
-        <Card className="mb-6 border-soyl-border">
+        <Card className="mb-6 border-soyl-border/70 bg-white/80">
           <CardHeader className="pb-2">
             <CardTitle className="text-base font-semibold text-soyl-text">
               Base Rates by Room Type
@@ -125,7 +125,7 @@ export default function ManageRatesPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardHeader className="pb-2">
             <CardTitle className="text-base font-semibold text-soyl-text">
               Date-Based Overrides
@@ -135,7 +135,7 @@ export default function ManageRatesPage() {
             {overrides.map((ov) => (
               <div
                 key={ov.id}
-                className="flex items-center justify-between rounded-lg bg-soyl-bg p-3"
+                className="flex items-center justify-between rounded-lg bg-soyl-bg/70 p-3"
               >
                 <div>
                   <p className="text-sm font-medium text-soyl-text">
@@ -156,7 +156,7 @@ export default function ManageRatesPage() {
               </div>
             ))}
 
-            <div className="space-y-3 rounded-lg border border-dashed border-soyl-border p-3">
+            <div className="space-y-3 rounded-lg border border-dashed border-soyl-border/70 p-3">
               <p className="text-xs font-medium uppercase tracking-wider text-soyl-muted">
                 Add Override
               </p>

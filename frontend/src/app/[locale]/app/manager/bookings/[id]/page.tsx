@@ -104,7 +104,7 @@ export default function BookingDetailPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 pb-6"
+      className="space-y-6 px-4 pb-8"
     >
       <PageHeader
         title={`Booking #${booking.id.toUpperCase()}`}
@@ -114,7 +114,7 @@ export default function BookingDetailPage() {
       />
 
       {/* Guest info */}
-      <Card className="border-soyl-border">
+      <Card className="border-soyl-border/70 bg-white/80">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-2 text-sm font-medium text-soyl-muted">
             <User className="size-4" />
@@ -136,7 +136,7 @@ export default function BookingDetailPage() {
       </Card>
 
       {/* Stay info */}
-      <Card className="border-soyl-border">
+      <Card className="border-soyl-border/70 bg-white/80">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-2 text-sm font-medium text-soyl-muted">
             <Calendar className="size-4" />
@@ -176,7 +176,7 @@ export default function BookingDetailPage() {
       </Card>
 
       {/* Payment summary */}
-      <Card className="border-soyl-border">
+      <Card className="border-soyl-border/70 bg-white/80">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-2 text-sm font-medium text-soyl-muted">
             <CreditCard className="size-4" />
@@ -199,7 +199,7 @@ export default function BookingDetailPage() {
       </Card>
 
       {/* Actions */}
-      <Card className="border-soyl-border">
+      <Card className="border-soyl-border/70 bg-white/80">
         <CardContent>
           <div className="grid grid-cols-2 gap-3">
             <ActionButtons booking={booking} />
@@ -208,7 +208,7 @@ export default function BookingDetailPage() {
       </Card>
 
       {/* Folio */}
-      <Card className="border-soyl-border">
+      <Card className="border-soyl-border/70 bg-white/80">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-2 text-sm font-medium text-soyl-muted">
             <Receipt className="size-4" />
@@ -253,7 +253,7 @@ export default function BookingDetailPage() {
 
       {/* Timeline */}
       {events.length > 0 && (
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-soyl-muted">
               Booking Timeline

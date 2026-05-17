@@ -86,7 +86,7 @@ export default function GroupBookingPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 pb-24"
+      className="space-y-6 px-4 pb-28"
     >
       <PageHeader
         title="Group Booking"
@@ -94,9 +94,9 @@ export default function GroupBookingPage() {
         onBack={() => router.back()}
       />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Primary contact */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-2 text-sm font-medium text-soyl-muted">
               <Users className="size-4" />
@@ -156,7 +156,7 @@ export default function GroupBookingPage() {
         </Card>
 
         {/* Room type selector */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-soyl-muted">
               Room Selection
@@ -172,7 +172,7 @@ export default function GroupBookingPage() {
               return (
                 <div
                   key={type}
-                  className="flex items-center justify-between rounded-lg border border-soyl-border p-3"
+                  className="flex items-center justify-between rounded-lg border border-soyl-border/70 bg-white/70 p-3"
                 >
                   <div>
                     <p className="font-medium text-soyl-text">{type}</p>
@@ -185,7 +185,7 @@ export default function GroupBookingPage() {
                       type="button"
                       variant="outline"
                       size="icon"
-                      className="size-9 border-soyl-border"
+                      className="min-h-touch min-w-touch border-soyl-border/70"
                       disabled={roomCounts[type] <= 0}
                       onClick={() => updateCount(type, -1)}
                     >
@@ -198,7 +198,7 @@ export default function GroupBookingPage() {
                       type="button"
                       variant="outline"
                       size="icon"
-                      className="size-9 border-soyl-border"
+                      className="min-h-touch min-w-touch border-soyl-border/70"
                       disabled={roomCounts[type] >= available}
                       onClick={() => updateCount(type, 1)}
                     >
@@ -212,7 +212,7 @@ export default function GroupBookingPage() {
         </Card>
 
         {/* Group rate override */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent>
             <Label>Group Rate Override (optional)</Label>
             <Controller
@@ -231,7 +231,7 @@ export default function GroupBookingPage() {
         </Card>
 
         {/* Summary */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent className="space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-soyl-muted">Total Rooms</span>

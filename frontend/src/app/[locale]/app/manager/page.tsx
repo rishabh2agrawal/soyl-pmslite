@@ -67,7 +67,7 @@ export default function ManagerTodayPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-6 pb-6"
+      className="space-y-6 px-4 pb-8"
     >
       <PageHeader
         title="Today"
@@ -78,7 +78,7 @@ export default function ManagerTodayPage() {
       <Card className="border-soyl-border">
         <CardContent className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-soyl-secondary/10 p-2.5">
+            <div className="rounded-xl bg-soyl-secondary/10 p-2.5 shadow-soft">
               <BedDouble className="size-5 text-soyl-secondary" />
             </div>
             <div>
@@ -92,7 +92,7 @@ export default function ManagerTodayPage() {
           </div>
           <Badge
             variant="secondary"
-            className="bg-soyl-secondary/10 text-soyl-secondary text-base px-3 py-1"
+            className="bg-soyl-secondary/15 text-soyl-secondary text-base px-3 py-1"
           >
             {availableRooms.length}
           </Badge>
@@ -110,7 +110,7 @@ export default function ManagerTodayPage() {
             </Badge>
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-1 px-2">
+        <CardContent className="space-y-2 px-2">
           {arrivals.length === 0 ? (
             <p className="px-3 py-4 text-center text-sm text-soyl-muted">
               No arrivals today
@@ -134,7 +134,7 @@ export default function ManagerTodayPage() {
             </Badge>
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-1 px-2">
+        <CardContent className="space-y-2 px-2">
           {departures.length === 0 ? (
             <p className="px-3 py-4 text-center text-sm text-soyl-muted">
               No departures today
@@ -170,7 +170,7 @@ export default function ManagerTodayPage() {
             </Badge>
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-1 px-2">
+        <CardContent className="space-y-2 px-2">
           {inHouse.map((booking) => (
             <Link
               key={booking.id}
@@ -191,10 +191,10 @@ export default function ManagerTodayPage() {
 
       {/* Open requests */}
       <Link href="/app/manager/requests">
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border transition-colors hover:bg-soyl-accent/5">
           <CardContent className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-soyl-accent/10 p-2.5">
+              <div className="rounded-xl bg-soyl-accent/10 p-2.5 shadow-soft">
                 <AlertCircle className="size-5 text-soyl-accent" />
               </div>
               <div>
@@ -216,7 +216,7 @@ export default function ManagerTodayPage() {
 
 function ArrivalRow({ booking }: { booking: Booking }) {
   return (
-    <div className="flex min-h-touch items-center gap-3 rounded-[0.625rem] px-3 py-2.5">
+    <div className="flex min-h-touch items-center gap-3 rounded-[0.625rem] border border-transparent px-3 py-2.5 transition-colors hover:border-soyl-border/60 hover:bg-white/70">
       <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-soyl-primary/10 text-sm font-semibold text-soyl-primary">
         {getInitials(booking.guest_name)}
       </div>

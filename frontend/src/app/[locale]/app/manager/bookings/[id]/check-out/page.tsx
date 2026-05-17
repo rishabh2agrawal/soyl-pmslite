@@ -130,7 +130,7 @@ export default function CheckOutPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 pb-24"
+      className="space-y-6 px-4 pb-28"
     >
       <PageHeader
         title="Check Out"
@@ -140,7 +140,7 @@ export default function CheckOutPage() {
       />
 
       {/* Stay summary */}
-      <Card className="border-soyl-border">
+      <Card className="border-soyl-border/70 bg-white/80">
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-soyl-muted">
             Stay Summary
@@ -169,12 +169,12 @@ export default function CheckOutPage() {
       </Card>
 
       {/* Charges */}
-      <Card className="border-soyl-border">
+      <Card className="border-soyl-border/70 bg-white/80">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center justify-between text-sm font-medium text-soyl-muted">
             Charges
             <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-              <Button size="sm" variant="outline" className="h-8 border-soyl-border text-soyl-text" onClick={() => setSheetOpen(true)}>
+              <Button size="sm" variant="outline" className="h-8 border-soyl-border/70 text-soyl-text" onClick={() => setSheetOpen(true)}>
                 <Plus className="mr-1 size-3.5" />
                 Add Charge
               </Button>
@@ -266,7 +266,7 @@ export default function CheckOutPage() {
 
       {/* Payment capture */}
       {balanceDue > 0 && (
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-soyl-muted">
               Collect Payment
@@ -314,7 +314,7 @@ export default function CheckOutPage() {
       )}
 
       {/* Generate / Share */}
-      <Card className="border-soyl-border">
+      <Card className="border-soyl-border/70 bg-white/80">
         <CardContent className="space-y-3">
           <Button
             type="button"

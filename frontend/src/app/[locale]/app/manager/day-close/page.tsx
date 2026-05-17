@@ -29,7 +29,7 @@ export default function DayClosePage() {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen bg-soyl-bg pb-24"
+      className="pb-28"
     >
       <div className="mx-auto max-w-2xl px-4">
         <PageHeader title="Day Close" subtitle={formatDate(data.date)} />
@@ -59,7 +59,7 @@ export default function DayClosePage() {
           />
         </div>
 
-        <Card className="mb-6 border-soyl-border">
+        <Card className="mb-6 border-soyl-border/70 bg-white/80">
           <CardHeader className="pb-2">
             <CardTitle className="text-base font-semibold text-soyl-text">
               Cash Breakdown
@@ -69,7 +69,7 @@ export default function DayClosePage() {
             {data.breakdown.map((item, i) => (
               <div
                 key={i}
-                className="flex items-center justify-between border-b border-soyl-border px-4 py-3 last:border-b-0"
+                className="flex items-center justify-between border-b border-soyl-border/70 px-4 py-3 last:border-b-0"
               >
                 <span className="text-sm text-soyl-text">{item.label}</span>
                 <span className="text-sm font-medium text-soyl-text">
@@ -77,7 +77,7 @@ export default function DayClosePage() {
                 </span>
               </div>
             ))}
-            <div className="flex items-center justify-between bg-soyl-bg px-4 py-3 font-semibold">
+            <div className="flex items-center justify-between bg-soyl-bg/80 px-4 py-3 font-semibold">
               <span className="text-sm text-soyl-text">Subtotal</span>
               <span className="text-sm text-soyl-text">
                 {formatCurrency(data.breakdown.reduce((s, i) => s + i.amount, 0))}

@@ -48,7 +48,7 @@ export function CurrencyInput({
 
   return (
     <div className={cn("relative", className)}>
-      <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm font-medium text-soyl-muted">
+      <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm font-semibold text-soyl-muted">
         ₹
       </span>
       <Input

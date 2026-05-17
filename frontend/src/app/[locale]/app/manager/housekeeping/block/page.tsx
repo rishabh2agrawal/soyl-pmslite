@@ -49,7 +49,7 @@ export default function BlockRoomPage() {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen bg-soyl-bg pb-24"
+      className="pb-28"
     >
       <div className="mx-auto max-w-lg px-4">
         <PageHeader
@@ -58,7 +58,7 @@ export default function BlockRoomPage() {
           onBack={() => router.back()}
         />
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 rounded-xl border border-soyl-border/70 bg-white/80 p-4 shadow-soft">
           <div className="space-y-2">
             <Label htmlFor="room_id">Room</Label>
             <Select

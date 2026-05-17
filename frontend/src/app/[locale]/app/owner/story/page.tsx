@@ -53,7 +53,7 @@ export default function StoryPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="space-y-4 px-4"
+      className="space-y-5 px-4 pb-8"
     >
       <PageHeader
         title="Today's Story"
@@ -73,7 +73,7 @@ export default function StoryPage() {
           placeholder="Search events..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="h-10 rounded-lg border-soyl-border pl-9 text-sm"
+          className="pl-9"
         />
       </div>
 

@@ -18,8 +18,8 @@ export function TopBar({
   rightAction,
 }: TopBarProps) {
   return (
-    <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-border/60 bg-white/80 px-4 backdrop-blur-xl safe-area-pt">
-      <h1 className="text-lg font-bold tracking-tight text-foreground">
+    <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-soyl-border/70 bg-white/85 px-4 shadow-soft backdrop-blur-xl safe-area-pt">
+      <h1 className="text-lg font-semibold tracking-tight text-foreground">
         {title}
       </h1>
 
@@ -29,7 +29,7 @@ export function TopBar({
           <Link
             href="/app/notifications"
             className={cn(
-              "flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+              "flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-soyl-bg hover:text-foreground",
             )}
           >
             <Bell className="h-5 w-5" />
@@ -39,7 +39,7 @@ export function TopBar({
           <Link
             href="/app/settings"
             className={cn(
-              "flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+              "flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-soyl-bg hover:text-foreground",
             )}
           >
             <Settings className="h-5 w-5" />

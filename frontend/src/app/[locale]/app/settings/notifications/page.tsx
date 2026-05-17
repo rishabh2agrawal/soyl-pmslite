@@ -46,7 +46,7 @@ export default function NotificationSettingsPage() {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen bg-soyl-bg pb-6"
+      className="pb-8"
     >
       <div className="mx-auto max-w-lg px-4">
         <PageHeader
@@ -56,7 +56,7 @@ export default function NotificationSettingsPage() {
         />
 
         {!pushGranted && (
-          <Card className="mb-6 border-soyl-primary/20 bg-soyl-primary/5">
+          <Card className="mb-6 border-soyl-primary/20 bg-soyl-primary/10 shadow-soft">
             <CardContent className="flex flex-col items-center py-6 text-center">
               <div className="mb-3 rounded-full bg-soyl-primary/10 p-3">
                 <BellRing className="size-6 text-soyl-primary" />
@@ -80,7 +80,7 @@ export default function NotificationSettingsPage() {
 
         <div className="space-y-2">
           {options.map((opt) => (
-            <Card key={opt.key} className="border-soyl-border">
+            <Card key={opt.key} className="border-soyl-border/70 bg-white/80">
               <CardContent className="flex min-h-touch items-center justify-between py-3">
                 <div className="mr-4 flex-1">
                   <p className="text-sm font-medium text-soyl-text">{opt.label}</p>

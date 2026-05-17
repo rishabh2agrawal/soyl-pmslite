@@ -105,7 +105,7 @@ export default function FolioPage() {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen bg-soyl-bg pb-6"
+      className="pb-8"
     >
       <div className="mx-auto max-w-2xl px-4">
         <PageHeader
@@ -114,7 +114,7 @@ export default function FolioPage() {
           onBack={() => router.back()}
         />
 
-        <div className="mb-4 rounded-lg bg-soyl-surface p-3">
+        <div className="mb-4 rounded-lg border border-soyl-border/70 bg-white/80 p-3 shadow-soft">
           <p className="text-sm font-medium text-soyl-text">{booking.guest_name}</p>
           <p className="text-xs text-soyl-muted">
             {formatDate(booking.check_in)} — {formatDate(booking.check_out)}
@@ -126,8 +126,8 @@ export default function FolioPage() {
           className={cn(
             "mb-6 border-2",
             balance > 0
-              ? "border-soyl-danger/30 bg-soyl-danger/5"
-              : "border-soyl-secondary/30 bg-soyl-secondary/5"
+              ? "border-soyl-danger/30 bg-soyl-danger/10"
+              : "border-soyl-secondary/30 bg-soyl-secondary/10"
           )}
         >
           <CardContent className="py-5 text-center">
@@ -153,12 +153,12 @@ export default function FolioPage() {
         </Card>
 
         {/* Charges */}
-        <Card className="mb-4 border-soyl-border">
+        <Card className="mb-4 border-soyl-border/70 bg-white/80">
           <CardHeader className="flex-row items-center justify-between pb-2">
             <CardTitle className="text-base font-semibold text-soyl-text">Charges</CardTitle>
             <Sheet open={chargeSheetOpen} onOpenChange={setChargeSheetOpen}>
               <SheetTrigger asChild>
-                <Button size="sm" variant="outline" className="gap-1 border-soyl-border text-soyl-text">
+                <Button size="sm" variant="outline" className="gap-1 border-soyl-border/70 text-soyl-text">
                   <Plus className="size-3.5" /> Add
                 </Button>
               </SheetTrigger>
@@ -211,7 +211,7 @@ export default function FolioPage() {
           </CardHeader>
           <CardContent className="space-y-0 p-0">
             {charges.map((c) => (
-              <div key={c.id} className="flex items-center justify-between border-b border-soyl-border px-4 py-3 last:border-b-0">
+              <div key={c.id} className="flex items-center justify-between border-b border-soyl-border/70 px-4 py-3 last:border-b-0">
                 <div>
                   <p className="text-sm text-soyl-text">{c.description}</p>
                   <p className="text-xs text-soyl-muted">{formatDate(c.date)}</p>
@@ -223,12 +223,12 @@ export default function FolioPage() {
         </Card>
 
         {/* Payments */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardHeader className="flex-row items-center justify-between pb-2">
             <CardTitle className="text-base font-semibold text-soyl-text">Payments</CardTitle>
             <Sheet open={paymentSheetOpen} onOpenChange={setPaymentSheetOpen}>
               <SheetTrigger asChild>
-                <Button size="sm" variant="outline" className="gap-1 border-soyl-border text-soyl-text">
+                <Button size="sm" variant="outline" className="gap-1 border-soyl-border/70 text-soyl-text">
                   <Plus className="size-3.5" /> Add
                 </Button>
               </SheetTrigger>
@@ -271,7 +271,7 @@ export default function FolioPage() {
           </CardHeader>
           <CardContent className="space-y-0 p-0">
             {payments.map((p) => (
-              <div key={p.id} className="flex items-center justify-between border-b border-soyl-border px-4 py-3 last:border-b-0">
+              <div key={p.id} className="flex items-center justify-between border-b border-soyl-border/70 px-4 py-3 last:border-b-0">
                 <div className="flex items-center gap-2">
                   {p.method === "cash" ? (
                     <IndianRupee className="size-4 text-soyl-muted" />

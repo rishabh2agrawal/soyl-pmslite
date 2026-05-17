@@ -98,7 +98,7 @@ export default function CancelBookingPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 pb-24"
+      className="space-y-6 px-4 pb-28"
     >
       <PageHeader
         title="Cancel Booking"
@@ -107,9 +107,9 @@ export default function CancelBookingPage() {
         onBack={() => router.back()}
       />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Reason */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent className="space-y-4">
             <div>
               <Label>Cancellation Reason</Label>
@@ -140,7 +140,7 @@ export default function CancelBookingPage() {
 
         {/* Refund */}
         {(booking.advance_amount ?? 0) > 0 && (
-          <Card className="border-soyl-border">
+          <Card className="border-soyl-border/70 bg-white/80">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-soyl-muted">
                 Refund Details
@@ -193,7 +193,7 @@ export default function CancelBookingPage() {
         )}
 
         {/* Comment */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent>
             <Label htmlFor="comment">Additional Comments</Label>
             <Textarea

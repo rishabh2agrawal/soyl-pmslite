@@ -98,7 +98,7 @@ export default function CheckInPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 pb-24"
+      className="space-y-6 px-4 pb-28"
     >
       <PageHeader
         title="Check In"
@@ -107,9 +107,9 @@ export default function CheckInPage() {
         onBack={() => router.back()}
       />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Verify guest details */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-soyl-muted">
               Verify Guest Details
@@ -171,15 +171,15 @@ export default function CheckInPage() {
         </Card>
 
         {/* Room assignment */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-soyl-muted">
               Room Assignment
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center gap-3 rounded-lg bg-soyl-bg p-3">
-              <div className="flex size-12 items-center justify-center rounded-lg bg-soyl-primary/10">
+            <div className="flex items-center gap-3 rounded-xl bg-soyl-bg/80 p-3">
+              <div className="flex size-12 items-center justify-center rounded-xl bg-soyl-primary/10 shadow-soft">
                 <span className="text-lg font-bold text-soyl-primary">
                   {room.number}
                 </span>
@@ -196,7 +196,7 @@ export default function CheckInPage() {
         </Card>
 
         {/* Payment capture */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-soyl-muted">
               Payment
@@ -250,7 +250,7 @@ export default function CheckInPage() {
         </Card>
 
         {/* Extra actions */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent className="space-y-3">
             {booking.is_foreign && (
               <Button

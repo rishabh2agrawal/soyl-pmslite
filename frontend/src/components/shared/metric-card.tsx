@@ -21,10 +21,10 @@ interface MetricCardProps {
 }
 
 const variantStyles: Record<MetricCardVariant, string> = {
-  default: "bg-soyl-surface",
-  success: "bg-soyl-secondary/5",
-  warning: "bg-soyl-accent/5",
-  danger: "bg-soyl-danger/5",
+  default: "bg-white/80",
+  success: "bg-soyl-secondary/10",
+  warning: "bg-soyl-accent/10",
+  danger: "bg-soyl-danger/10",
 };
 
 const trendConfig: Record<TrendDirection, { icon: typeof TrendingUp; color: string }> = {
@@ -42,13 +42,18 @@ export function MetricCard({
   className,
 }: MetricCardProps) {
   return (
-    <Card className={cn(variantStyles[variant], "border-soyl-border", className)}>
-      <CardContent className="flex items-start justify-between">
-        <div className="flex flex-col gap-1">
-          <span className="text-3xl font-bold text-soyl-text">{value}</span>
-          <span className="text-sm text-soyl-muted">{label}</span>
+    <Card className={cn(variantStyles[variant], "border-soyl-border/70", className)}>
+      <CardContent className="flex items-start justify-between gap-3">
+        <div className="flex flex-1 flex-col gap-1">
+          <span className="text-3xl font-semibold text-soyl-text">{value}</span>
+          <span className="text-sm text-soyl-muted/90">{label}</span>
           {trend && (
-            <div className={cn("flex items-center gap-1 text-xs", trendConfig[trend.direction].color)}>
+            <div
+              className={cn(
+                "flex items-center gap-1 text-xs font-medium",
+                trendConfig[trend.direction].color,
+              )}
+            >
               {(() => {
                 const TrendIcon = trendConfig[trend.direction].icon;
                 return <TrendIcon className="size-3.5" />;
@@ -57,7 +62,9 @@ export function MetricCard({
             </div>
           )}
         </div>
-        <div className="rounded-lg bg-soyl-bg p-2 text-soyl-primary">{icon}</div>
+        <div className="rounded-xl bg-white/80 p-2.5 text-soyl-primary shadow-soft">
+          {icon}
+        </div>
       </CardContent>
     </Card>
   );

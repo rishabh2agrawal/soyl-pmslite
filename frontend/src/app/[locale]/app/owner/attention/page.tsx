@@ -29,10 +29,10 @@ function AttentionSection({ title, icon, children, isEmpty }: SectionProps) {
     <section>
       <div className="mb-2 flex items-center gap-2">
         {icon}
-        <h2 className="text-sm font-semibold text-soyl-text">{title}</h2>
+        <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-soyl-muted">{title}</h2>
       </div>
       {isEmpty ? (
-        <div className="flex items-center gap-2 rounded-lg border border-dashed border-soyl-border bg-soyl-bg/50 px-4 py-3">
+        <div className="flex items-center gap-2 rounded-lg border border-dashed border-soyl-border/70 bg-soyl-bg/50 px-4 py-3">
           <CheckCircle2 className="size-4 text-soyl-secondary" />
           <span className="text-sm text-soyl-muted">All clear</span>
         </div>
@@ -58,7 +58,7 @@ export default function AttentionPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="space-y-6 px-4"
+      className="space-y-6 px-4 pb-8"
     >
       <PageHeader
         title="What needs attention"
@@ -69,17 +69,17 @@ export default function AttentionPage() {
       {/* Open requests over 4h */}
       <AttentionSection
         title="Open requests over 4 hours"
-        icon={<Clock className="size-4 text-red-600" />}
+        icon={<Clock className="size-4 text-soyl-danger" />}
         isEmpty={data.open_requests_over_4h.length === 0}
       >
         {data.open_requests_over_4h.map((item) => (
           <Card
             key={item.id}
-            className={`border-red-200 bg-red-50 shadow-sm transition-opacity ${acknowledged.has(item.id) ? "opacity-40" : ""}`}
+            className={`border-soyl-danger/30 bg-soyl-danger/10 shadow-soft transition-opacity ${acknowledged.has(item.id) ? "opacity-40" : ""}`}
           >
             <CardContent className="flex items-center gap-3">
-              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-red-100">
-                <AlertCircle className="size-4 text-red-600" />
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-soyl-danger/15">
+                <AlertCircle className="size-4 text-soyl-danger" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-soyl-text">
@@ -90,7 +90,7 @@ export default function AttentionPage() {
                 </p>
               </div>
               <div className="flex shrink-0 flex-col items-end gap-1">
-                <span className="rounded-full bg-red-600 px-2 py-0.5 text-xs font-bold text-white">
+                <span className="rounded-full bg-soyl-danger px-2 py-0.5 text-xs font-bold text-white">
                   {item.elapsed}
                 </span>
                 {!acknowledged.has(item.id) && (
@@ -98,7 +98,7 @@ export default function AttentionPage() {
                     variant="ghost"
                     size="sm"
                     onClick={() => handleAck(item.id)}
-                    className="text-xs text-red-700"
+                    className="text-xs text-soyl-danger"
                   >
                     Acknowledge
                   </Button>
@@ -112,17 +112,17 @@ export default function AttentionPage() {
       {/* Unconfirmed arrivals */}
       <AttentionSection
         title="Unconfirmed arrivals"
-        icon={<UserCheck className="size-4 text-amber-600" />}
+        icon={<UserCheck className="size-4 text-soyl-accent" />}
         isEmpty={data.unconfirmed_arrivals.length === 0}
       >
         {data.unconfirmed_arrivals.map((item) => (
           <Card
             key={item.id}
-            className={`border-amber-200 bg-amber-50 shadow-sm transition-opacity ${acknowledged.has(item.id) ? "opacity-40" : ""}`}
+            className={`border-soyl-accent/30 bg-soyl-accent/10 shadow-soft transition-opacity ${acknowledged.has(item.id) ? "opacity-40" : ""}`}
           >
             <CardContent className="flex items-center gap-3">
-              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-amber-100">
-                <UserCheck className="size-4 text-amber-600" />
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-soyl-accent/15">
+                <UserCheck className="size-4 text-soyl-accent" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-soyl-text">
@@ -137,7 +137,7 @@ export default function AttentionPage() {
                   variant="ghost"
                   size="sm"
                   onClick={() => handleAck(item.id)}
-                  className="shrink-0 text-xs text-amber-700"
+                  className="shrink-0 text-xs text-soyl-accent"
                 >
                   Acknowledge
                 </Button>
@@ -150,17 +150,17 @@ export default function AttentionPage() {
       {/* Payments due */}
       <AttentionSection
         title="Payments due"
-        icon={<CreditCard className="size-4 text-amber-600" />}
+        icon={<CreditCard className="size-4 text-soyl-accent" />}
         isEmpty={data.payments_due.length === 0}
       >
         {data.payments_due.map((item) => (
           <Card
             key={item.id}
-            className={`border-amber-200 bg-amber-50 shadow-sm transition-opacity ${acknowledged.has(item.id) ? "opacity-40" : ""}`}
+            className={`border-soyl-accent/30 bg-soyl-accent/10 shadow-soft transition-opacity ${acknowledged.has(item.id) ? "opacity-40" : ""}`}
           >
             <CardContent className="flex items-center gap-3">
-              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-amber-100">
-                <CreditCard className="size-4 text-amber-600" />
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-soyl-accent/15">
+                <CreditCard className="size-4 text-soyl-accent" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-soyl-text">
@@ -177,7 +177,7 @@ export default function AttentionPage() {
                     variant="ghost"
                     size="sm"
                     onClick={() => handleAck(item.id)}
-                    className="text-xs text-amber-700"
+                    className="text-xs text-soyl-accent"
                   >
                     Acknowledge
                   </Button>
@@ -191,17 +191,17 @@ export default function AttentionPage() {
       {/* Rooms blocked too long */}
       <AttentionSection
         title="Rooms blocked too long"
-        icon={<DoorClosed className="size-4 text-orange-600" />}
+        icon={<DoorClosed className="size-4 text-soyl-accent" />}
         isEmpty={data.rooms_blocked_long.length === 0}
       >
         {data.rooms_blocked_long.map((item) => (
           <Card
             key={item.room}
-            className={`border-orange-200 bg-orange-50 shadow-sm transition-opacity ${acknowledged.has(item.room) ? "opacity-40" : ""}`}
+            className={`border-soyl-accent/30 bg-soyl-accent/10 shadow-soft transition-opacity ${acknowledged.has(item.room) ? "opacity-40" : ""}`}
           >
             <CardContent className="flex items-center gap-3">
-              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-orange-100">
-                <DoorClosed className="size-4 text-orange-600" />
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-soyl-accent/15">
+                <DoorClosed className="size-4 text-soyl-accent" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-soyl-text">
@@ -216,7 +216,7 @@ export default function AttentionPage() {
                   variant="ghost"
                   size="sm"
                   onClick={() => handleAck(item.room)}
-                  className="shrink-0 text-xs text-orange-700"
+                  className="shrink-0 text-xs text-soyl-accent"
                 >
                   Acknowledge
                 </Button>
@@ -233,7 +233,7 @@ export default function AttentionPage() {
         isEmpty={data.yday_misses.length === 0}
       >
         {data.yday_misses.map((item, i) => (
-          <Card key={i} className="border-soyl-border shadow-sm">
+          <Card key={i} className="border-soyl-border/70 bg-white/80 shadow-soft">
             <CardContent className="flex items-center gap-3">
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-soyl-text">

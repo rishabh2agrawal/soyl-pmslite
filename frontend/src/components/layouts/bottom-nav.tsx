@@ -20,7 +20,7 @@ export function BottomNav({ items, mode }: BottomNavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border/60 bg-white/80 backdrop-blur-xl safe-area-pb">
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-soyl-border/70 bg-white/85 shadow-[0_-10px_30px_rgba(26,18,9,0.08)] backdrop-blur-xl safe-area-pb">
       <div className="mx-auto flex h-16 max-w-lg items-center justify-around px-2">
         {items.map((item) => {
           const isActive =
@@ -34,12 +34,13 @@ export function BottomNav({ items, mode }: BottomNavProps) {
               key={item.href}
               href={item.href}
               className={cn(
-                "relative flex min-w-[3rem] flex-col items-center gap-0.5 rounded-lg px-3 py-1.5 text-xs transition-colors",
+                "relative flex min-w-[3rem] flex-col items-center gap-0.5 rounded-xl px-3 py-1.5 text-[11px] font-medium transition-colors",
                 isActive
                   ? mode === "owner"
-                    ? "text-primary font-semibold"
-                    : "text-secondary font-semibold"
+                    ? "text-primary"
+                    : "text-secondary"
                   : "text-muted-foreground",
+                isActive && "bg-soyl-bg/80",
               )}
             >
               <item.icon

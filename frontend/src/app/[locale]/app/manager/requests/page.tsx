@@ -49,12 +49,12 @@ const CATEGORIES: { value: RequestCategory; label: string }[] = [
 ];
 
 const categoryColors: Record<RequestCategory, string> = {
-  housekeeping: "bg-purple-100 text-purple-700",
-  maintenance: "bg-red-100 text-red-700",
-  food: "bg-orange-100 text-orange-700",
-  amenity: "bg-blue-100 text-blue-700",
-  complaint: "bg-yellow-100 text-yellow-700",
-  other: "bg-gray-100 text-gray-600",
+  housekeeping: "bg-soyl-secondary/15 text-soyl-secondary",
+  maintenance: "bg-soyl-danger/15 text-soyl-danger",
+  food: "bg-soyl-accent/20 text-soyl-accent",
+  amenity: "bg-soyl-primary/15 text-soyl-primary",
+  complaint: "bg-soyl-danger/15 text-soyl-danger",
+  other: "bg-soyl-border/40 text-soyl-muted",
 };
 
 function getElapsed(loggedAt: string): string {
@@ -132,7 +132,7 @@ export default function RequestsPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-4 pb-20"
+      className="space-y-5 px-4 pb-24"
     >
       <PageHeader title="Requests" />
 
@@ -153,7 +153,7 @@ export default function RequestsPage() {
           {filtered.map((req) => (
             <Card
               key={req.id}
-              className="border-soyl-border cursor-pointer transition-colors hover:bg-soyl-bg"
+              className="cursor-pointer border-soyl-border/70 bg-white/80 shadow-soft transition-colors hover:bg-soyl-bg"
               onClick={() => toggleStatus(req.id)}
             >
               <CardContent className="py-3">
@@ -165,7 +165,7 @@ export default function RequestsPage() {
                       </span>
                       <span
                         className={cn(
-                          "inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium",
+                          "inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.02em]",
                           categoryColors[req.category],
                         )}
                       >
@@ -191,7 +191,7 @@ export default function RequestsPage() {
       <button
         type="button"
         onClick={() => setSheetOpen(true)}
-        className="fixed bottom-20 right-4 z-30 flex size-14 items-center justify-center rounded-full bg-soyl-primary text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
+        className="fixed bottom-20 right-4 z-30 flex size-14 items-center justify-center rounded-full bg-soyl-primary text-white shadow-card transition-transform hover:scale-105 active:scale-95"
       >
         <Plus className="size-6" />
       </button>

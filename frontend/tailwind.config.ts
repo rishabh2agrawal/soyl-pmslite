@@ -88,6 +88,14 @@ const config: Config = {
       spacing: {
         touch: "48px",
       },
+      boxShadow: {
+        soft: "var(--shadow-soft)",
+        card: "var(--shadow-card)",
+      },
+      backgroundImage: {
+        "soyl-paper":
+          "radial-gradient(800px 500px at 12% 8%, rgba(200, 151, 31, 0.14), transparent 60%), radial-gradient(700px 420px at 90% 12%, rgba(31, 92, 63, 0.12), transparent 58%)",
+      },
       minHeight: {
         touch: "48px",
       },

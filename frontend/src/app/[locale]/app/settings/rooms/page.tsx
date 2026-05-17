@@ -57,7 +57,7 @@ export default function ManageRoomsPage() {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen bg-soyl-bg pb-6"
+      className="pb-8"
     >
       <div className="mx-auto max-w-3xl px-4">
         <PageHeader
@@ -79,7 +79,7 @@ export default function ManageRoomsPage() {
             const isEditing = editingId === room.id;
 
             return (
-              <Card key={room.id} className="border-soyl-border p-4">
+              <Card key={room.id} className="border-soyl-border/70 bg-white/80 p-4 shadow-soft">
                 {isEditing ? (
                   <div className="space-y-3">
                     <div className="grid grid-cols-2 gap-3">

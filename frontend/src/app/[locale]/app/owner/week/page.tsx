@@ -46,7 +46,7 @@ export default function WeekPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="space-y-6 px-4"
+      className="space-y-6 px-4 pb-8"
     >
       <PageHeader
         title="This Week"
@@ -61,7 +61,7 @@ export default function WeekPage() {
       />
 
       {/* Occupancy Trend */}
-      <Card className="border-soyl-border shadow-sm">
+      <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
         <CardHeader>
           <CardTitle className="text-sm font-semibold text-soyl-text">
             Occupancy Trend
@@ -108,7 +108,7 @@ export default function WeekPage() {
       </Card>
 
       {/* Revenue Trend */}
-      <Card className="border-soyl-border shadow-sm">
+      <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
         <CardHeader>
           <CardTitle className="text-sm font-semibold text-soyl-text">
             Revenue Trend
@@ -151,7 +151,7 @@ export default function WeekPage() {
       </Card>
 
       {/* Requests vs Resolved */}
-      <Card className="border-soyl-border shadow-sm">
+      <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
         <CardHeader>
           <CardTitle className="text-sm font-semibold text-soyl-text">
             Requests vs Resolved
@@ -214,7 +214,7 @@ export default function WeekPage() {
       />
 
       {/* Per-room Performance */}
-      <Card className="border-soyl-border shadow-sm">
+      <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
         <CardHeader>
           <CardTitle className="text-sm font-semibold text-soyl-text">
             Per-room Performance
@@ -261,7 +261,7 @@ export default function WeekPage() {
             {data.per_room.map((r) => (
               <div
                 key={r.room}
-                className="rounded-lg border border-soyl-border/50 bg-soyl-bg/30 p-3"
+                className="rounded-lg border border-soyl-border/70 bg-white/70 p-3"
               >
                 <div className="mb-1.5 text-sm font-semibold text-soyl-text">
                   Room {r.room}

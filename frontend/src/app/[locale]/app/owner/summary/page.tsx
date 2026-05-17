@@ -56,7 +56,7 @@ export default function SummaryPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="space-y-6 px-4"
+      className="space-y-6 px-4 pb-8"
     >
       <PageHeader
         title="Daily Summary"
@@ -65,7 +65,7 @@ export default function SummaryPage() {
       />
 
       {/* Summary Card */}
-      <Card className="border-soyl-border shadow-md">
+      <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
         <CardContent className="space-y-4 p-5">
           <div className="text-center">
             <h2 className="text-lg font-bold text-soyl-text">
@@ -101,7 +101,7 @@ export default function SummaryPage() {
               value={formatCurrency(pulse.today.earnings)}
             />
             <SummaryRow
-              icon={<Bell className="size-4 text-amber-600" />}
+              icon={<Bell className="size-4 text-soyl-accent" />}
               label="Open Requests"
               value={String(pulse.attention_count)}
             />

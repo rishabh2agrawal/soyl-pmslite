@@ -184,7 +184,7 @@ export default function OnboardingPage() {
   return (
     <div className="flex min-h-dvh flex-col bg-background">
       {/* Progress */}
-      <div className="sticky top-0 z-10 bg-background/90 px-4 pb-2 pt-4 backdrop-blur-sm safe-area-pt">
+      <div className="sticky top-0 z-10 border-b border-soyl-border/70 bg-white/85 px-4 pb-2 pt-4 shadow-soft backdrop-blur-sm safe-area-pt">
         <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
           <span>
             {step + 1} / {STEPS}
@@ -255,7 +255,7 @@ export default function OnboardingPage() {
       </div>
 
       {/* Navigation buttons */}
-      <div className="sticky bottom-0 flex items-center gap-3 border-t border-border bg-white/80 px-4 py-3 backdrop-blur-xl safe-area-pb">
+      <div className="sticky bottom-0 flex items-center gap-3 border-t border-soyl-border/70 bg-white/90 px-4 py-3 shadow-[0_-8px_20px_rgba(26,18,9,0.1)] backdrop-blur-xl safe-area-pb">
         {step > 0 && (
           <Button variant="outline" onClick={goBack} className="gap-2">
             <ArrowLeft className="h-4 w-4" />
@@ -306,9 +306,9 @@ function StepWelcome({
             key={lang.code}
             onClick={() => onSelect(lang.code)}
             className={cn(
-              "flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition-all",
+              "flex flex-col items-center gap-2 rounded-xl border-2 bg-white/80 p-4 shadow-soft transition-all",
               selectedLang === lang.code
-                ? "border-primary bg-primary/5 shadow-sm"
+                ? "border-primary bg-primary/10"
                 : "border-border hover:border-primary/40",
             )}
           >
@@ -348,6 +348,7 @@ function StepProperty({
           value={property.name}
           onChange={(e) => update("name", e.target.value)}
           placeholder={t("propertyNamePlaceholder")}
+          className="min-h-touch"
         />
       </div>
 
@@ -359,6 +360,7 @@ function StepProperty({
           onChange={(e) => update("address", e.target.value)}
           placeholder={t("addressPlaceholder")}
           rows={2}
+          className="min-h-touch"
         />
       </div>
 
@@ -387,7 +389,7 @@ function StepProperty({
           value={property.type}
           onValueChange={(v) => update("type", v)}
         >
-          <SelectTrigger>
+          <SelectTrigger className="min-h-touch">
             <SelectValue placeholder={t("selectType")} />
           </SelectTrigger>
           <SelectContent>
@@ -408,12 +410,13 @@ function StepProperty({
           onChange={(e) => update("gstin", e.target.value.toUpperCase())}
           placeholder="22AAAAA0000A1Z5"
           maxLength={15}
+          className="min-h-touch"
         />
       </div>
 
       <div className="space-y-2">
         <Label>{t("logo")} ({t("optional")})</Label>
-        <Input type="file" accept="image/*" />
+        <Input type="file" accept="image/*" className="min-h-touch" />
       </div>
     </div>
   );
@@ -449,7 +452,7 @@ function StepRooms({
         {roomTypes.map((room, idx) => (
           <div
             key={room.id}
-            className="space-y-3 rounded-xl border border-border bg-white p-4"
+            className="space-y-3 rounded-xl border border-soyl-border/70 bg-white/80 p-4 shadow-soft"
           >
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-muted-foreground">
@@ -478,7 +481,7 @@ function StepRooms({
                   <Button
                     variant="outline"
                     size="icon"
-                    className="h-9 w-9"
+                    className="min-h-touch min-w-touch"
                     onClick={() =>
                       updateRoomType(
                         room.id,
@@ -495,7 +498,7 @@ function StepRooms({
                   <Button
                     variant="outline"
                     size="icon"
-                    className="h-9 w-9"
+                    className="min-h-touch min-w-touch"
                     onClick={() =>
                       updateRoomType(room.id, "count", room.count + 1)
                     }
@@ -536,7 +539,7 @@ function StepRooms({
         {t("addRoomType")}
       </Button>
 
-      <div className="flex items-center justify-between rounded-lg border border-border bg-white px-4 py-3">
+      <div className="flex items-center justify-between rounded-lg border border-soyl-border/70 bg-white/80 px-4 py-3">
         <span className="text-sm">{t("autoNumber")}</span>
         <button
           onClick={() => setAutoNumber(!autoNumber)}
@@ -547,7 +550,7 @@ function StepRooms({
         >
           <span
             className={cn(
-              "absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition-transform shadow-sm",
+              "absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition-transform shadow-soft",
               autoNumber && "translate-x-5",
             )}
           />
@@ -588,7 +591,7 @@ function StepRates({
           {namedTypes.map((room) => (
             <div
               key={room.id}
-              className="flex items-center justify-between rounded-xl border border-border bg-white px-4 py-3"
+              className="flex items-center justify-between rounded-xl border border-soyl-border/70 bg-white/80 px-4 py-3 shadow-soft"
             >
               <div>
                 <p className="font-medium">{room.name}</p>
@@ -669,7 +672,7 @@ function StepRoles({
           {managers.map((m) => (
             <div
               key={m.id}
-              className="flex items-center justify-between rounded-lg border border-border bg-white px-4 py-3"
+              className="flex items-center justify-between rounded-lg border border-soyl-border/70 bg-white/80 px-4 py-3 shadow-soft"
             >
               <span className="text-sm font-medium">+91 {m.phone}</span>
               <button

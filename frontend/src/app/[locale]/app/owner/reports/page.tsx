@@ -69,7 +69,7 @@ export default function ReportsPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="space-y-5 px-4"
+      className="space-y-5 px-4 pb-8"
     >
       <PageHeader
         title="Reports"
@@ -88,7 +88,7 @@ export default function ReportsPage() {
 
       {/* Occupancy Tab */}
       {tab === "occupancy" && (
-        <Card className="border-soyl-border shadow-sm">
+        <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
           <CardHeader>
             <CardTitle className="text-sm font-semibold text-soyl-text">
               Occupancy Rate
@@ -136,7 +136,7 @@ export default function ReportsPage() {
 
       {/* Revenue Tab */}
       {tab === "revenue" && (
-        <Card className="border-soyl-border shadow-sm">
+        <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
           <CardHeader>
             <CardTitle className="text-sm font-semibold text-soyl-text">
               Revenue
@@ -181,7 +181,7 @@ export default function ReportsPage() {
 
       {/* GST Tab */}
       {tab === "gst" && (
-        <Card className="border-soyl-border shadow-sm">
+        <Card className="border-soyl-border/70 bg-white/80 shadow-soft">
           <CardHeader>
             <CardTitle className="text-sm font-semibold text-soyl-text">
               GST Summary

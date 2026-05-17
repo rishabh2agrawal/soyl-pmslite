@@ -37,9 +37,9 @@ export function PageHeader({
       )}
 
       <div className="min-w-0 flex-1">
-        <h1 className="text-2xl font-bold text-soyl-text">{title}</h1>
+        <h1 className="text-2xl font-semibold text-soyl-text">{title}</h1>
         {subtitle && (
-          <p className="mt-0.5 text-sm text-soyl-muted">{subtitle}</p>
+          <p className="mt-0.5 text-sm text-soyl-muted/90">{subtitle}</p>
         )}
       </div>
 

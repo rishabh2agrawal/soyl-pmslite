@@ -24,6 +24,10 @@
     --input: 36 12% 82%;
     --ring: 25 79% 41%;
     --radius: 0.625rem;
+    --surface-raise: 36 29% 97%;
+    --surface-muted: 36 18% 92%;
+    --shadow-soft: 0 12px 30px rgba(26, 18, 9, 0.08);
+    --shadow-card: 0 6px 18px rgba(26, 18, 9, 0.12);
     --chart-1: 25 79% 41%;
     --chart-2: 153 49% 24%;
     --chart-3: 40 73% 46%;
@@ -37,6 +41,30 @@
 
   body {
     @apply bg-background text-foreground;
+    background-image: radial-gradient(
+        1200px 800px at 10% -10%,
+        rgba(200, 151, 31, 0.12),
+        transparent 60%
+      ),
+      radial-gradient(
+        900px 600px at 110% 10%,
+        rgba(31, 92, 63, 0.1),
+        transparent 55%
+      );
+    background-attachment: fixed;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: rgba(184, 85, 24, 0.18);
   }
 
   html {

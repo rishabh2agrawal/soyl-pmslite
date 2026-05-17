@@ -50,7 +50,7 @@ export default function BookingsListPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-4 pb-6"
+      className="space-y-5 px-4 pb-8"
     >
       <PageHeader
         title="Bookings"
@@ -64,7 +64,7 @@ export default function BookingsListPage() {
         }
       />
 
-      <div className="px-4">
+      <div>
         <div className="relative">
           <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-soyl-muted" />
           <Input
@@ -78,7 +78,7 @@ export default function BookingsListPage() {
 
       <FilterChips options={STATUS_FILTERS} activeValue={filter} onChange={setFilter} />
 
-      <div className="space-y-2 px-4">
+      <div className="space-y-2">
         {filteredBookings.length === 0 ? (
           <EmptyState
             icon={<Search className="size-10 text-soyl-muted" />}
@@ -88,7 +88,7 @@ export default function BookingsListPage() {
         ) : (
           filteredBookings.map((booking) => (
             <Link key={booking.id} href={`/en/app/manager/bookings/${booking.id}`}>
-              <Card className="border-soyl-border transition-colors hover:bg-soyl-bg/50">
+              <Card className="border-soyl-border/70 bg-white/80 shadow-soft transition-colors hover:bg-soyl-bg/60">
                 <CardContent className="py-3">
                   <ListRow
                     title={booking.guest_name}

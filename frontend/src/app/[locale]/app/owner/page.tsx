@@ -34,14 +34,14 @@ export default function OwnerPulsePage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 px-4 pb-6"
+      className="space-y-6 px-4 pb-8"
     >
       {/* Greeting */}
       <div className="pt-2">
-        <h2 className="text-2xl font-bold text-soyl-text">
+        <h2 className="text-3xl font-semibold text-soyl-text">
           {getGreeting()}{propertyName ? `, ${propertyName}` : ""}
         </h2>
-        <p className="text-sm text-soyl-muted">
+        <p className="text-sm text-soyl-muted/90">
           {formatDate(today, "EEEE, dd MMMM yyyy")}
         </p>
       </div>
@@ -74,9 +74,9 @@ export default function OwnerPulsePage() {
       {/* Attention banner */}
       {pulse.attention_count > 0 && (
         <Link href="/en/app/owner/attention">
-          <Card className="border-soyl-accent/40 bg-soyl-accent/5 cursor-pointer transition-colors hover:bg-soyl-accent/10">
+          <Card className="cursor-pointer border-soyl-accent/40 bg-soyl-accent/10 shadow-soft transition-colors hover:bg-soyl-accent/15">
             <CardContent className="flex items-center gap-3 py-3">
-              <div className="rounded-full bg-soyl-accent/20 p-2">
+              <div className="rounded-full bg-soyl-accent/20 p-2 shadow-soft">
                 <AlertTriangle className="size-5 text-soyl-accent" />
               </div>
               <div className="flex-1">
@@ -96,7 +96,7 @@ export default function OwnerPulsePage() {
       )}
 
       {/* Arrivals */}
-      <Card className="border-soyl-border">
+      <Card className="border-soyl-border/70 bg-white/80">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-2 text-base font-semibold">
             <ArrowDownCircle className="size-4 text-soyl-primary" />
@@ -104,7 +104,7 @@ export default function OwnerPulsePage() {
             <Badge variant="outline" className="ml-auto">{pulse.arrivals.length}</Badge>
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-1">
+        <CardContent className="space-y-2 px-2">
           {pulse.arrivals.length === 0 ? (
             <p className="py-4 text-center text-sm text-soyl-muted">No arrivals today</p>
           ) : (
@@ -122,7 +122,7 @@ export default function OwnerPulsePage() {
       </Card>
 
       {/* Departures */}
-      <Card className="border-soyl-border">
+      <Card className="border-soyl-border/70 bg-white/80">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-2 text-base font-semibold">
             <ArrowUpCircle className="size-4 text-soyl-muted" />
@@ -130,7 +130,7 @@ export default function OwnerPulsePage() {
             <Badge variant="outline" className="ml-auto">{pulse.departures.length}</Badge>
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-1">
+        <CardContent className="space-y-2 px-2">
           {pulse.departures.length === 0 ? (
             <p className="py-4 text-center text-sm text-soyl-muted">No departures today</p>
           ) : (
@@ -158,9 +158,9 @@ export default function OwnerPulsePage() {
       </Card>
 
       {/* In-house */}
-      <Card className="border-soyl-border">
+      <Card className="border-soyl-border/70 bg-white/80">
         <CardContent className="flex items-center gap-3 py-3">
-          <div className="rounded-lg bg-soyl-secondary/10 p-2.5">
+          <div className="rounded-xl bg-soyl-secondary/10 p-2.5 shadow-soft">
             <Users className="size-5 text-soyl-secondary" />
           </div>
           <div>
@@ -172,14 +172,14 @@ export default function OwnerPulsePage() {
 
       {/* Quick actions */}
       <div className="space-y-2 pt-2">
-        <h3 className="text-sm font-semibold text-soyl-muted uppercase tracking-wider">
+        <h3 className="text-xs font-semibold text-soyl-muted uppercase tracking-[0.2em]">
           Quick Actions
         </h3>
         <div className="grid grid-cols-3 gap-3">
           <Link href="/en/app/manager/bookings/new">
             <Button
               variant="outline"
-              className="h-auto w-full flex-col gap-2 rounded-xl border-soyl-border py-4 hover:border-soyl-primary hover:bg-soyl-primary/5"
+              className="h-auto w-full flex-col gap-2 rounded-xl border-soyl-border/70 bg-white/80 py-4 hover:border-soyl-primary hover:bg-soyl-primary/5"
             >
               <Plus className="size-5 text-soyl-primary" />
               <span className="text-xs font-medium">New Booking</span>
@@ -188,7 +188,7 @@ export default function OwnerPulsePage() {
           <Link href="/en/app/manager/calendar">
             <Button
               variant="outline"
-              className="h-auto w-full flex-col gap-2 rounded-xl border-soyl-border py-4 hover:border-soyl-secondary hover:bg-soyl-secondary/5"
+              className="h-auto w-full flex-col gap-2 rounded-xl border-soyl-border/70 bg-white/80 py-4 hover:border-soyl-secondary hover:bg-soyl-secondary/5"
             >
               <CalendarDays className="size-5 text-soyl-secondary" />
               <span className="text-xs font-medium">Calendar</span>
@@ -197,7 +197,7 @@ export default function OwnerPulsePage() {
           <Link href="/en/app/manager/requests">
             <Button
               variant="outline"
-              className="h-auto w-full flex-col gap-2 rounded-xl border-soyl-border py-4 hover:border-soyl-accent hover:bg-soyl-accent/5"
+              className="h-auto w-full flex-col gap-2 rounded-xl border-soyl-border/70 bg-white/80 py-4 hover:border-soyl-accent hover:bg-soyl-accent/5"
             >
               <MessageSquare className="size-5 text-soyl-accent" />
               <span className="text-xs font-medium">Requests</span>

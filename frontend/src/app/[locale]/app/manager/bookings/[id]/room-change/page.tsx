@@ -81,7 +81,7 @@ export default function RoomChangePage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 pb-24"
+      className="space-y-6 px-4 pb-28"
     >
       <PageHeader
         title="Change Room"
@@ -90,17 +90,17 @@ export default function RoomChangePage() {
         onBack={() => router.back()}
       />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Current room */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-soyl-muted">
               Current Room
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center gap-3 rounded-lg bg-soyl-bg p-3">
-              <div className="flex size-12 items-center justify-center rounded-lg bg-soyl-primary/10">
+            <div className="flex items-center gap-3 rounded-xl bg-soyl-bg/80 p-3">
+              <div className="flex size-12 items-center justify-center rounded-xl bg-soyl-primary/10 shadow-soft">
                 <span className="text-lg font-bold text-soyl-primary">
                   {currentRoom.number}
                 </span>
@@ -120,7 +120,7 @@ export default function RoomChangePage() {
         </div>
 
         {/* New room */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-soyl-muted">
               New Room
@@ -150,7 +150,7 @@ export default function RoomChangePage() {
             </div>
 
             {newRoom && rateDiff !== 0 && (
-              <div className="rounded-lg bg-soyl-accent/5 p-3 text-sm">
+              <div className="rounded-xl bg-soyl-accent/10 p-3 text-sm">
                 <span className="text-soyl-muted">Rate adjustment: </span>
                 <span className="font-medium text-soyl-text">
                   {rateDiff > 0 ? "+" : ""}
@@ -162,7 +162,7 @@ export default function RoomChangePage() {
         </Card>
 
         {/* Effective date & reason */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent className="space-y-4">
             <div>
               <Label htmlFor="effective_datetime">Effective Date/Time</Label>

@@ -17,11 +17,11 @@ const DAY_OPTIONS = [
 ];
 
 const statusColors: Record<BookingStatus, string> = {
-  confirmed: "bg-blue-400",
+  confirmed: "bg-soyl-primary",
   checked_in: "bg-soyl-secondary",
-  checked_out: "bg-gray-400",
+  checked_out: "bg-soyl-border",
   cancelled: "bg-soyl-danger",
-  no_show: "bg-orange-400",
+  no_show: "bg-soyl-accent",
 };
 
 const CELL_WIDTH = 64;
@@ -53,7 +53,7 @@ export default function CalendarPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-4 pb-6"
+      className="space-y-5 px-4 pb-8"
     >
       <PageHeader title="Calendar" subtitle="Room availability grid" />
 
@@ -63,7 +63,7 @@ export default function CalendarPage() {
         onChange={setDayRange}
       />
 
-      <div className="overflow-x-auto rounded-xl border border-soyl-border bg-soyl-surface">
+      <div className="overflow-x-auto rounded-xl border border-soyl-border/70 bg-white/80 shadow-soft">
         <div
           className="grid"
           style={{
@@ -71,13 +71,13 @@ export default function CalendarPage() {
           }}
         >
           {/* Header row */}
-          <div className="sticky left-0 z-20 border-b border-r border-soyl-border bg-soyl-bg px-3 py-2">
+          <div className="sticky left-0 z-20 border-b border-r border-soyl-border/70 bg-soyl-bg/80 px-3 py-2">
             <span className="text-xs font-medium text-soyl-muted">Room</span>
           </div>
           {dates.map((d) => (
             <div
               key={d.toISOString()}
-              className="border-b border-r border-soyl-border bg-soyl-bg px-1 py-2 text-center"
+              className="border-b border-r border-soyl-border/70 bg-soyl-bg/80 px-1 py-2 text-center"
             >
               <div className="text-[10px] font-medium text-soyl-muted">
                 {format(d, "EEE")}
@@ -143,7 +143,7 @@ function RoomRow({
   return (
     <>
       {/* Sticky room label */}
-      <div className="sticky left-0 z-10 flex flex-col justify-center border-b border-r border-soyl-border bg-soyl-surface px-3 py-2">
+      <div className="sticky left-0 z-10 flex flex-col justify-center border-b border-r border-soyl-border/70 bg-white/80 px-3 py-2">
         <span className="text-sm font-semibold text-soyl-text">
           {roomNumber}
         </span>
@@ -172,13 +172,13 @@ function RoomRow({
               key={date.toISOString()}
               href={`/app/manager/bookings/${booking.id}`}
               className={cn(
-                "relative flex items-center border-b border-r border-soyl-border",
+                "relative flex items-center border-b border-r border-soyl-border/70",
                 isStart ? "justify-start" : "justify-center",
               )}
             >
               <div
                 className={cn(
-                  "absolute inset-y-1 inset-x-0 rounded-sm",
+                  "absolute inset-y-1 inset-x-0 rounded-sm shadow-soft",
                   statusColors[booking.status],
                   "opacity-80 hover:opacity-100 transition-opacity",
                 )}
@@ -197,7 +197,7 @@ function RoomRow({
           <Link
             key={date.toISOString()}
             href={`/app/manager/bookings/new?room=${roomId}&date=${dateStr}`}
-            className="border-b border-r border-soyl-border bg-soyl-surface transition-colors hover:bg-soyl-bg"
+            className="border-b border-r border-soyl-border/70 bg-white/70 transition-colors hover:bg-soyl-bg"
           />
         );
       })}

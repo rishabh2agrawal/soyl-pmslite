@@ -9,28 +9,28 @@ type StatusColor = {
 };
 
 const bookingVariants: Record<BookingStatus, StatusColor> = {
-  confirmed: { bg: "bg-blue-100", text: "text-blue-700" },
-  checked_in: { bg: "bg-green-100", text: "text-green-700" },
-  checked_out: { bg: "bg-gray-100", text: "text-gray-600" },
-  cancelled: { bg: "bg-red-100", text: "text-red-700" },
-  no_show: { bg: "bg-orange-100", text: "text-orange-700" },
+  confirmed: { bg: "bg-soyl-secondary/15", text: "text-soyl-secondary" },
+  checked_in: { bg: "bg-soyl-secondary/20", text: "text-soyl-secondary" },
+  checked_out: { bg: "bg-soyl-border/40", text: "text-soyl-muted" },
+  cancelled: { bg: "bg-soyl-danger/15", text: "text-soyl-danger" },
+  no_show: { bg: "bg-soyl-accent/20", text: "text-soyl-accent" },
 };
 
 const roomVariants: Record<RoomStatus, StatusColor> = {
-  available: { bg: "bg-green-100", text: "text-green-700" },
-  occupied: { bg: "bg-blue-100", text: "text-blue-700" },
-  blocked: { bg: "bg-orange-100", text: "text-orange-700" },
-  maintenance: { bg: "bg-red-100", text: "text-red-700" },
-  dirty: { bg: "bg-yellow-100", text: "text-yellow-700" },
-  cleaning: { bg: "bg-purple-100", text: "text-purple-700" },
-  inspected: { bg: "bg-teal-100", text: "text-teal-700" },
+  available: { bg: "bg-soyl-secondary/15", text: "text-soyl-secondary" },
+  occupied: { bg: "bg-soyl-primary/15", text: "text-soyl-primary" },
+  blocked: { bg: "bg-soyl-accent/20", text: "text-soyl-accent" },
+  maintenance: { bg: "bg-soyl-danger/15", text: "text-soyl-danger" },
+  dirty: { bg: "bg-soyl-accent/15", text: "text-soyl-accent" },
+  cleaning: { bg: "bg-soyl-secondary/10", text: "text-soyl-secondary" },
+  inspected: { bg: "bg-soyl-secondary/20", text: "text-soyl-secondary" },
 };
 
 const requestVariants: Record<RequestStatus, StatusColor> = {
-  open: { bg: "bg-orange-100", text: "text-orange-700" },
-  in_progress: { bg: "bg-blue-100", text: "text-blue-700" },
-  resolved: { bg: "bg-green-100", text: "text-green-700" },
-  escalated: { bg: "bg-red-100", text: "text-red-700" },
+  open: { bg: "bg-soyl-accent/20", text: "text-soyl-accent" },
+  in_progress: { bg: "bg-soyl-primary/15", text: "text-soyl-primary" },
+  resolved: { bg: "bg-soyl-secondary/15", text: "text-soyl-secondary" },
+  escalated: { bg: "bg-soyl-danger/15", text: "text-soyl-danger" },
 };
 
 type StatusBadgeProps =
@@ -60,7 +60,7 @@ export function StatusBadge(props: StatusBadgeProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
+        "inline-flex items-center rounded-full border border-transparent px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.02em]",
         colors.bg,
         colors.text,
         className,

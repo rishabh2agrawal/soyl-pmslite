@@ -75,14 +75,14 @@ export default function SettingsPage() {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen bg-soyl-bg pb-6"
+      className="pb-8"
     >
       <div className="mx-auto max-w-2xl px-4">
         <PageHeader title="Settings" />
 
         <div className="space-y-4">
           {/* Property Profile */}
-          <Card className="border-soyl-border">
+          <Card className="border-soyl-border/70 bg-white/80">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
                 <Building2 className="size-4 text-soyl-primary" />
@@ -110,7 +110,7 @@ export default function SettingsPage() {
           </Card>
 
           {/* Rooms & Rates */}
-          <Card className="border-soyl-border">
+          <Card className="border-soyl-border/70 bg-white/80">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
                 <BedDouble className="size-4 text-soyl-primary" />
@@ -126,12 +126,12 @@ export default function SettingsPage() {
               </p>
               <div className="flex gap-3">
                 <Link href="settings/rooms" className="flex-1">
-                  <Button variant="outline" className="min-h-touch w-full justify-between border-soyl-border text-soyl-text">
+                  <Button variant="outline" className="min-h-touch w-full justify-between border-soyl-border/70 bg-white/80 text-soyl-text">
                     Manage Rooms <ChevronRight className="size-4" />
                   </Button>
                 </Link>
                 <Link href="settings/rates" className="flex-1">
-                  <Button variant="outline" className="min-h-touch w-full justify-between border-soyl-border text-soyl-text">
+                  <Button variant="outline" className="min-h-touch w-full justify-between border-soyl-border/70 bg-white/80 text-soyl-text">
                     Manage Rates <ChevronRight className="size-4" />
                   </Button>
                 </Link>
@@ -140,7 +140,7 @@ export default function SettingsPage() {
           </Card>
 
           {/* Tax (GST) */}
-          <Card className="border-soyl-border">
+          <Card className="border-soyl-border/70 bg-white/80">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
                 <Receipt className="size-4 text-soyl-primary" />
@@ -168,7 +168,7 @@ export default function SettingsPage() {
           </Card>
 
           {/* Staff */}
-          <Card className="border-soyl-border">
+          <Card className="border-soyl-border/70 bg-white/80">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
                 <Users className="size-4 text-soyl-primary" />
@@ -177,7 +177,7 @@ export default function SettingsPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               {staff.map((s) => (
-                <div key={s.id} className="flex items-center justify-between rounded-lg bg-soyl-bg p-3">
+                <div key={s.id} className="flex items-center justify-between rounded-lg bg-soyl-bg/70 p-3">
                   <div>
                     <p className="text-sm font-medium text-soyl-text">{s.name}</p>
                     <p className="text-xs text-soyl-muted">{s.phone}</p>
@@ -195,7 +195,7 @@ export default function SettingsPage() {
               <Button
                 variant="outline"
                 onClick={() => toast.info("Add manager flow coming soon")}
-                className="min-h-touch w-full gap-2 border-soyl-border text-soyl-text"
+                className="min-h-touch w-full gap-2 border-soyl-border/70 bg-white/80 text-soyl-text"
               >
                 <Plus className="size-4" /> Add Manager
               </Button>
@@ -203,7 +203,7 @@ export default function SettingsPage() {
           </Card>
 
           {/* Language */}
-          <Card className="border-soyl-border">
+          <Card className="border-soyl-border/70 bg-white/80">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
                 <Globe className="size-4 text-soyl-primary" />
@@ -218,10 +218,10 @@ export default function SettingsPage() {
                     type="button"
                     onClick={() => setActiveLang(lang.code)}
                     className={cn(
-                      "min-h-touch flex-1 rounded-lg border px-3 py-2 text-sm font-medium transition-colors",
+                      "min-h-touch flex-1 rounded-lg border px-3 py-2 text-sm font-semibold shadow-soft transition-colors",
                       activeLang === lang.code
-                        ? "border-soyl-primary bg-soyl-primary text-white"
-                        : "border-soyl-border bg-soyl-surface text-soyl-text hover:bg-soyl-bg"
+                        ? "border-soyl-primary bg-soyl-primary text-white shadow-card"
+                        : "border-soyl-border/70 bg-white/80 text-soyl-text hover:bg-soyl-bg"
                     )}
                   >
                     {lang.label}
@@ -232,7 +232,7 @@ export default function SettingsPage() {
           </Card>
 
           {/* Notifications */}
-          <Card className="border-soyl-border">
+          <Card className="border-soyl-border/70 bg-white/80">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
                 <Bell className="size-4 text-soyl-primary" />

@@ -67,7 +67,7 @@ export default function GuestsPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-4 pb-6"
+      className="space-y-5 px-4 pb-8"
     >
       <PageHeader title="Guests" />
 

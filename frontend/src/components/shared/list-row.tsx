@@ -29,8 +29,9 @@ export function ListRow({
       type={onClick ? "button" : undefined}
       onClick={onClick}
       className={cn(
-        "flex w-full min-h-touch items-center gap-3 rounded-[0.625rem] px-3 py-2.5 text-left transition-colors",
-        onClick && "cursor-pointer hover:bg-soyl-bg active:bg-soyl-border/40",
+        "flex w-full min-h-touch items-center gap-3 rounded-[0.625rem] border border-transparent px-3 py-2.5 text-left transition-colors",
+        onClick &&
+          "cursor-pointer hover:border-soyl-border/60 hover:bg-white/70 active:bg-soyl-border/30",
         className,
       )}
     >
@@ -47,14 +48,14 @@ export function ListRow({
 
       {/* Center content */}
       <div className="flex min-w-0 flex-1 flex-col">
-        <span className="truncate text-sm font-medium text-soyl-text">{title}</span>
+        <span className="truncate text-sm font-semibold text-soyl-text">{title}</span>
         {subtitle && (
           <span className="truncate text-xs text-soyl-muted">{subtitle}</span>
         )}
       </div>
 
       {/* Right slot */}
-      {right && <div className="shrink-0">{right}</div>}
+      {right && <div className="shrink-0 text-xs text-soyl-muted">{right}</div>}
     </Comp>
   );
 }

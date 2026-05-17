@@ -29,13 +29,13 @@ const statusActions: Partial<Record<RoomStatus, { label: string; next: RoomStatu
 };
 
 const statusCardBorder: Record<RoomStatus, string> = {
-  available: "border-l-green-500",
-  occupied: "border-l-blue-500",
-  blocked: "border-l-orange-500",
-  maintenance: "border-l-red-500",
-  dirty: "border-l-yellow-500",
-  cleaning: "border-l-purple-500",
-  inspected: "border-l-teal-500",
+  available: "border-l-soyl-secondary",
+  occupied: "border-l-soyl-primary",
+  blocked: "border-l-soyl-accent",
+  maintenance: "border-l-soyl-danger",
+  dirty: "border-l-soyl-accent",
+  cleaning: "border-l-soyl-secondary",
+  inspected: "border-l-soyl-secondary",
 };
 
 function getLastGuest(room: Room): string | null {
@@ -71,7 +71,7 @@ export default function HousekeepingPage() {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen bg-soyl-bg pb-6"
+      className="pb-8"
     >
       <div className="mx-auto max-w-5xl px-4">
         <PageHeader title="Housekeeping" />
@@ -81,7 +81,7 @@ export default function HousekeepingPage() {
           const floorRooms = filtered.filter((r) => r.floor === floor);
           return (
             <div key={floor} className="mb-6">
-              <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-soyl-muted">
+              <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-soyl-muted">
                 Floor {floor}
               </h2>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -94,7 +94,7 @@ export default function HousekeepingPage() {
                     <Card
                       key={room.id}
                       className={cn(
-                        "border-l-4 p-3",
+                        "border-l-4 bg-white/80 p-3 shadow-soft",
                         statusCardBorder[room.status]
                       )}
                     >

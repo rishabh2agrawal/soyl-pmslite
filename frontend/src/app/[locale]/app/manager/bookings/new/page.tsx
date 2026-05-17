@@ -141,7 +141,7 @@ export default function NewBookingPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 pb-24"
+      className="space-y-6 px-4 pb-28"
     >
       <PageHeader
         title="New Booking"
@@ -149,9 +149,9 @@ export default function NewBookingPage() {
         onBack={() => router.back()}
       />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Dates */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent className="space-y-4">
             <div>
               <Label htmlFor="check_in">Check-in Date</Label>
@@ -181,8 +181,8 @@ export default function NewBookingPage() {
         </Card>
 
         {/* Room */}
-        <Card className="border-soyl-border">
-          <CardContent>
+        <Card className="border-soyl-border/70 bg-white/80">
+          <CardContent className="space-y-2">
             <Label>Room</Label>
             <Controller
               control={control}
@@ -212,7 +212,7 @@ export default function NewBookingPage() {
         </Card>
 
         {/* Guest info */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent className="space-y-4">
             <div>
               <Label>Guest Name</Label>
@@ -253,7 +253,7 @@ export default function NewBookingPage() {
         </Card>
 
         {/* Occupancy */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <Label>Adults</Label>
@@ -277,7 +277,7 @@ export default function NewBookingPage() {
         </Card>
 
         {/* ID Proof */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent className="space-y-4">
             <div>
               <Label>ID Proof Type</Label>
@@ -313,8 +313,8 @@ export default function NewBookingPage() {
         </Card>
 
         {/* Rate */}
-        <Card className="border-soyl-border">
-          <CardContent>
+        <Card className="border-soyl-border/70 bg-white/80">
+          <CardContent className="space-y-2">
             <Label>Room Rate (per night)</Label>
             <Controller
               control={control}
@@ -334,7 +334,7 @@ export default function NewBookingPage() {
         </Card>
 
         {/* Source */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent>
             <Label className="mb-3 block">Booking Source</Label>
             <div className="flex flex-wrap gap-2">
@@ -344,10 +344,10 @@ export default function NewBookingPage() {
                   type="button"
                   onClick={() => setValue("source", opt.value)}
                   className={cn(
-                    "rounded-full border px-4 py-2 text-sm font-medium transition-colors min-h-touch",
+                    "min-h-touch rounded-full border px-4 py-2 text-sm font-semibold shadow-soft transition-colors",
                     source === opt.value
-                      ? "border-soyl-primary bg-soyl-primary text-white"
-                      : "border-soyl-border bg-soyl-surface text-soyl-text hover:bg-soyl-bg",
+                      ? "border-soyl-primary bg-soyl-primary text-white shadow-card"
+                      : "border-soyl-border/70 bg-white/80 text-soyl-text hover:bg-soyl-bg",
                   )}
                 >
                   {opt.label}
@@ -358,7 +358,7 @@ export default function NewBookingPage() {
         </Card>
 
         {/* Payment */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent className="space-y-4">
             <div>
               <Label>Advance Amount</Label>
@@ -400,7 +400,7 @@ export default function NewBookingPage() {
         </Card>
 
         {/* Invoice type */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent>
             <Label className="mb-3 block">Invoice Type</Label>
             <div className="flex gap-2">
@@ -413,10 +413,10 @@ export default function NewBookingPage() {
                   type="button"
                   onClick={() => setValue("invoice_type", opt.value)}
                   className={cn(
-                    "flex-1 rounded-lg border px-4 py-3 text-sm font-medium transition-colors min-h-touch",
+                    "min-h-touch flex-1 rounded-xl border px-4 py-3 text-sm font-semibold shadow-soft transition-colors",
                     invoiceType === opt.value
-                      ? "border-soyl-primary bg-soyl-primary/5 text-soyl-primary"
-                      : "border-soyl-border bg-soyl-surface text-soyl-text hover:bg-soyl-bg",
+                      ? "border-soyl-primary bg-soyl-primary/10 text-soyl-primary shadow-card"
+                      : "border-soyl-border/70 bg-white/80 text-soyl-text hover:bg-soyl-bg",
                   )}
                 >
                   {opt.label}

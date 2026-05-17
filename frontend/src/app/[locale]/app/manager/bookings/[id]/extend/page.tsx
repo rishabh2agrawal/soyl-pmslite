@@ -77,7 +77,7 @@ export default function ExtendStayPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 pb-24"
+      className="space-y-6 px-4 pb-28"
     >
       <PageHeader
         title="Extend Stay"
@@ -86,9 +86,9 @@ export default function ExtendStayPage() {
         onBack={() => router.back()}
       />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Current checkout */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent>
             <div className="flex items-center justify-between">
               <div>
@@ -103,7 +103,7 @@ export default function ExtendStayPage() {
         </Card>
 
         {/* New checkout */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent className="space-y-4">
             <div>
               <Label htmlFor="new_check_out">New Check-out Date</Label>
@@ -117,7 +117,7 @@ export default function ExtendStayPage() {
             </div>
 
             {additionalNights > 0 && (
-              <div className="flex items-center gap-2 rounded-lg bg-soyl-secondary/5 p-3 text-sm">
+              <div className="flex items-center gap-2 rounded-xl bg-soyl-secondary/10 p-3 text-sm">
                 <CheckCircle className="size-4 text-soyl-secondary" />
                 <span className="text-soyl-text">
                   Room available for {additionalNights} additional night(s)
@@ -128,7 +128,7 @@ export default function ExtendStayPage() {
         </Card>
 
         {/* Rate override */}
-        <Card className="border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <Label>Override Rate</Label>

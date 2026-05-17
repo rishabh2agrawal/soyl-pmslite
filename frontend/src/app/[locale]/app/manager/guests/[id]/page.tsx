@@ -47,7 +47,7 @@ export default function GuestDetailPage() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 pb-6"
+      className="space-y-6 px-4 pb-8"
     >
       <PageHeader
         title={guest.name}
@@ -64,7 +64,7 @@ export default function GuestDetailPage() {
       />
 
       {/* Profile */}
-      <div className="flex items-center gap-4 px-4">
+      <div className="flex items-center gap-4">
         <div className="flex size-16 items-center justify-center rounded-full bg-soyl-primary/10 text-lg font-bold text-soyl-primary">
           {getInitials(guest.name)}
         </div>
@@ -85,7 +85,7 @@ export default function GuestDetailPage() {
       </div>
 
       {/* Contact info */}
-      <Card className="mx-4 border-soyl-border">
+      <Card className="border-soyl-border/70 bg-white/80">
         <CardContent className="space-y-3 py-3">
           <div className="flex items-center gap-3">
             <Phone className="size-4 text-soyl-muted" />
@@ -109,17 +109,15 @@ export default function GuestDetailPage() {
       </Card>
 
       {/* Lifetime spend */}
-      <div className="px-4">
-        <MetricCard
-          icon={<IndianRupee className="size-5" />}
-          value={formatCurrency(guest.lifetime_spend ?? 0)}
-          label="Lifetime spend"
-        />
-      </div>
+      <MetricCard
+        icon={<IndianRupee className="size-5" />}
+        value={formatCurrency(guest.lifetime_spend ?? 0)}
+        label="Lifetime spend"
+      />
 
       {/* Notes */}
       {guest.notes && (
-        <Card className="mx-4 border-soyl-border">
+        <Card className="border-soyl-border/70 bg-white/80">
           <CardHeader className="pb-1">
             <CardTitle className="flex items-center gap-2 text-sm font-semibold">
               <FileText className="size-4 text-soyl-muted" />
@@ -133,7 +131,7 @@ export default function GuestDetailPage() {
       )}
 
       {/* Stay history */}
-      <Card className="mx-4 border-soyl-border">
+      <Card className="border-soyl-border/70 bg-white/80">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-2 text-base font-semibold">
             <Tag className="size-4 text-soyl-primary" />
