@@ -3,8 +3,8 @@ import { pageTransitionProps } from "@/lib/motion";
 
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
+import { useParams } from "next/navigation";
+import { Link, useRouter } from "@/i18n/routing";
 import {
   Phone,
   Mail,
@@ -53,7 +53,7 @@ export default function GuestDetailPage() {
         showBack
         onBack={() => router.back()}
         action={
-          <Link href="/en/app/manager/bookings/new">
+          <Link href="/app/manager/bookings/new">
             <Button size="sm" className="bg-primary text-white hover:bg-primary-light">
               <Plus className="mr-1.5 size-4" />
               Book
@@ -147,7 +147,7 @@ export default function GuestDetailPage() {
             stays.map((booking) => (
               <Link
                 key={booking.id}
-                href={`/en/app/manager/bookings/${booking.id}`}
+                href={`/app/manager/bookings/${booking.id}`}
               >
                 <ListRow
                   title={`Room ${booking.room_number}`}

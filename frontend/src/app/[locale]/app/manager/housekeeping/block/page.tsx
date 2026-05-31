@@ -1,7 +1,7 @@
 "use client";
 import { pageTransitionProps } from "@/lib/motion";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";

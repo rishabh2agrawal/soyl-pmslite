@@ -3,7 +3,7 @@ import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import {
   Clock,
   UserCheck,

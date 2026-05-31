@@ -3,7 +3,7 @@ import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import {
   Building2,
   BedDouble,
@@ -136,12 +136,12 @@ export default function SettingsPage() {
                 — {ROOMS.length} total
               </p>
               <div className="flex gap-3">
-                <Link href="settings/rooms" className="flex-1">
+                <Link href="/app/settings/rooms" className="flex-1">
                   <Button variant="outline" className="min-h-touch w-full justify-between border-white/[0.06] bg-white/80 text-foreground">
                     Manage Rooms <ChevronRight className="size-4" />
                   </Button>
                 </Link>
-                <Link href="settings/rates" className="flex-1">
+                <Link href="/app/settings/rates" className="flex-1">
                   <Button variant="outline" className="min-h-touch w-full justify-between border-white/[0.06] bg-white/80 text-foreground">
                     Manage Rates <ChevronRight className="size-4" />
                   </Button>

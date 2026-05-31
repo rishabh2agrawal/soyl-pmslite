@@ -45,7 +45,12 @@
     "reports": "रिपोर्ट",
     "settings": "सेटिंग्स",
     "dayClose": "दिन का हिसाब",
-    "auditLog": "ऑडिट लॉग"
+    "auditLog": "ऑडिट लॉग",
+    "attention": "ध्यान आवश्यक",
+    "story": "कहानी",
+    "week": "यह सप्ताह",
+    "summary": "सारांश",
+    "more": "अधिक"
   },
   "greeting": {
     "morning": "सुप्रभात",

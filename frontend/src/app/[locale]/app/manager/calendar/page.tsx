@@ -3,7 +3,7 @@ import { pageTransitionProps } from "@/lib/motion";
 
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { addDays, format, parseISO, isWithinInterval } from "date-fns";
 import { PageHeader } from "@/components/shared/page-header";
 import { FilterChips } from "@/components/shared/filter-chips";

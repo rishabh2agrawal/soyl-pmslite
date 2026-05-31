@@ -2,7 +2,7 @@
 import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import { motion } from "framer-motion";
 import { Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";

@@ -45,7 +45,12 @@
     "reports": "Reports",
     "settings": "Settings",
     "dayClose": "Day Close",
-    "auditLog": "Audit Log"
+    "auditLog": "Audit Log",
+    "attention": "Attention",
+    "story": "Story",
+    "week": "This Week",
+    "summary": "Summary",
+    "more": "More"
   },
   "greeting": {
     "morning": "Good Morning",

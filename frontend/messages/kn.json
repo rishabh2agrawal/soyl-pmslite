@@ -45,7 +45,12 @@
     "reports": "ವರದಿಗಳು",
     "settings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
     "dayClose": "ದಿನದ ಲೆಕ್ಕ",
-    "auditLog": "ಆಡಿಟ್ ಲಾಗ್"
+    "auditLog": "ಆಡಿಟ್ ಲಾಗ್",
+    "attention": "ಗಮನ ಅಗತ್ಯ",
+    "story": "ಕಥೆ",
+    "week": "ಈ ವಾರ",
+    "summary": "ಸಾರಾಂಶ",
+    "more": "ಇನ್ನಷ್ಟು"
   },
   "greeting": {
     "morning": "ಶುಭೋದಯ",

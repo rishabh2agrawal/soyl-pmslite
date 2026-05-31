@@ -3,7 +3,8 @@ import { pageTransitionProps } from "@/lib/motion";
 
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import { useForm, Controller } from "react-hook-form";
 import { toast } from "sonner";
 import { ArrowRight } from "lucide-react";

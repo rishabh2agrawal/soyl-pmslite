@@ -42,7 +42,7 @@ export default function OwnerLayout({
   const items: NavItem[] = ownerNavItems.map((item) => ({
     href: item.href,
     icon: item.icon,
-    label: t(item.labelKey),
+    label: t.has(item.labelKey) ? t(item.labelKey) : item.labelKey,
   }));
 
   return (
@@ -76,7 +76,7 @@ export default function OwnerLayout({
             item={{
               href: "/app/settings",
               icon: Settings,
-              label: t("settings"),
+              label: t.has("settings") ? t("settings") : "Settings",
             }}
           />
           <div className="flex items-center gap-3 rounded-xl px-3 py-2">

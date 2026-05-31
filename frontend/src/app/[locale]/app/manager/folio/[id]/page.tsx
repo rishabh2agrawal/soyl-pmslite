@@ -2,7 +2,8 @@
 import { pageTransitionProps } from "@/lib/motion";
 
 import { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import { motion } from "framer-motion";
 import { Plus, CreditCard, IndianRupee } from "lucide-react";
 import { toast } from "sonner";

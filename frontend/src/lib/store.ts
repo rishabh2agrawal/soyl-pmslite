@@ -21,6 +21,8 @@ interface AppState {
   setOnboardingComplete: (complete: boolean) => void;
   propertyName: string;
   setPropertyName: (name: string) => void;
+  hasHydrated: boolean;
+  setHasHydrated: (hasHydrated: boolean) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -42,10 +44,15 @@ export const useAppStore = create<AppState>()(
       setOnboardingComplete: (onboardingComplete) => set({ onboardingComplete }),
       propertyName: "",
       setPropertyName: (propertyName) => set({ propertyName }),
+      hasHydrated: false,
+      setHasHydrated: (hasHydrated) => set({ hasHydrated }),
     }),
     {
       name: "soyl-pms-store",
       skipHydration: true,
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
     },
   ),
 );

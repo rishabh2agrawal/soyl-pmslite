@@ -46,6 +46,14 @@ const onLabelClass =
   "text-xs font-medium uppercase tracking-wide text-muted-foreground dark:text-plum";
 
 export default function OnboardingPage() {
+  const hasHydrated = useAppStore((s) => s.hasHydrated);
+
+  if (!hasHydrated) return null;
+
+  return <OnboardingForm />;
+}
+
+function OnboardingForm() {
   const t = useTranslations("onboarding");
   const router = useRouter();
   const pathname = usePathname();

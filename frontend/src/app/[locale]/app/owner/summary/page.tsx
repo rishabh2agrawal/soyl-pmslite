@@ -3,7 +3,7 @@ import { pageTransitionProps } from "@/lib/motion";
 
 import { useCallback } from "react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import {
   Share2,
   Copy,
@@ -17,6 +17,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/shared/page-header";
+import { toast } from "sonner";
 import { PULSE_DATA } from "@/lib/mock-data";
 import { useAppStore } from "@/lib/store";
 import { formatCurrency, formatPercent, formatDate } from "@/lib/formatters";
@@ -45,9 +46,23 @@ export default function SummaryPage() {
 
   const handleCopy = useCallback(async () => {
     try {
-      await navigator.clipboard.writeText(summaryText);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(summaryText);
+        toast.success("Summary copied to clipboard!");
+      } else {
+        // Fallback for non-secure contexts (e.g. http://localhost or mobile WebView)
+        const textarea = document.createElement("textarea");
+        textarea.value = summaryText;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        toast.success("Summary copied to clipboard!");
+      }
     } catch {
-      // Fallback: no-op
+      toast.error("Failed to copy summary");
     }
   }, [summaryText]);
 

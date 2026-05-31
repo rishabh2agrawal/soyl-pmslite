@@ -3,8 +3,8 @@ import { pageTransitionProps } from "@/lib/motion";
 
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { useRouter, useParams } from "next/navigation";
-import Link from "next/link";
+import { useParams } from "next/navigation";
+import { Link, useRouter } from "@/i18n/routing";
 import {
   LogIn,
   LogOut,
